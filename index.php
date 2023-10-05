@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,6 +21,7 @@
         <ul>
             <li><a href="tema2/index.php">Inicio tema 2</a></li>
             <li><a href="tema2/practica1/eligeidioma.html">Practica Idiomas</a></li>
+            <li><a href="tema2/practica3/index.php">Practica 3</a></li>
         </ul>
     </main>
     <?php

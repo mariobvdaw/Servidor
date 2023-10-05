@@ -22,6 +22,8 @@
     echo "<pre>";
     print_r($diferencia);
     echo "</pre>";
+
+    echo "<a href='http://" . $_SERVER['SERVER_ADDR'] . "./verCodigo.php?fichero=".$_SERVER['SCRIPT_FILENAME']."'>Ver codigo</a>";
    
   
 
