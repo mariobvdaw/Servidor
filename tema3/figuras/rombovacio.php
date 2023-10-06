@@ -7,8 +7,14 @@
             echo "&nbsp";
             echo "&nbsp";
         }
-        for ($a=0; $a < $asteriscos; $a++) { 
-            echo "*";
+        for ($a=0; $a < $asteriscos; $a++) {
+            if ($a==0||$a==$asteriscos-1) {
+                echo "*";
+            }else {
+                echo "&nbsp";
+                echo "&nbsp";
+            }
+           
         }
         echo "<br>";
         $espacios--;
@@ -24,7 +30,12 @@
             echo "&nbsp";
         }
         for ($ai=0; $ai < $asteriscos; $ai++) { 
-            echo "*";
+            if ($ai==0||$ai==$asteriscos-1) {
+                echo "*";
+            }else {
+                echo "&nbsp";
+                echo "&nbsp";
+            }
         }
         
         echo "<br>";
