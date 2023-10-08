@@ -11,6 +11,7 @@
             include("../fragmentos/header.html");
     ?>
     <main>
+        
         <?php
             echo time();
             echo "<p>Zona del servidor: </p>";
