@@ -17,7 +17,7 @@
         
         <div class="enunciado">
             <h2>Enunciado:</h2>
-            <p class="enunciado">
+            <p>
                 Crea una página a la que se le pase por url una variable con el nombre que quieras y muestre el valor de la variable, el tipo, si es numérico o no y si lo es, si es entero o float. (No hace falta usar if)
             </p>
         </div>
@@ -28,7 +28,12 @@
                 
                 echo "<br>Valor: " . $variable;
                 echo "<br>Tipo: " . gettype($variable);
-                echo "<br>Es numerico: " . is_numeric($variable);        
+                echo "<br>Es numerico: ";      
+                var_dump(is_numeric($variable));
+                echo "<br>Es entero: ";
+                var_dump(is_int($variable));
+                echo "<br>Es float: ";
+                var_dump(is_float($variable));
             ?>
         </div>
    
