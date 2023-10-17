@@ -55,65 +55,68 @@
                 )
             ),
         );
-        // foreach ($liga as $key => $equipo) {
-        //     foreach ($equipo as $rival => $partido) {
-        //             echo $key."-";
-        //             echo $rival;
-        //         foreach ($partido as $suceso => $cantidad) {
-        //             // echo $key;
-        //             // echo $rival;
-        //             // print_r($suceso);
-        //             // echo "&nbsp";
-        //             // print_r($cantidad);
-        //             // echo "&nbsp";
-        //         }
-        //         echo "<br>";
-        //     }
 
-        // }
-        // echo "<br>";
-        // echo "<br>";
-        // echo "<br>";
-        // echo "<br>";
+        $PuntosZamora=0;
+        $PuntosSalamanca=0;
+        $PuntosAvila=0;
+        $PuntosValladolid=0;
+        $GolesFZamora=0;
+        $GolesFSalamanca=0;
+        $GolesFAvila=0;
+        $GolesFValladolid=0;
+        $GolesCZamora=0;
+        $GolesCSalamanca=0;
+        $GolesCAvila=0;
+        $GolesCValladolid=0;
+
+        foreach ($liga as $key => $equipo) {
+            foreach ($equipo as $rival => $partido) {             
+                foreach ($partido as $suceso => $cantidad) {
+                    
+                    if ($suceso==="Resultado") {
+                        ${"GolesF$key"}+=intval(substr($cantidad,0,1));
+                        ${"GolesC$rival"}+=intval(substr($cantidad,0,1));
+                        ${"GolesF$rival"}+=intval(substr($cantidad,2,1));
+                        ${"GolesC$key"}+=intval(substr($cantidad,2,1));
+                        if (intval(substr($cantidad,0,1))>intval(substr($cantidad,2,1))) {
+                            ${"Puntos$key"}+=3;
+                        } else if(intval(substr($cantidad,2,1))>intval(substr($cantidad,0,1))) {
+                            ${"Puntos$rival"}+=3;
+                        } else{
+                            ${"Puntos$key"}+=1;
+                            ${"Puntos$rival"}+=1;
+                        }
+                        
+                    }
+                }
+            }
+        }
         ?>
 
         <table>
             <tr>
                 <th>Equipos</th>
-                <?php
-                    foreach ($liga as $key => $equipo) {
-                        echo "<th>";
-                        echo $key;
-                        echo "</th>";
-                    }
-                ?>
+                <th>Puntos</th>
+                <th>Goles a favor</th>
+                <th>Goles en contra</th>
             </tr>
+            
                 <?php
-                $cont1=0;
                     foreach ($liga as $key => $equipo) {
                         echo "<tr>";
                         echo "<th>";
-                        echo $$key;
+                        echo $key;
                         echo "</th>";
-                        $cont2=0;
-                        foreach ($equipo as $rival => $partido) {
-                            if ($cont1==$cont2) {
-                                echo "<td></td>";
-                            }
-                            echo "<td>";
-                            $contS=0;
-                            foreach ($partido as $suceso => $cantidad) {
-                                echo($cantidad);
-                                echo "&nbsp";
-                                $contS++;
-
-                            }
-                            echo "</td>";
-                        
-                        $cont2++;
-                        }
+                        echo "<td>";
+                        echo ${"Puntos$key"};
+                        echo "</td>";
+                        echo "<td>";
+                        echo ${"GolesF$key"};
+                        echo "</td>";
+                        echo "<td>";
+                        echo ${"GolesC$key"};
+                        echo "</td>";
                         echo "</tr>";
-                        $cont1++;
                     }
                 ?>
 

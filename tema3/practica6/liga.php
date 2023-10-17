@@ -97,7 +97,7 @@
                     foreach ($liga as $key => $equipo) {
                         echo "<tr>";
                         echo "<th>";
-                        echo $$key;
+                        echo $key;
                         echo "</th>";
                         $cont2=0;
                         foreach ($equipo as $rival => $partido) {
