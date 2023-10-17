@@ -55,40 +55,56 @@
                 )
             ),
         );
-
-        $PuntosZamora=0;
-        $PuntosSalamanca=0;
-        $PuntosAvila=0;
-        $PuntosValladolid=0;
-        $GolesFZamora=0;
-        $GolesFSalamanca=0;
-        $GolesFAvila=0;
-        $GolesFValladolid=0;
-        $GolesCZamora=0;
-        $GolesCSalamanca=0;
-        $GolesCAvila=0;
-        $GolesCValladolid=0;
-
+        
         foreach ($liga as $key => $equipo) {
-            foreach ($equipo as $rival => $partido) {             
-                foreach ($partido as $suceso => $cantidad) {
-                    
-                    if ($suceso==="Resultado") {
-                        ${"GolesF$key"}+=intval(substr($cantidad,0,1));
-                        ${"GolesC$rival"}+=intval(substr($cantidad,0,1));
-                        ${"GolesF$rival"}+=intval(substr($cantidad,2,1));
-                        ${"GolesC$key"}+=intval(substr($cantidad,2,1));
-                        if (intval(substr($cantidad,0,1))>intval(substr($cantidad,2,1))) {
-                            ${"Puntos$key"}+=3;
-                        } else if(intval(substr($cantidad,2,1))>intval(substr($cantidad,0,1))) {
-                            ${"Puntos$rival"}+=3;
-                        } else{
-                            ${"Puntos$key"}+=1;
-                            ${"Puntos$rival"}+=1;
+            foreach ($equipo as $rival => $partido) {                    
+                    $resultados=$partido["Resultado"];
+                    $resultado = explode("-",$resultados);
+                    if (intval($resultado[0])>intval($resultado[1])) {
+                        if (!isset($clasificacion[$key]["Puntos"])) {
+                            $clasificacion[$key]["Puntos"]=3;
+                        } else {
+                            $clasificacion[$key]["Puntos"]+=3;
                         }
-                        
+                    } else if(intval($resultado[0])<intval($resultado[1])) {
+                        if (!isset($clasificacion[$rival]["Puntos"])) {
+                            $clasificacion[$rival]["Puntos"]=3;
+                        } else {
+                            $clasificacion[$rival]["Puntos"]+=3;
+                        }                        
+                    } else{
+                        if (!isset($clasificacion[$key]["Puntos"])) {
+                            $clasificacion[$key]["Puntos"]=1;
+                        } else {
+                            $clasificacion[$key]["Puntos"]+=1;
+                        }
+                        if (!isset($clasificacion[$rival]["Puntos"])) {
+                            $clasificacion[$rival]["Puntos"]=1;
+                        } else {
+                            $clasificacion[$rival]["Puntos"]+=1;
+                        }
                     }
-                }
+                    if (!isset($clasificacion[$key]["GolesF"])) {
+                        $clasificacion[$key]["GolesF"]=$resultado[0];
+                    } else {
+                        $clasificacion[$key]["GolesF"]+=$resultado[0];
+                    }
+                    if (!isset($clasificacion[$key]["GolesC"])) {
+                        $clasificacion[$key]["GolesC"]=$resultado[1];
+                    } else {
+                        $clasificacion[$key]["GolesC"]+=$resultado[1];
+                    }
+                    if (!isset($clasificacion[$rival]["GolesF"])) {
+                        $clasificacion[$rival]["GolesF"]=$resultado[1];
+                    } else {
+                        $clasificacion[$rival]["GolesF"]+=$resultado[1];
+                    }
+
+                    if (!isset($clasificacion[$rival]["GolesC"])) {
+                        $clasificacion[$rival]["GolesC"]=$resultado[0];
+                    } else {
+                        $clasificacion[$rival]["GolesC"]+=$resultado[0];
+                    }              
             }
         }
         ?>
@@ -102,19 +118,19 @@
             </tr>
             
                 <?php
-                    foreach ($liga as $key => $equipo) {
+                    foreach ($clasificacion as $equipo => $resultados) {
                         echo "<tr>";
                         echo "<th>";
-                        echo $key;
+                        echo $equipo;
                         echo "</th>";
                         echo "<td>";
-                        echo ${"Puntos$key"};
+                        echo $clasificacion[$equipo]["Puntos"];
                         echo "</td>";
                         echo "<td>";
-                        echo ${"GolesF$key"};
+                        echo $clasificacion[$equipo]["GolesF"];
                         echo "</td>";
                         echo "<td>";
-                        echo ${"GolesC$key"};
+                        echo $clasificacion[$equipo]["GolesC"];
                         echo "</td>";
                         echo "</tr>";
                     }
