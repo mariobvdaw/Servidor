@@ -8,6 +8,9 @@
 
     $contador = array();
 
+    echo "<br>";
     echo añadirAlArray($contador,1);
+    echo añadirAlArray($contador,7);
+    echo añadirAlArray($contador,"catorce");
     print_r($contador);
 ?>

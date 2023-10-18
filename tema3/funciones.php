@@ -10,9 +10,11 @@
     function iva($precio,$iva=0.21){
         return $precio*$iva;
     }
-    function añadirAlArray($array,$valor){
+    function añadirAlArray(&$array,$valor){
         $ultimo = count($array);
-        $array[$ultimo]=$value;
+        $array[$ultimo]=$valor;
     }
+
+    
 
 ?>
