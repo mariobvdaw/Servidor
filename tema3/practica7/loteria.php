@@ -23,10 +23,10 @@
 <body>
     <?php
     include("./funcionLoteria.php");
-    // http://192.168.7.206/tema3/practica7/loteria.php?e1=3&e2=12&e3=9&e4=30&e5=36
+    // 192.168.7.206/tema3/practica7/loteria.php?e1=3&e2=12&e3=9&e4=30&e5=36
     echo "Debes elegir 5 numeros";
     generaLoteria();
-    // http://192.168.7.206/tema3/practica7/loteria.php?e1=3&e2=12&e3=9&e4=30&e5=36&es1=3&es2=9
+    // 192.168.7.206/tema3/practica7/loteria.php?e1=3&e2=12&e3=9&e4=30&e5=36&es1=3&es2=9
     echo "Debes elegir 2 numeros";
     generaLoteria2();
     echo "<small class='acierto'>Acierto <br></small>";
