@@ -7,7 +7,7 @@
 </head>
 <body>
     <form action="subir.php" method="post" name="formularioArchivo" enctype="multipart/form-data">
-        <input type="file" name="archivo" id="archivo">
+        <input type="file" name="archivo[]" id="archivo" multiple>
         <br><br>
         <input type="submit" value="Enviar">
     </form>

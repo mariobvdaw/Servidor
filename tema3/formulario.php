@@ -33,8 +33,7 @@
     <form action="" method="get" name="formulario1" enctype="multipart/form-data">
 
         <label for="nombre">Nombre:
-            <input type="text" name="nombre" id="nombre" placeholder="nombre" value=<?php recuerda("nombre");?>
-            >
+            <input type="text" name="nombre" id="nombre" placeholder="nombre" value=<?php recuerda("nombre");?>>
             <p class="error">
                 <?php errores($errores,"nombre");?>
             </p>
