@@ -42,7 +42,7 @@
         return true;
     }
 
-    function mmenorEdad($fecha){
+    function menorEdad($fecha){
         $hoy = new DateTime();
         $intervalo = $fecha->diff($hoy);
         if ($intervalo['y']>=18) {
@@ -114,16 +114,16 @@
                     $errores['num1'] = "El numero debe estar entre 1 y 100";
                 }
             }
-        if (numerico($_REQUEST['num2'])) {
+        if (!textoVacio($_REQUEST['num2']) && numerico($_REQUEST['num2'])) {
             $errores['num2'] = "Debe ser numerico";
         }  
         }
         if (textoVacio($_REQUEST['fecha1'])) {
             $errores['fecha1']=$vacio;
         } else{
-            if (menorEdad($_REQUEST['fecha1'])){
-                $errores['fecha1']="Es menor de edad";
-            }
+            // if (menorEdad($_REQUEST['fecha1'])){
+            //     $errores['fecha1']="Es menor de edad";
+            // }
         }
         if (selectValido($_REQUEST['combo'])) {
             $errores['combo'] = "Seleccina una opción";

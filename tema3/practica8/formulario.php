@@ -43,7 +43,7 @@
         } else {
     ?>
     <h1>Formulario de registro</h1>
-    <form action="" method="get" enctype="multipart/form-data">
+    <form action="" method="post" enctype="multipart/form-data">
         <label for="alfa1">Alfabetico
             <input type="text" name="alf1" id="alf1" placeholder="Nombre"
             value=<?php recuerda("alf1")?>>
@@ -81,6 +81,7 @@
         <label for="num2">Numerico opcional
             <input type="number" name="num2" id="num2" placeholder="32"
             value=<?php recuerda("num2")?>>
+            <?php errores($errores,"num2");?>
         </label>
         <br><br>
 
