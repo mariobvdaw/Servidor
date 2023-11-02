@@ -27,7 +27,7 @@
         }
         else{
     ?>
-    <h1>Formulario - Expreciones regulares</h1>
+    <h1>Formulario - Expresiones regulares</h1>
     <form action="" method="get">
         <label for="nombre">Nombre
             <input type="text" name="nombre" id="nombre">
@@ -51,7 +51,7 @@
             <input type="text" name="correo" id="correo">
         </label>
         <input type="file" name="archivo" id="">
-        <input type="submit" value="enviado">
+        <input type="submit" name ="enviar" value="enviar">
     </form>
     <?php
         }
