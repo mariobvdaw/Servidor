@@ -43,19 +43,19 @@
     <h1>Formulario - Exp Reg</h1>
     <form action="" method="post" enctype="multipart/form-data">
         <label for="nombre">Nombre
-            <input type="text" name="nombre" id="nombre" value="<?php recuerda("nombre")?>">
+            <input type="text" name="nombre" id="nombre" placeholder="nombre... (3+)" value="<?php recuerda("nombre")?>">
         </label>
         <?php errores($errores,"nombre");?>
         <label for="apellidos">Apellidos
-            <input type="text" name="apellidos" id="apellidos" value="<?php recuerda("apellidos")?>">
+            <input type="text" name="apellidos" id="apellidos" placeholder="ap1(3+) ap2(3+)" value="<?php recuerda("apellidos")?>">
         </label>
         <?php errores($errores,"apellidos");?>
         <label for="contrasenia">Contraseña
-            <input type="password" name="contrasenia" id="contrasenia" value="<?php recuerda("contrasenia")?>">
+            <input type="password" name="contrasenia" id="contrasenia" placeholder="contraseña" value="<?php recuerda("contrasenia")?>">
         </label>
         <?php errores($errores,"contrasenia");?>
         <label for="contrasenia2">Repetir contraseña
-            <input type="password" name="contrasenia2" id="contrasenia2" value="<?php recuerda("contrasenia2")?>">
+            <input type="password" name="contrasenia2" id="contrasenia2" placeholder="repetir contraseña" value="<?php recuerda("contrasenia2")?>">
         </label>
         <?php errores($errores,"contrasenia2");?>
         <label for="fecha">Fecha
