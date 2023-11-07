@@ -11,6 +11,54 @@
     echo preg_match($exp, "mario esta en el texto");
     echo preg_match($exp, "maria esta en el texto");
 
+    // echo "<h1>Nombre</h1>";
+    // $nombre = "/^[A-Za-z]{3,}\s[A-Za-z]{3,}$/";
+    
+    
+    // echo preg_match($nombre, "a");
+    // echo preg_match($nombre, "amw aw");
+    // echo preg_match($nombre, "amwas aweqwe");
+    // if (preg_match($nombre, "adsaaas")) {
+    //     echo "<br>correcto";
+    // } else {
+    //     echo "<br>no correcto";
+        
+    // }
+    
+    // echo "<br>";
+    // $fecha = "/[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/";
+    // echo preg_match($fecha, "a");
+    // echo preg_match($fecha, "02/12/2023");
+    // echo preg_match($fecha, "02/1/2023");
+    // echo preg_match($fecha, "02/02/223");
+
+    // echo "<br>";
+    // echo "<br>";
+    
+    // $dni = "/^[0-9]{8}[A-Z]{1}$/";
+    // echo preg_match($dni, "71052293A");
+    // echo preg_match($dni, "7105293A");
+    // echo preg_match($dni, "71052293");
+    // echo preg_match($dni, "asd71052293A");
+
+    
+    // $correo = "/^[A-Za-z0-9]{1,}@[A-Za-z0-9]{1,}[.][A-Za-z0-9]{2,}$/";
+    // // echo preg_match($correo, "1@a.aa");
+
+    // $contrasenia = "/[A-Za-z0-9]{1,}/";
+    // echo preg_match($contrasenia, "aAa3");
+
+
+    
+    // $stringFecha = "06/11/2004";
+    // $arrayFecha = explode("/",$stringFecha);
+    // print_r($arrayFecha);
+    // $fecha1 = new DateTime($arrayFecha[0]."-".$arrayFecha[1]."-".$arrayFecha[2]);
+    // $fecha2 = new DateTime();  
+    // $edad = ($fecha1->diff($fecha2))->y;
+    // echo $edad;
+
+
     echo "<p>Uso de o /maria o /mario </p>";
     $exp= "/mari[ao]/";
     echo preg_match($exp, "mario esta en el texto");

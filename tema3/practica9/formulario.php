@@ -6,96 +6,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilo.css">
     <title>PR09</title>
-    <style>
-        body{
-            margin: 0;
-            display: flex;
-            min-height: 100vh;
-            width: 100%;
-            flex-direction: column;
-            align-items: center;
-            background-image: linear-gradient(to bottom ,rgb(207, 207, 254), rgb(234, 234, 254));
-            background-size: cover;
-            background-repeat: no-repeat;
-
-        }
-        .error{
-            color: red;
-            text-align: right;
-            padding-bottom: 20px;
-        }
-        h1{
-            color: rgb(177, 177, 255);
-            text-shadow: -3px 0 1px black, -6px 0 20px white;
-            text-transform: uppercase;
-            padding: 30px 0;
-        }
-        form{
-            display: flex;
-            flex-direction: column;
-            background: transparent;
-            backdrop-filter: blur(20px);
-            filter: brightness(1.1);
-            border: 1px solid white;
-            border-radius: 4px;
-            padding: 20px;
-            width: 500px;
-            max-width: 30%;
-            min-width: 400px
-        }
-        form input{
-            margin: 10px 0;
-            outline: none;
-        }
-        label{
-            display: flex;
-            justify-content:space-between;
-            align-items: center;
-            padding: 5px 0px;
-        }
-    </style>
+    
 </head>
 <body>
     <?php
         $errores = array();
         if(enviado() && validaFormulario($errores)){
-            echo "enviado correctamente";
+            $nombre = $_REQUEST['nombre'];
+            $apellidos = $_REQUEST['apellidos'];
+            $contrasenia = $_REQUEST['contrasenia'];
+            $contrasenia2 = $_REQUEST['contrasenia2'];
+            $fecha = $_REQUEST['fecha'];
+            $dni = $_REQUEST['dni'];
+            $correo = $_REQUEST['correo'];
+    ?>
+        <h1>Datos personales</h1>
+    <div class="datos">
+        <p><span>Nombre:</span> <?php echo $nombre?></p>
+        <p><span>Apellidos:</span> <?php echo $apellidos?></p>
+        <p><span>Contraseña:</span> <?php echo $contrasenia?></p>
+        <p><span>Fecha:</span> <?php echo $fecha?></p>
+        <p><span>DNI:</span> <?php echo $dni?></p>
+        <p><span>Correo:</span> <?php echo $correo?></p>
+    </div>
+    <?php
+
         }
         else{
     ?>
-    <h1>Formulario - Expresiones regulares</h1>
-    <form action="" method="get">
+    <h1>Formulario - Exp Reg</h1>
+    <form action="" method="post">
         <label for="nombre">Nombre
-            <input type="text" name="nombre" id="nombre" value=<?php recuerda("nombre")?>>
+            <input type="text" name="nombre" id="nombre" value="<?php recuerda("nombre")?>">
         </label>
         <?php errores($errores,"nombre");?>
         <label for="apellidos">Apellidos
-            <input type="text" name="apellidos" id="apellidos" value=<?php recuerda("apellidos")?>>
+            <input type="text" name="apellidos" id="apellidos" value="<?php recuerda("apellidos")?>">
         </label>
         <?php errores($errores,"apellidos");?>
         <label for="contrasenia">Contraseña
-            <input type="password" name="contrasenia" id="contrasenia" value=<?php recuerda("contrasenia")?>>
+            <input type="password" name="contrasenia" id="contrasenia" value="<?php recuerda("contrasenia")?>">
         </label>
         <?php errores($errores,"contrasenia");?>
         <label for="contrasenia2">Repetir contraseña
-            <input type="password" name="contrasenia2" id="contrasenia2" value=<?php recuerda("contrasenia2")?>>
+            <input type="password" name="contrasenia2" id="contrasenia2" value="<?php recuerda("contrasenia2")?>">
         </label>
         <?php errores($errores,"contrasenia2");?>
         <label for="fecha">Fecha
-            <input type="text" name="fecha" id="fecha" value=<?php recuerda("fecha")?>>
+            <input type="text" name="fecha" id="fecha" placeholder="20/01/2023"  value="<?php recuerda("fecha")?>">
         </label>
         <?php errores($errores,"fecha");?>
         <label for="dni">DNI
-            <input type="text" name="dni" id="dni" value=<?php recuerda("dni")?>>
+            <input type="text" name="dni" id="dni" placeholder="12345678A" value="<?php recuerda("dni")?>">
         </label>
         <?php errores($errores,"dni");?>
         <label for="correo">Correo
-            <input type="text" name="correo" id="correo" value=<?php recuerda("correo")?>>
+            <input type="text" name="correo" id="correo" placeholder="ejemplo@algo.algo" value="<?php recuerda("correo")?>">
         </label>
         <?php errores($errores,"correo");?>
-        <input type="file" name="archivo" id="">
-        <input type="submit" name ="enviar" value="enviar">
+        <input type="file" name="archivo" id="archivo">
+        <input type="submit" name ="enviar" value="Enviar" id="enviar">
     </form>
     <?php
         }

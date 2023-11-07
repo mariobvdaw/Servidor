@@ -1,4 +1,8 @@
-<?php 
+<?php
+    $nombre = "/^[A-Za-z]{3,}$/";
+    $apellidos = "/^[A-Za-z]{3,}\s[A-Za-z]{3,}$/";
+
+
     function enviado(){
         if (isset($_REQUEST['enviar'])) {
             return true;
