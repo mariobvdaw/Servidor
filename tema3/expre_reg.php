@@ -57,7 +57,31 @@
     // $fecha2 = new DateTime();  
     // $edad = ($fecha1->diff($fecha2))->y;
     // echo $edad;
+    
+    // if(preg_match("/[.](png|jpg|bmp)$/", "asbmp.a.png")){
+    //     echo "Formato válido";
+    // }else{
+    //     echo "Formato no válido";
 
+    // }
+    // echo "<br>";
+    // echo "<br>";
+    // echo "<br>";
+    // $letrasDNI = "TRWAGMYFPDXBNJZSQVHLCKE";
+    // $_FILES["dni"]="71052293A";  
+    // $dni = $_FILES["dni"];
+    // $letra = substr($dni, strlen($dni)-1, 1);
+    // $numeros = intval(substr($dni, 0, strlen($dni)-1));
+    // $letraCorrecta = $letrasDNI[$numeros%23];
+    // echo $letra;
+    // echo $letraCorrecta;
+    // echo $numeros;
+    // echo "<br>";
+
+    // echo $dni;
+    // echo "<br>";
+    // echo "<br>";
+    // echo "<br>";
 
     echo "<p>Uso de o /maria o /mario </p>";
     $exp= "/mari[ao]/";

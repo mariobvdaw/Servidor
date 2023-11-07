@@ -25,6 +25,27 @@
         $edad = ($fecha1->diff($fecha2))->y;
         return $edad>=18;
     }
+    function validarDNI(){
+        $letrasDNI = "TRWAGMYFPDXBNJZSQVHLCKE";
+        $dni = $_REQUEST["dni"];
+        $letra = substr($dni, strlen($dni)-1, 1);
+        $numeros = intval(substr($dni, 0, strlen($dni)-1));
+        $letraCorrecta = $letrasDNI[$numeros%23];
+        if ($letra==$letraCorrecta) {
+            return true;
+        } else {
+            return false;
+        }
+        
+    }
+    function subirArchivo(){
+        $archivo = "./" . basename($_FILES['archivo']['name']);
+        if(move_uploaded_file($_FILES['archivo']['tmp_name'], $archivo)){
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     function validaFormulario(&$errores){
         $nombre = $_REQUEST['nombre'];
@@ -39,6 +60,8 @@
         $patron_fecha = "/^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/";
         $patron_dni = "/^[0-9]{8}[A-Z]{1}$/";
         $patron_correo = "/^[A-Za-z0-9]{1,}@[A-Za-z0-9]{1,}[.][A-Za-z0-9]{2,}$/";
+        $archivo = "./" . basename($_FILES['archivo']['name']);
+
 
         $vacio="Campo vacio";
         $incorrecto="Formato incorrecto";
@@ -75,11 +98,20 @@
             $errores['dni'] = $vacio;
         } elseif(!preg_match($patron_dni, $dni)){
             $errores['dni'] = $incorrecto;
-        } 
+        } elseif(!validarDNI()){
+            $errores['dni'] = "DNI incorrecto";
+        }
         if (textoVacio($correo)) {
             $errores['correo'] = $vacio;
         } elseif(!preg_match($patron_correo, $correo)){
             $errores["correo"] = $incorrecto;
+        }
+        if (($_FILES["archivo"]["name"]=="")) {
+            $errores["archivo"] = "No se ha enviado un archivo";
+        } elseif(!preg_match("/[.](png|jpg|bmp)$/", $archivo)){
+            $errores["archivo"] = "Formato erróneo";
+        } elseif(!subirArchivo()){
+            $errores["archivo"] = "Ha habido un error en la subida del archivo";
         }
 
         if (count($errores)==0) {

@@ -21,6 +21,9 @@
             $fecha = $_REQUEST['fecha'];
             $dni = $_REQUEST['dni'];
             $correo = $_REQUEST['correo'];
+            $archivo = basename($_FILES['archivo']['name']);
+            
+
     ?>
         <h1>Datos personales</h1>
     <div class="datos">
@@ -30,6 +33,7 @@
         <p><span>Fecha:</span> <?php echo $fecha?></p>
         <p><span>DNI:</span> <?php echo $dni?></p>
         <p><span>Correo:</span> <?php echo $correo?></p>
+        <img src="./<?php echo $archivo?>" alt="">
     </div>
     <?php
 
@@ -37,7 +41,7 @@
         else{
     ?>
     <h1>Formulario - Exp Reg</h1>
-    <form action="" method="post">
+    <form action="" method="post" enctype="multipart/form-data">
         <label for="nombre">Nombre
             <input type="text" name="nombre" id="nombre" value="<?php recuerda("nombre")?>">
         </label>
@@ -67,6 +71,7 @@
         </label>
         <?php errores($errores,"correo");?>
         <input type="file" name="archivo" id="archivo">
+        <?php errores($errores,"archivo");?>
         <input type="submit" name ="enviar" value="Enviar" id="enviar">
     </form>
     <?php
