@@ -56,36 +56,40 @@
         $n2=$_REQUEST["nota2"];
         $n3=$_REQUEST["nota3"];
         $datosAlumno=[$nombre, $n1, $n2, $n3]; 
-
+        $arrayFichero = [];
         if (($_REQUEST["existe"])=="no") { // AÑADIR NUEVO ALUMNO
             if (($gestor = fopen("notas.csv", "a"))) {
                 fputcsv($gestor, $datosAlumno,";");
                 fclose($gestor);
             }
         } else{ // MODIFICAR ALUMNO EXISTENTE
-            $tmp = tempnam('.',"tem.csv");
-            if(($gestor=fopen('notas.csv','r')) && ($nuevoFichero = fopen($tmp,'w'))){       
-                $contador = 1;
-                while($leido = fgetcsv($gestor,filesize("notas.csv"),';')){  
-                    if($contador==$_REQUEST["id"]){
-                        fputcsv($nuevoFichero, $datosAlumno,";"); // MODIFICACION
-                    } else{
-                        fputcsv($nuevoFichero,$leido,";"); // RESTO DE ALUMNOS
-                    }
-                    $contador++;
+
+            // LECTURA
+            if(($gestor=fopen('notas.csv','r'))){       
+                while($leido = fgetcsv($gestor, filesize("notas.csv"),';')){  
+                    array_push($arrayFichero, $leido);           
                 }
-                    fclose($gestor);
-                    fclose($nuevoFichero);
-                    unlink("notas.csv");
-                    rename($tmp,"notas.csv");
-                    chmod("notas.csv",0777);
-            }        
+                fclose($gestor);
+            }
+
+            // ESCRITURA
+            $arrayFichero[$_REQUEST["id"]-1]=$datosAlumno;
+            
+            if ($gestor = fopen('notas.csv','w')) {
+                foreach ($arrayFichero as $num => $alumno) {
+                    fputcsv($gestor, $alumno, ";");
+                }
+            }
+        
         }
+        // echo "<pre>";
+        // print_r($arrayFichero);
         header("Location: ./notas.php");
         exit;
     }
  
     ?>
+    <h1>Segunda version</h1>
     <form action="" method="get">
         <label for="nombre">Nombre
             <input type="text" name="nombre" id="nombre" value="<?php 

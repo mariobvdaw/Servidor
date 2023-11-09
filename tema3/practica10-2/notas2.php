@@ -19,7 +19,7 @@
 
     <?php
         if (isset($_REQUEST["modificar"])) {
-            header('Location: ./modificar.php?alumno='.$_REQUEST["alumno"]);
+            header('Location: ./modificar2.php?alumno='.$_REQUEST["alumno"]);
             exit;
         }
         // ELIMINAR ALUMNO
@@ -46,7 +46,7 @@
         }
         // CREAR NUEVO ALUMNO
         if (isset($_REQUEST["nuevo"])) {
-            header('Location: ./modificar.php');
+            header('Location: ./modificar2.php');
             exit;
         }
     ?>
