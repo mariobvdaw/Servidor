@@ -18,7 +18,9 @@
         $n1="";
         $n2="";
         $n3="";
-        if (isset($_REQUEST["alumno"])) {
+        
+        if (isset($_REQUEST["alumno"]) && $_REQUEST["alumno"]!="") {
+            $existe="si"; 
             $alumno=$_REQUEST["alumno"];        
             $numeroAlumno = 1;
             if (($gestor = fopen("notas.csv", "r"))) {
@@ -35,50 +37,55 @@
                 }
                 fclose($gestor);
             }
+        } else{
+            $existe="no";
         }
+
         if (isset($_REQUEST["volver"])) {
             header("Location: ./notas.php");
             exit;
         }
         if (isset($_REQUEST["guardar"])) {
-            $nombre=$_REQUEST["nombre"];
+            if ($existe=="si") {
+                $nombre=$_REQUEST["nombreOculto"];
+            }else{
+                $nombre=$_REQUEST["nombre"];
+            }
             $n1=$_REQUEST["nota1"];
             $n2=$_REQUEST["nota2"];
             $n3=$_REQUEST["nota3"];
-            $alumno=[$nombre, $n1, $n2, $n3];
+            $datosAlumno=[$nombre, $n1, $n2, $n3];
 
-            if (($gestor = fopen("notas.csv", "a"))) {
-
-            if (!isset($_REQUEST["alumno"])) {
-                    fputcsv($gestor, $alumno,";");
-                } else{
-                    // $tmp = tempnam('.',"tem.csv");
-                    //     if((!$fp=fopen('ficheroLineas.txt','r')) || (!$ft = fopen($tmp,'w')))
-                    //     echo "Ha habido un problema al abrir el fichero";       
-                    // else{        
-                    //     $texto = "Linea nueva";
-                    //     $contador = 1;
-                    //     while($leido = fgets($fp,filesize("ficheroLineas.txt"))){  
-                    //         fputs($ft,$leido,strlen($leido));
-                    //         if($contador==1){
-                    //             fputs($ft,$texto,strlen($texto));
-                    //             fputs($ft,"\n",strlen('\n'));
-                    //             $contador++;
-                    //         }
-                    //     }
-                    //         fclose($fp);
-                    //         fclose($ft);
-                    //         unlink("ficheroLineas.txt");
-                    //         rename($tmp,"ficheroLineas.txt");
-                    //         chmod("ficheroLineas.txt",0777);
-                    // }
-                
-            }
-            fclose($gestor);
+            if (($_REQUEST["existe"])=="no") {
+                if (($gestor = fopen("notas.csv", "a"))) {
+                    fputcsv($gestor, $datosAlumno,";");
+                    fclose($gestor);
+                }
+            } else{
+                $tmp = tempnam('.',"tem.csv");
+                if(($gestor=fopen('notas.csv','r')) && ($nuevoFichero = fopen($tmp,'w'))){       
+                    $contador = 1;
+                    while($leido = fgetcsv($gestor,filesize("notas.csv"))){  
+                        if($contador==$_REQUEST["id"]){
+                            fputcsv($nuevoFichero, $datosAlumno,";", ' ');
+                        } else{
+                            fputcsv($nuevoFichero,$leido,";", ' ');
+                        }
+                        $contador++;
+                    }
+                        fclose($gestor);
+                        fclose($nuevoFichero);
+                        unlink("notas.csv");
+                        rename($tmp,"notas.csv");
+                        chmod("notas.csv",0777);
+                }
+            
             }
             header("Location: ./notas.php");
             exit;
         }
+
+        
 
         
     ?>
@@ -106,9 +113,13 @@
             <input type="text" name="nota3" id="nota3" value="<?php echo $n3?>">
         </label>
         <br><br>
-        <input type="hidden" name="alumno" value="existe">
+        <input type="hidden" name="alumno" value="<?php echo $nombre?>">
         <input type="submit" name="volver" value="volver">
         <input type="submit" name="guardar" value="guardar">
+        <input type="hidden" name="existe" value="<?php echo $existe?>">
+        <input type="hidden" name="nombreOculto" value="<?php echo $nombre;?>">
+        <input type="hidden" name="id" value="<?php echo $alumno;?>">
+
     </form>
 </body>
 </html>

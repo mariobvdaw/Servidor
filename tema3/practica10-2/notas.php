@@ -23,7 +23,23 @@
             exit;
         }
         if (isset($_REQUEST["eliminar"])) {
-            echo "has seleccionado eliminar";
+            $tmp = tempnam('.',"tem.csv");
+                if(($gestor=fopen('notas.csv','r')) && ($nuevoFichero = fopen($tmp,'w'))){       
+                    $contador = 1;
+                    while($leido = fgetcsv($gestor,filesize("notas.csv"))){  
+                        if($contador!=$_REQUEST["alumno"]){
+                            fputcsv($nuevoFichero,$leido,";", ' ');
+                        }
+                        $contador++;
+                    }
+                        fclose($gestor);
+                        fclose($nuevoFichero);
+                        unlink("notas.csv");
+                        rename($tmp,"notas.csv");
+                        chmod("notas.csv",0777);
+                }
+                header('Location: ./notas.php');
+                exit;
         }
         if (isset($_REQUEST["nuevo"])) {
             header('Location: ./modificar.php');
