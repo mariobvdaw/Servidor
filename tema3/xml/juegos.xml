@@ -1,0 +1,2 @@
+<?xml version="1.0"?>
+<juegos><juego id="1" disponible="si"><nombre>Fifa</nombre><dispositivos><dispositivo>xbox</dispositivo><dispositivo>play</dispositivo></dispositivos></juego><juego id="2" disponible="no"><nombre>GTA</nombre><dispositivos><dispositivo>play</dispositivo></dispositivos></juego><juego id="3" disponible="si"><nombre>Tetris</nombre><dispositivos><dispositivo>pc</dispositivo><dispositivo>movil</dispositivo><dispositivo>play</dispositivo></dispositivos></juego></juegos>
