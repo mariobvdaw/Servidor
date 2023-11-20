@@ -10,6 +10,7 @@
 <body>
     <!-- CON XML -->
     <?php
+    
     // LEER FICHERO CSV Y GUARDAR LOS DATOS EN XML
     $xml = new SimpleXMLElement("<notas></notas>");
     if (($gestor = fopen("notas.csv", "r"))) {
