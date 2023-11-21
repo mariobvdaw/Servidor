@@ -106,6 +106,7 @@
             <input type="text" name="nota2" id="nota2" value="<?php echo $n2?>">
         </label>
         <br><br>        
+        
         <label for="nota3">Nota 3
             <input type="text" name="nota3" id="nota3" value="<?php echo $n3?>">
         </label>
