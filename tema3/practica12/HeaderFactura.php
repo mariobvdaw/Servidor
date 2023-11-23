@@ -18,7 +18,7 @@ final class HeaderFactura extends FPDF
 
         
         $this->setLineWidth(1);
-        $this->SetDrawColor(0,200,160);
+        $this->SetDrawColor(255,170,170);
         $this->Line(120,30,180,30);
 
         $this->SetXY(120,30);

@@ -38,45 +38,14 @@ $datosFactura = array(
     ),
     array(
         "Venta pantalla i32",
-        5,
-        75,
-        21
-    ),
-
-    array(
-        "Venta mouse CA-3245",
         1,
-        10,
+        60,
         21
     ),
     array(
         "Venta teclado supra CA-992",
         1,
-        25,
-        21
-    ),
-    array(
-        "Venta pantalla i32",
-        5,
-        75,
-        21
-    ),
-    array(
-        "Venta mouse CA-3245",
-        1,
-        10,
-        21
-    ),
-    array(
-        "Venta teclado supra CA-992",
-        1,
-        25,
-        21
-    ),
-    array(
-        "Venta pantalla i32",
-        5,
-        75,
+        20,
         21
     ),
 
@@ -88,7 +57,7 @@ function cliente($cliente, $factura)
     $factura->SetTextColor(0, 0, 120);
     $factura->Write(10, "Cliente:");
     $factura->setLineWidth(2);
-    $factura->SetDrawColor(0, 200, 160);
+    $factura->SetDrawColor(255,170,170);
     $factura->Line(115, 45, 115, 75);
     $factura->Line(190, 45, 190, 75);
     $alto = 50;
@@ -110,13 +79,13 @@ function tablaFactura($datosFactura, $factura)
     $factura->SetXY(20, 100);
     $factura->SetFont("", "B", 12);
     $factura->SetTextColor(0, 0, 0);
-    $factura->SetFillColor(0, 230, 180);
+    $factura->SetFillColor(255,170,170);
     $factura->Cell(70, 8, "Concepto", 0, 0, "L", true);
-    $factura->Cell(70, 8, "Cantidad  Base  Imponible", 0, 0, "R", true);
+    // $factura->Cell(70, 8, "Cantidad  Base  Imponible", 0, 0, "R", true);
 
-    // $factura->Cell(20, 8, "Cantidad", 0, 0, "R", true);
-    // $factura->Cell(20, 8, "Base", 0, 0, "R", true);
-    // $factura->Cell(30, 8, "Imponible", 0, 0, "R", true);
+    $factura->Cell(20, 8, "Cantidad", 0, 0, "R", true);
+    $factura->Cell(20, 8, "Base", 0, 0, "C", true);
+    $factura->Cell(30, 8, "Imponible", 0, 0, "C", true);
     $factura->Cell(30, 8, "I.V.A.", 0, 0, "R", true);
     $factura->Ln();
 
@@ -129,19 +98,20 @@ function tablaFactura($datosFactura, $factura)
 
     $factura->setLineWidth(0);
 
+    $euro = "€";
     // DATOS
     foreach ($datosFactura as $datos) {
         $factura->SetXY(20, $alto);
 
-        $factura->Cell(70, 8, utf8_decode($datos[0]), 0, 0, "L", false);
-        $factura->Cell(20, 8, utf8_decode($datos[1]), 0, 0, "R", false);
-        $factura->Cell(20, 8, number_format($datos[2], 2), 0, 0, "L", false);
+        $factura->Cell(70, 8, utf8_decode($datos[0]), 0, 0, "L", false); // CONCEPTO
+        $factura->Cell(20, 8, utf8_decode($datos[1]), 0, 0, "C", false); // CANTIDAD
+        $factura->Cell(20, 8, number_format($datos[2], 2). iconv('UTF-8', 'windows-1252', $euro), 0, 0, "C", false); // BASE
         $total = $datos[2] * $datos[1];
         $sumaTotal += $total;
-        $factura->Cell(30, 8, number_format($total, 2), 0, 0, "R", false);
+        $factura->Cell(30, 8, number_format($total, 2) . iconv('UTF-8', 'windows-1252', $euro), 0, 0, "C", false); // TOTAL
         $iva = $total / 100 * $datos[3];
         $sumaIva += $iva;
-        $factura->Cell(30, 8, utf8_decode($datos[3]) . "% (" . number_format($iva, 2) . ")", 0, 0, "R", false);
+        $factura->Cell(30, 8, utf8_decode($datos[3]) . "% (" . number_format($iva, 2) . iconv('UTF-8', 'windows-1252', $euro). ")", 0, 0, "R", false); // IVA
 
         $factura->Line(20, $alto + 8, 190, $alto + 8);
 
@@ -152,20 +122,18 @@ function tablaFactura($datosFactura, $factura)
     // DATOS FINALES
     $factura->SetFont("", "", 12);
     $factura->Cell(150, 8, "Total Base Imponible:", 0, 0, "R", false);
-    $factura->Cell(30, 8, number_format($sumaTotal, 2), 0, 0, "R", false);
+    $factura->Cell(30, 8, number_format($sumaTotal-$sumaIva, 2) . iconv('UTF-8', 'windows-1252', $euro), 0, 0, "R", false);
     $factura->Ln();
     $factura->Cell(150, 8, "I.V.A. 21%:", 0, 0, "R", false);
-    $factura->Cell(30, 8, number_format($sumaIva, 2), 0, 0, "R", false);
+    $factura->Cell(30, 8, number_format($sumaIva, 2) . iconv('UTF-8', 'windows-1252', $euro), 0, 0, "R", false);
     $factura->Ln();
     $factura->Ln();
     $factura->SetFont("", "B", 14);
     $factura->Cell(150, 8, "TOTAL:", 0, 0, "R", false);
-    $factura->Cell(30, 8, number_format($sumaTotal + $sumaIva, 2), 0, 0, "R", false);
+    $factura->Cell(30, 8, number_format($sumaTotal, 2) . iconv('UTF-8', 'windows-1252', $euro), 0, 0, "R", false);
 
     $factura->setLineWidth(1);
     $factura->Line(20, $alto + 30, 190, $alto + 30);
-
-
 
     // $factura->SetXY(100, $alto);
     // $factura->Write(10, "Total Base Imponible:");
