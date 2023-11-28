@@ -77,10 +77,10 @@
         } 
     }
     function checkMinMax($check){
-        if(enviado() && count($check)>=1 && count($check)<4){
-            return false;
+        if(enviado() && isset($check) && count($check)>=1 && count($check)<4){
+            return true;
         }
-        return true;
+        return false;
     }
     // function emailValido($email){
     //     return filter_var($email, FILTER_VALIDATE_EMAIL);
@@ -132,9 +132,9 @@
         if (selectValido($_REQUEST['combo'])) {
             $errores['combo'] = "Seleccina una opción";
         }
-        // if (checkMinMax($_REQUEST['checks'])){
-        //     $errores['checks'] = "Debes seleccionar entre 1 y 3 checks";
-        // }
+        if (!checkMinMax($_REQUEST['checks'])){
+            $errores['checks'] = "Debes seleccionar entre 1 y 3 checks";
+        }
         if (textoVacio($_REQUEST['correo'])) {
             $errores['correo']=$vacio;
         }
