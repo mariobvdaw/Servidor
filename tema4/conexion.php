@@ -1,6 +1,7 @@
 <?php
 require("./confBD.php");
 
+// INSERT
 // try {
 //     $con = mysqli_connect(IP, USER, PASS, "prueba");
 //     echo "Se ha conectado";
@@ -12,7 +13,7 @@ require("./confBD.php");
 //     // $sql = "insert into alumnos values ('mario',20,null)";
 //     // $sql = "insert into alumnos values ('mario',20,id)";
 //     // $sql = "insert into alumnos (nombre,edad) values ('" .$rnombre ."','" . $redad . "')";
-    
+
 //     // mysqli_query($con, $sql);
 
 
@@ -58,22 +59,92 @@ require("./confBD.php");
 //     // 1062 Duplicate entry '1' for key 'alumnos.PRIMARY'0
 // }
 
+// DELETE
+// try {
+//     $con = mysqli_connect(IP, USER, PASS, "prueba");
+//     echo "Se ha conectado";
+
+//     $sql = "delete from alumnos where id > 5";
+//     $result = mysqli_query($con, $sql);
+//     // while($array = mysqli_fetch_assoc($result)){
+//     //     echo "<pre>";
+//     //     print_r($array);
+//     // }
+//     echo mysqli_affected_rows($con);
+
+//     mysqli_close($con);
+
+// } catch (\Throwable $th) {
+
+//     switch ($th->getCode()) {
+//         case '1062':
+//             echo "Id duplicado";
+//             break;
+
+//         default:
+//             echo $th->getMessage();
+//     }
+
+//     echo mysqli_errno($con);
+//     echo mysqli_error($con);
+
+//     echo mysqli_connect_errno();
+//     echo mysqli_connect_error();
+//     mysqli_close($con);
+
+
+// }
+
+
+// UPDATE
+
+// $con = new mysqli();
+
+// try {
+//     $con->connect(IP, USER, PASS, "prueba");
+
+//     $edad = 35;
+//     $nombre = "Raul";
+//     $id = 3;
+
+//     $sql = "update alumnos set edad = ?, nombre = ? where id = ?";
+//     $stmt = $con->stmt_init();
+//     $stmt->prepare($sql);
+//     $stmt->bind_param("isi", $edad, $nombre, $id);
+//     $stmt->execute();
+//     $con->close();
+
+// } catch (\Throwable $th) {
+//     switch ($th->getCode()) {
+//         case '1062':
+//             echo "Id duplicado";
+//             break;
+
+//         default:
+//             echo $th->getMessage();
+//     }
+// }
+// $con->close();
+
+// SCRIPT
+
+$con = new mysqli();
+
 try {
-    $con = mysqli_connect(IP, USER, PASS, "prueba");
-    echo "Se ha conectado";
+    $con->connect(IP, USER, PASS);
 
-    $sql = "delete from alumnos where id > 5";
-    $result = mysqli_query($con, $sql);
-    // while($array = mysqli_fetch_assoc($result)){
-    //     echo "<pre>";
-    //     print_r($array);
-    // }
-    echo mysqli_affected_rows($con);
+    $script = file_get_contents("./banco.sql");
+    $con->multi_query($script);
+    do {
+        $con->store_result();
+        if (!$con->next_result()) {
+            break;
+        }
+    }while(true);
 
-    mysqli_close($con);
+    $con->close();
 
 } catch (\Throwable $th) {
-
     switch ($th->getCode()) {
         case '1062':
             echo "Id duplicado";
@@ -82,15 +153,6 @@ try {
         default:
             echo $th->getMessage();
     }
-
-    echo mysqli_errno($con);
-    echo mysqli_error($con);
-
-    echo mysqli_connect_errno();
-    echo mysqli_connect_error();
-    mysqli_close($con);
-
-
 }
 
 
