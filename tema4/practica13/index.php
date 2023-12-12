@@ -7,11 +7,12 @@ if (isset($_REQUEST["crear"])) {
 
 if (isset($_REQUEST["enviar"])) {
     if ($_REQUEST["enviar"] == "modificar") {
-        echo "modificar";
+        header("Location: ./modificar.php?id=".$_REQUEST["id"]);
     } elseif($_REQUEST["enviar"] == "eliminar") {
-        echo "eliminar";
+        eliminarRegistro();
     }elseif($_REQUEST["enviar"] == "nuevo") {
-        echo "añadir nuevo";
+        header("Location: ./modificar.php");
+
     }
     
 }
