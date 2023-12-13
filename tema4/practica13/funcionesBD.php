@@ -1,7 +1,7 @@
 <?php
 require("./conexionBD.php");
 
-function cargarTabla()
+function findAll()
 {
     try {
         $con = mysqli_connect(IP, USER, PASS, "pr13");
@@ -123,7 +123,7 @@ function crearBase()
     }
 }
 
-function cargarRegistro()
+function findByID()
 {
 
     try {
@@ -193,7 +193,7 @@ function cargarRegistro()
 
 
 
-function modificarRegistro()
+function update()
 {
 
     try {
@@ -249,7 +249,7 @@ function modificarRegistro()
 }
 
 
-function eliminarRegistro()
+function delete()
 {
 
     try {
@@ -300,7 +300,7 @@ function eliminarRegistro()
 
 }
 
-function aniadirRegistro()
+function insert()
 {
 
     try {

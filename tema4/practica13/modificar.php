@@ -2,11 +2,11 @@
 require("./funcionesBD.php");
 
 if (isset($_REQUEST["guardar"])) {
-    aniadirRegistro();
+    insert();
     echo "añadiendo";
     header("Location: ./index.php");
 }elseif (isset($_REQUEST["modificar"])) {
-    modificarRegistro();
+    update();
     header("Location: ./index.php");
 }
 ?>
@@ -24,7 +24,7 @@ if (isset($_REQUEST["guardar"])) {
 <body>
 
     <?php
-    cargarRegistro();
+    findByID();
     ?>
 </body>
 

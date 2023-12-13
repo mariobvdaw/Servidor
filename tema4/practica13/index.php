@@ -9,7 +9,7 @@ if (isset($_REQUEST["enviar"])) {
     if ($_REQUEST["enviar"] == "modificar") {
         header("Location: ./modificar.php?id=".$_REQUEST["id"]);
     } elseif($_REQUEST["enviar"] == "eliminar") {
-        eliminarRegistro();
+        delete();
     }elseif($_REQUEST["enviar"] == "nuevo") {
         header("Location: ./modificar.php");
 
@@ -38,7 +38,7 @@ if (isset($_REQUEST["enviar"])) {
         
 
     <?php
-    cargarTabla();
+    findAll();
 
 
     ?>

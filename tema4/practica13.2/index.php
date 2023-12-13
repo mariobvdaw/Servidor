@@ -7,14 +7,14 @@ if (isset($_REQUEST["crear"])) {
 
 if (isset($_REQUEST["enviar"])) {
     if ($_REQUEST["enviar"] == "modificar") {
-        header("Location: ./modificar.php?id=".$_REQUEST["id"]);
-    } elseif($_REQUEST["enviar"] == "eliminar") {
-        eliminarRegistro();
-    }elseif($_REQUEST["enviar"] == "nuevo") {
+        header("Location: ./modificar.php?id=" . $_REQUEST["id"]);
+    } elseif ($_REQUEST["enviar"] == "eliminar") {
+        delete();
+    } elseif ($_REQUEST["enviar"] == "nuevo") {
         header("Location: ./modificar.php");
 
     }
-    
+
 }
 
 ?>
@@ -35,10 +35,39 @@ if (isset($_REQUEST["enviar"])) {
 </head>
 
 <body>
-        
+
 
     <?php
-    cargarTabla();
+    $datosTabla = findAll();
+    echo '<table>';
+
+    foreach ($datosTabla as $row) {
+        echo "<tr>";
+        $id = $row["id"];
+
+        foreach ($row as $value) {
+            echo "";
+            echo "<td>";
+            echo $value;
+            echo "</td>";
+        }
+
+        echo '<td>';
+        echo '<form action="">';
+        echo '<input type="submit" name="enviar" value="modificar">';
+        // echo '</td>';
+        // echo '<td>';
+        echo '<input type="submit" name="enviar" value="eliminar">';
+        echo '<input type="hidden" name="id" value="' . $id . '">';
+        echo '</form>';
+        echo '</td>';
+        echo '</tr>';
+    }
+    echo "</table>";
+
+    echo '<form action="">';
+    echo '<input type="submit" name="enviar" value="nuevo">';
+    echo '</form>';
 
 
     ?>

@@ -3,115 +3,22 @@ require("./conexionBD.php");
 
 
 
-function cargarTabla()
-{
-    try {
-        $DSN = "pgsql:host=" . IP . ';dbname=pr13';
-        $con = new PDO($DSN, USER, PASS);
-
-
-        $sql = "select * from clientes";
-
-        $result = $con->query($sql);
-
-        echo '<table>';
-        // echo "<tr>";
-        // echo "<th>Nombre</th>";
-        // echo "<th>Edad</th>";
-        // echo "<th>Id</th>";
-        // echo "<tr>";
-        // CARGAR DATOS DE LA TABLA
-        while ($fila = $result->fetch(PDO::FETCH_BOTH)) {
-            $id = $fila['id'];
-            echo "<tr>";
-            foreach ($fila as $valor) {
-                echo "<td>";
-                echo $valor;
-                echo "</td>";
-            }
-            echo '<form action="">';
-            echo '<td>';
-            echo '<input type="submit" name="enviar" value="modificar">';
-            echo '</td>';
-            echo '<td>';
-            echo '<input type="submit" name="enviar" value="eliminar">';
-            echo '</td>';
-            echo '<input type="hidden" name="id" value="' . $id . '">';
-            echo '</form>';
-            echo '</tr>';
-
-        }
-
-        echo "</table>";
-
-        echo '<form action="">';
-        echo '<input type="submit" name="enviar" value="nuevo">';
-        echo '</form>';
-
-
-
-
-    } catch (\Throwable $th) {
-
-        switch ($th->getCode()) {
-            // ERRORES CONEXION
-            case '2002':
-                echo "Dirección de servidor erronea";
-                break;
-            case '1045':
-                echo "Usuario o contraseña no válidos";
-                break;
-
-            case '1049':
-                echo "<p>La base de datos no existe ¿Quieres crearla? </p>";
-                echo '<form action=""><input type="submit" name="crear" value="crear"></form>';
-                break;
-
-            // NO EXISTE BASE
-            case '7':
-                echo "<p>La base de datos no existe ¿Quieres crearla? </p>";
-                echo '<form action=""><input type="submit" name="crear" value="crear"></form>';
-                break;
-
-            case '1146':
-                echo "<p>La tabla no existe ¿Quieres crearla? </p>";
-                echo '<form action=""><input type="submit" name="crear" value="crear"></form>';
-                break;
-
-
-            // ERRORES CONSULTAS
-            case '1062':
-                echo "Id duplicado";
-                break;
-
-            default:
-                echo $th->getMessage();
-        }
-    } finally {
-        unset($con);
-    }
-
-}
-
-
 function crearBase()
 {
 
 
+    $DSN = "pgsql:host=" . IP . ';dbname=prueba';
     try {
-        // $DSN = "pgsql:host=" . IP . ';dbname=pr13';
-        $DSN = "pgsql:host=" . IP;
-        $con = new PDO($DSN, USER, PASS);
+        // CREAR LA BASE NUEVA 'PR13'
+        // $con = new PDO($DSN, USER, PASS);
+        // $sql = "create database pr13";
+        // $result = $con->exec($sql);
 
-        // CARGA SCRIPT
+        // CONECTAR A ESA BASE Y CREAR TABLA
+        $DSN = "pgsql:host=" . IP . ';dbname=pr13';
+        $con = new PDO($DSN, USER, PASS);
         $script = file_get_contents("./clientes.sql");
         $con->exec($script);
-        do {
-            $con->store_result();
-            if (!$con->next_result()) {
-                break;
-            }
-        } while (true);
 
 
     } catch (\Throwable $th) {
@@ -143,38 +50,86 @@ function crearBase()
     }
 }
 
-function cargarRegistro()
+
+function findAll()
+{
+    $datos = [];
+    try {
+        $DSN = "pgsql:host=" . IP . ';dbname=pr13';
+        $con = new PDO($DSN, USER, PASS);
+
+        $sql = "select * from clientes";
+
+        $result = $con->query($sql);
+        echo '<table>';
+        while ($fila = $result->fetch(PDO::FETCH_ASSOC)) {
+            array_push($datos, $fila);
+        }
+        return $datos;
+
+    } catch (\Throwable $th) {
+
+        switch ($th->getCode()) {
+            // ERRORES CONEXION
+            case '2002':
+                echo "Dirección de servidor erronea";
+                break;
+            case '1045':
+                echo "Usuario o contraseña no válidos";
+                break;
+
+            case '1049':
+                echo "<p>La base de datos no existe ¿Quieres crearla? </p>";
+                echo '<form action=""><input type="submit" name="crear" value="crear"></form>';
+                break;
+
+            // NO EXISTE BASE
+            case '7':
+                echo "<p>La base de datos no existe ¿Quieres crearla? </p>";
+                echo '<form action=""><input type="submit" name="crear" value="crear"></form>';
+                break;
+
+            case '42P01':
+                echo "<p>La tabla no existe ¿Quieres crearla? </p>";
+                echo '<form action=""><input type="submit" name="crear" value="crear"></form>';
+                break;
+
+            case '1146':
+                echo "<p>La tabla no existe ¿Quieres crearla? </p>";
+                echo '<form action=""><input type="submit" name="crear" value="crear"></form>';
+                break;
+
+
+            // ERRORES CONSULTAS
+            case '1062':
+                echo "Id duplicado";
+                break;
+
+            default:
+                echo $th->getMessage();
+        }
+    } finally {
+        unset($con);
+    }
+
+}
+
+
+function findByID($id)
 {
 
+    $DSN = "pgsql:host=" . IP . ';dbname=pr13';
     try {
-        $con = mysqli_connect(IP, USER, PASS, "pr13");
+        $con = new PDO($DSN, USER, PASS);
+
 
         $sql = "select * from clientes where id=?";
         $stmt = $con->prepare($sql);
-        $stmt->bind_param("i", $_REQUEST["id"]);
-        $stmt->execute();
-        $stmt->bind_result($id, $nombre, $fecha, $dinero);
-        $stmt->fetch();
+        $stmt->execute(array($id));
+        $row = $stmt->fetch();
 
-        $lectura = "";
-        $accion = "guardar";
-        if (isset($_REQUEST["id"])) {
-            $lectura = "readonly";
-            $accion = "modificar";
-        }
+        return $row;
 
-        echo '<form action="">';
-        echo '<td><input type="text"  ' . $lectura . '  name="id" id="id" value="' . $id . '"></td>';
-        echo '<td><input type="text" name="nombre" id="nombre" value="' . $nombre . '"></td>';
-        echo '<td><input type="text" name="fecha" id="fecha" value="' . $fecha . '"></td>';
-        echo '<td><input type="text" name="dinero" id="dinero" value="' . $dinero . '"></td>';
-
-        echo '<input type="submit" name="' . $accion . '" value="' . $accion . '">';
-        echo '</form>';
-
-
-
-        mysqli_close($con);
 
     } catch (\Throwable $th) {
 
@@ -206,32 +161,26 @@ function cargarRegistro()
             default:
                 echo $th->getMessage();
         }
+    } finally {
+        unset($con);
     }
-
-
 }
 
 
 
-function modificarRegistro()
+function update()
 {
-
+    $DSN = "pgsql:host=" . IP . ';dbname=pr13';
     try {
-        $con = mysqli_connect(IP, USER, PASS, "pr13");
+        $con = new PDO($DSN, USER, PASS);
 
 
 
         $sql = "update clientes set nombre = ?, fecha_registro = ?, dinero_gastado = ? where id = ?";
-        $stmt = $con->stmt_init();
-        $stmt->prepare($sql);
-        $stmt->bind_param("ssdi", $_REQUEST['nombre'], $_REQUEST['fecha'], $_REQUEST['dinero'], $_REQUEST['id']);
-        $stmt->execute();
-        $con->close();
 
+        $stmt = $con->prepare($sql);
+        $stmt->execute(array($_REQUEST['nombre'], $_REQUEST['fecha'], $_REQUEST['dinero'], $_REQUEST['id']));
 
-
-
-        mysqli_close($con);
 
     } catch (\Throwable $th) {
 
@@ -263,27 +212,25 @@ function modificarRegistro()
             default:
                 echo $th->getMessage();
         }
+    } finally {
+        unset($con);
     }
 
 
 }
 
 
-function eliminarRegistro()
+function delete()
 {
-
+    $DSN = "pgsql:host=" . IP . ';dbname=pr13';
     try {
-        $con = mysqli_connect(IP, USER, PASS, "pr13");
+        $con = new PDO($DSN, USER, PASS);
 
         $sql = "delete from clientes where id = ?";
-        $stmt = $con->stmt_init();
-        $stmt->prepare($sql);
-        $stmt->bind_param("i", $_REQUEST['id']);
-        $stmt->execute();
-        $con->close();
 
+        $stmt = $con->prepare($sql);
+        $stmt->execute(array($_REQUEST['id']));
 
-        mysqli_close($con);
 
     } catch (\Throwable $th) {
 
@@ -315,26 +262,24 @@ function eliminarRegistro()
             default:
                 echo $th->getMessage();
         }
+    } finally {
+        unset($con);
     }
 
 
 }
 
-function aniadirRegistro()
+function insert()
 {
-
+    $DSN = "pgsql:host=" . IP . ';dbname=pr13';
     try {
-        $con = mysqli_connect(IP, USER, PASS, "pr13");
+        $con = new PDO($DSN, USER, PASS);
 
         $sql = "insert into clientes (nombre, fecha_registro, dinero_gastado) values (?,?,?)";
 
-        $stmt = mysqli_prepare($con, $sql);
-        mysqli_stmt_bind_param($stmt, "ssd", $_REQUEST["nombre"], $_REQUEST["fecha"], $_REQUEST["dinero"]);
-        mysqli_stmt_execute($stmt);
+        $stmt = $con->prepare($sql);
+        $stmt->execute(array($_REQUEST["nombre"], $_REQUEST["fecha"], $_REQUEST["dinero"]));
 
-        echo "se añadio";
-
-        mysqli_close($con);
 
     } catch (\Throwable $th) {
 
@@ -366,6 +311,8 @@ function aniadirRegistro()
             default:
                 echo $th->getMessage();
         }
+    } finally {
+        unset($con);
     }
 
 
