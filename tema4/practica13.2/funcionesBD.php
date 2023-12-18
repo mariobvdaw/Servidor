@@ -5,21 +5,26 @@ require("./conexionBD.php");
 
 function crearBase()
 {
-
-
-    $DSN = "pgsql:host=" . IP . ';dbname=prueba';
+    $DSN = "pgsql:host=" . IP . ';dbname=postgres';
     try {
-        // CREAR LA BASE NUEVA 'PR13'
-        // $con = new PDO($DSN, USER, PASS);
-        // $sql = "create database pr13";
-        // $result = $con->exec($sql);
+        if ($DSN = "pgsql:host=" . IP . ';dbname=pr13') {
+            // CONECTAR A ESA BASE Y CREAR TABLA
+            $DSN = "pgsql:host=" . IP . ';dbname=pr13';
+            $con = new PDO($DSN, USER, PASS);
+            $script = file_get_contents("./clientes.sql");
+            $con->exec($script);
+        } else {
+            // CREAR LA BASE NUEVA 'PR13'
+            $con = new PDO($DSN, USER, PASS);
+            $sql = "create database pr13";
+            $result = $con->exec($sql);
 
-        // CONECTAR A ESA BASE Y CREAR TABLA
-        $DSN = "pgsql:host=" . IP . ';dbname=pr13';
-        $con = new PDO($DSN, USER, PASS);
-        $script = file_get_contents("./clientes.sql");
-        $con->exec($script);
-
+            // CONECTAR A ESA BASE Y CREAR TABLA
+            $DSN = "pgsql:host=" . IP . ';dbname=pr13';
+            $con = new PDO($DSN, USER, PASS);
+            $script = file_get_contents("./clientes.sql");
+            $con->exec($script);
+        }
 
     } catch (\Throwable $th) {
         switch ($th->getCode()) {
@@ -36,11 +41,14 @@ function crearBase()
                 echo '<form action=""><input type="submit" name="crear" value="crear"></form>';
                 break;
             case '7':
-                echo "<p>La base de datos no existe ¿Quieres crearla? </p>";
-                echo '<form action=""><input type="submit" name="crear" value="crear"></form>';
+                echo "<p>Error: No se puede conectar al servidor</p>";
                 break;
-
-
+            case '42P04':
+                echo "<p class='warning'>La base de datos ya existe:</p>";
+                break;
+            case '42P07':
+                echo "<p class='warning'>La tabla ya existe:</p>";
+                break;
             default:
                 echo $th->getMessage();
                 echo $th->getCode();
@@ -61,7 +69,6 @@ function findAll()
         $sql = "select * from clientes";
 
         $result = $con->query($sql);
-        echo '<table>';
         while ($fila = $result->fetch(PDO::FETCH_ASSOC)) {
             array_push($datos, $fila);
         }
@@ -84,8 +91,12 @@ function findAll()
                 break;
 
             // NO EXISTE BASE
+            case '08006':
+                echo "<p>Error en el host</p>";
+                echo '<form action=""><input type="submit" name="crear" value="crear"></form>';
+                break;
             case '7':
-                echo "<p>La base de datos no existe ¿Quieres crearla? </p>";
+                echo "<p>Error: La base de datos no existe ¿Quieres crearla? </p>";
                 echo '<form action=""><input type="submit" name="crear" value="crear"></form>';
                 break;
 
@@ -94,10 +105,10 @@ function findAll()
                 echo '<form action=""><input type="submit" name="crear" value="crear"></form>';
                 break;
 
-            case '1146':
-                echo "<p>La tabla no existe ¿Quieres crearla? </p>";
-                echo '<form action=""><input type="submit" name="crear" value="crear"></form>';
-                break;
+            // case '1146':
+            //     echo "<p>La tabla no existe ¿Quieres crearla? </p>";
+            //     echo '<form action=""><input type="submit" name="crear" value="crear"></form>';
+            //     break;
 
 
             // ERRORES CONSULTAS
@@ -107,6 +118,7 @@ function findAll()
 
             default:
                 echo $th->getMessage();
+                echo $th->getCode();
         }
     } finally {
         unset($con);
@@ -165,6 +177,56 @@ function findByID($id)
         unset($con);
     }
 }
+
+function findByName($nombre)
+{
+    $DSN = "pgsql:host=" . IP . ';dbname=pr13';
+    try {
+        $con = new PDO($DSN, USER, PASS);
+
+        $sql = "select * from clientes where nombre=?";
+        $stmt = $con->prepare($sql);
+        $stmt->execute(array($nombre));
+        $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $row;
+
+
+    } catch (\Throwable $th) {
+
+        switch ($th->getCode()) {
+            // ERRORES CONEXION
+            case '2002':
+                echo "Dirección de servidor erronea";
+                break;
+            case '1045':
+                echo "Usuario o contraseña no válidos";
+                break;
+
+            case '1049':
+                echo "<p>La base de datos no existe ¿Quieres crearla? </p>";
+                echo '<form action=""><input type="submit" name="crear" value="crear"></form>';
+                break;
+
+            case '1146':
+                echo "<p>La tabla no existe ¿Quieres crearla? </p>";
+                echo '<form action=""><input type="submit" name="crear" value="crear"></form>';
+                break;
+
+
+            // ERRORES CONSULTAS
+            case '1062':
+                echo "Id duplicado";
+                break;
+
+            default:
+                echo $th->getMessage();
+        }
+    } finally {
+        unset($con);
+    }
+}
+
 
 
 
