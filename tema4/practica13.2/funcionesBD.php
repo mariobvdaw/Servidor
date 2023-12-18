@@ -5,7 +5,6 @@ function crearBase()
 {
     $DSN = "pgsql:host=" . IP . ';dbname=postgres';
     try {
-
         try {
             // CREAR LA BASE NUEVA 'PR13'
             $con = new PDO($DSN, USER, PASS);
@@ -102,7 +101,6 @@ function findAll()
             //     echo "<p>La tabla no existe ¿Quieres crearla? </p>";
             //     echo '<form action=""><input type="submit" name="crear" value="crear"></form>';
             //     break;
-
 
             // ERRORES CONSULTAS
             case '1062':

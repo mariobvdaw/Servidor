@@ -88,6 +88,7 @@ if (isset($_REQUEST["enviar"])) {
         if ($_REQUEST["enviar"] == "buscar") {
             $datosTabla = findByName($_REQUEST["nombre"]);
         }
+        // TABLA
         echo '<table>';
         echo '<tr>';
         echo '<th>Id</th>';
@@ -113,8 +114,6 @@ if (isset($_REQUEST["enviar"])) {
             echo '<td>';
             echo '<form action="">';
             echo '<input type="submit" name="enviar" value="modificar">';
-            // echo '</td>';
-            // echo '<td>';
             echo '<input type="submit" name="enviar" value="eliminar">';
             echo '<input type="hidden" name="id" value="' . $id . '">';
             echo '</form>';
@@ -123,12 +122,14 @@ if (isset($_REQUEST["enviar"])) {
         }
         echo "</table>";
 
+        // BUSCAR POR NOMBRE
         echo '<form action="">';
         echo 'Buscar por nombre: ';
         echo '<input type="text" name="nombre" id="nombre" >';
         echo '<input type="submit" name="enviar" value="buscar">';
         echo '</form>';
     }
+    // AÑADIR
     echo '<form action="">';
     echo '<input type="submit" name="enviar" value="nuevo">';
     echo '</form>';
