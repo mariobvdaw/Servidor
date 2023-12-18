@@ -1,30 +1,28 @@
 <?php
 require("./conexionBD.php");
 
-
-
 function crearBase()
 {
     $DSN = "pgsql:host=" . IP . ';dbname=postgres';
     try {
-        if ($DSN = "pgsql:host=" . IP . ';dbname=pr13') {
-            // CONECTAR A ESA BASE Y CREAR TABLA
-            $DSN = "pgsql:host=" . IP . ';dbname=pr13';
-            $con = new PDO($DSN, USER, PASS);
-            $script = file_get_contents("./clientes.sql");
-            $con->exec($script);
-        } else {
+
+        try {
             // CREAR LA BASE NUEVA 'PR13'
             $con = new PDO($DSN, USER, PASS);
             $sql = "create database pr13";
             $result = $con->exec($sql);
-
-            // CONECTAR A ESA BASE Y CREAR TABLA
-            $DSN = "pgsql:host=" . IP . ';dbname=pr13';
-            $con = new PDO($DSN, USER, PASS);
-            $script = file_get_contents("./clientes.sql");
-            $con->exec($script);
+        } catch (\Throwable $th) {
+            switch ($th->getCode()) {
+                default:
+                // echo $th->getMessage();
+                // echo $th->getCode();
+            }
         }
+        // CONECTAR A ESA BASE Y CREAR TABLA
+        $DSN = "pgsql:host=" . IP . ';dbname=pr13';
+        $con = new PDO($DSN, USER, PASS);
+        $script = file_get_contents("./clientes.sql");
+        $con->exec($script);
 
     } catch (\Throwable $th) {
         switch ($th->getCode()) {
@@ -36,10 +34,6 @@ function crearBase()
                 echo "Usuario o contraseña no válidos";
                 break;
 
-            case '1049':
-                echo "<p>La base de datos no existe ¿Quieres crearla? </p>";
-                echo '<form action=""><input type="submit" name="crear" value="crear"></form>';
-                break;
             case '7':
                 echo "<p>Error: No se puede conectar al servidor</p>";
                 break;
@@ -57,7 +51,6 @@ function crearBase()
         unset($con);
     }
 }
-
 
 function findAll()
 {
@@ -126,14 +119,11 @@ function findAll()
 
 }
 
-
 function findByID($id)
 {
-
     $DSN = "pgsql:host=" . IP . ';dbname=pr13';
     try {
         $con = new PDO($DSN, USER, PASS);
-
 
         $sql = "select * from clientes where id=?";
         $stmt = $con->prepare($sql);
@@ -141,7 +131,6 @@ function findByID($id)
         $row = $stmt->fetch();
 
         return $row;
-
 
     } catch (\Throwable $th) {
 
@@ -191,7 +180,6 @@ function findByName($nombre)
 
         return $row;
 
-
     } catch (\Throwable $th) {
 
         switch ($th->getCode()) {
@@ -226,9 +214,6 @@ function findByName($nombre)
         unset($con);
     }
 }
-
-
-
 
 function update()
 {
@@ -236,13 +221,9 @@ function update()
     try {
         $con = new PDO($DSN, USER, PASS);
 
-
-
-        $sql = "update clientes set nombre = ?, fecha_registro = ?, dinero_gastado = ? where id = ?";
-
+        $sql = "update clientes set nombre = ?, ciudad = ?, fecha_registro = ?, numero_compras = ?, dinero_gastado = ? where id = ?";
         $stmt = $con->prepare($sql);
-        $stmt->execute(array($_REQUEST['nombre'], $_REQUEST['fecha'], $_REQUEST['dinero'], $_REQUEST['id']));
-
+        $stmt->execute(array($_REQUEST['nombre'], $_REQUEST['ciudad'], $_REQUEST['fecha'], $_REQUEST['compras'], $_REQUEST['dinero'], $_REQUEST['id']));
 
     } catch (\Throwable $th) {
 
@@ -265,7 +246,6 @@ function update()
                 echo '<form action=""><input type="submit" name="crear" value="crear"></form>';
                 break;
 
-
             // ERRORES CONSULTAS
             case '1062':
                 echo "Id duplicado";
@@ -277,10 +257,7 @@ function update()
     } finally {
         unset($con);
     }
-
-
 }
-
 
 function delete()
 {
@@ -315,7 +292,6 @@ function delete()
                 echo '<form action=""><input type="submit" name="crear" value="crear"></form>';
                 break;
 
-
             // ERRORES CONSULTAS
             case '1062':
                 echo "Id duplicado";
@@ -327,8 +303,6 @@ function delete()
     } finally {
         unset($con);
     }
-
-
 }
 
 function insert()
@@ -337,11 +311,9 @@ function insert()
     try {
         $con = new PDO($DSN, USER, PASS);
 
-        $sql = "insert into clientes (nombre, fecha_registro, dinero_gastado) values (?,?,?)";
-
+        $sql = "insert into clientes (nombre, ciudad, fecha_registro, numero_compras, dinero_gastado) values (?,?,?,?,?)";
         $stmt = $con->prepare($sql);
-        $stmt->execute(array($_REQUEST["nombre"], $_REQUEST["fecha"], $_REQUEST["dinero"]));
-
+        $stmt->execute(array($_REQUEST['nombre'], $_REQUEST['ciudad'], $_REQUEST['fecha'], $_REQUEST['compras'], $_REQUEST['dinero']));
 
     } catch (\Throwable $th) {
 
@@ -364,7 +336,6 @@ function insert()
                 echo '<form action=""><input type="submit" name="crear" value="crear"></form>';
                 break;
 
-
             // ERRORES CONSULTAS
             case '1062':
                 echo "Id duplicado";
@@ -376,10 +347,6 @@ function insert()
     } finally {
         unset($con);
     }
-
-
 }
-
-
 
 ?>
