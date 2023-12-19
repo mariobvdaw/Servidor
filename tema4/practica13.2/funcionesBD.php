@@ -51,7 +51,7 @@ function crearBase()
     }
 }
 
-function findAll()
+function validaUsuario()
 {
     $datos = [];
     try {

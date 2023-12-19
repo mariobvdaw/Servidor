@@ -1,7 +1,7 @@
 <?php
 require("./conexionBD.php");
 
-function findAll()
+function validaUsuario()
 {
     try {
         $con = mysqli_connect(IP, USER, PASS, "pr13");

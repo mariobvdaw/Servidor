@@ -38,7 +38,7 @@ if (isset($_REQUEST["enviar"])) {
         
 
     <?php
-    findAll();
+    validaUsuario();
 
 
     ?>
