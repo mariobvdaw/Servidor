@@ -8,7 +8,6 @@ if (enviado() && !textoVacio($_REQUEST['user']) && !textoVacio($_REQUEST['pass']
     if ($usuario) {
         echo "Login correcto";
         $_SESSION['usuario'] = $usuario;
-        $_SESSION['user'] = $_REQUEST['user'];
         header('Location: ./homeUser.php');
     } else {
         echo "No existe el usuario";

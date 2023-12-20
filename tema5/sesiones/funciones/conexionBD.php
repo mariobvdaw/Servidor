@@ -33,7 +33,7 @@ function validaUsuario($user, $pass)
 
 }
 
-function paginasPermitidas($user)
+function paginasPermitidas()
 {
     $paginas = [];
     try {
@@ -45,11 +45,15 @@ function paginasPermitidas($user)
         and accede.codigoPagina = paginas.codigo
         and usuario = ?";
         $stmt = $con->prepare($sql);
-        $stmt->execute(array($user));
+        $stmt->execute([$_SESSION['usuario']['usuario']]);
         while ($pagina = $stmt->fetch(PDO::FETCH_ASSOC)) {
             array_push($paginas, $pagina["url"]);
         }
-        return $paginas;
+        if (count($paginas) > 0) {
+            $_SESSION['usuario']['paginas']=$paginas;
+            return $paginas;
+        }
+        return false;
 
 
     } catch (\Throwable $th) {
@@ -63,6 +67,14 @@ function paginasPermitidas($user)
     } finally {
         unset($con);
     }
+}
+
+function usuarioPermitido($url)
+{
+    if(in_array($url,$_SESSION['usuario']['paginas'])){
+        return true;
+    }
+    return false;
 }
 
 
