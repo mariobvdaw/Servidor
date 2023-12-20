@@ -23,8 +23,15 @@ if(!isset($_SESSION['usuario'])){
     <?php
 
     echo "Bienvenido " . $_SESSION['usuario']['nombre'];
-    $resultado = paginasPermitidas('u1',1);
+    $paginas = paginasPermitidas($_SESSION['user']);
+    foreach ($paginas as $indice =>$pagina) {
+        $numPagina = $indice +1;
+        echo "<br>";
+        echo '<a href="'.$pagina.'">Pagina '.$numPagina.'</a>';
+        echo "<br>";
+    }
     ?>
+    <br>
     <a href="./logout.php">Cerrar sesion</a>
 
 </body>

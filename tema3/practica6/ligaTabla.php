@@ -59,14 +59,14 @@
         foreach ($liga as $key => $equipo) {
             foreach ($equipo as $rival => $partido) {                    
                     $resultados=$partido["Resultado"];
-                    $resultado = explode("-",$resultados);
-                    if (intval($resultado[0])>intval($resultado[1])) {
+                    $paginas = explode("-",$resultados);
+                    if (intval($paginas[0])>intval($paginas[1])) {
                         if (!isset($clasificacion[$key]["Puntos"])) {
                             $clasificacion[$key]["Puntos"]=3;
                         } else {
                             $clasificacion[$key]["Puntos"]+=3;
                         }
-                    } else if(intval($resultado[0])<intval($resultado[1])) {
+                    } else if(intval($paginas[0])<intval($paginas[1])) {
                         if (!isset($clasificacion[$rival]["Puntos"])) {
                             $clasificacion[$rival]["Puntos"]=3;
                         } else {
@@ -85,25 +85,25 @@
                         }
                     }
                     if (!isset($clasificacion[$key]["GolesF"])) {
-                        $clasificacion[$key]["GolesF"]=$resultado[0];
+                        $clasificacion[$key]["GolesF"]=$paginas[0];
                     } else {
-                        $clasificacion[$key]["GolesF"]+=$resultado[0];
+                        $clasificacion[$key]["GolesF"]+=$paginas[0];
                     }
                     if (!isset($clasificacion[$key]["GolesC"])) {
-                        $clasificacion[$key]["GolesC"]=$resultado[1];
+                        $clasificacion[$key]["GolesC"]=$paginas[1];
                     } else {
-                        $clasificacion[$key]["GolesC"]+=$resultado[1];
+                        $clasificacion[$key]["GolesC"]+=$paginas[1];
                     }
                     if (!isset($clasificacion[$rival]["GolesF"])) {
-                        $clasificacion[$rival]["GolesF"]=$resultado[1];
+                        $clasificacion[$rival]["GolesF"]=$paginas[1];
                     } else {
-                        $clasificacion[$rival]["GolesF"]+=$resultado[1];
+                        $clasificacion[$rival]["GolesF"]+=$paginas[1];
                     }
 
                     if (!isset($clasificacion[$rival]["GolesC"])) {
-                        $clasificacion[$rival]["GolesC"]=$resultado[0];
+                        $clasificacion[$rival]["GolesC"]=$paginas[0];
                     } else {
-                        $clasificacion[$rival]["GolesC"]+=$resultado[0];
+                        $clasificacion[$rival]["GolesC"]+=$paginas[0];
                     }              
             }
         }
