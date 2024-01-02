@@ -1,0 +1,15 @@
+usuarioBD:
+    nombre -> navidad
+    contraseña -> navidad
+
+usuarios normales:
+    nombre -> cliente1
+    contraseña -> c1
+
+usuarios administradores:
+    nombre -> admin1
+    contraseña -> a1
+
+usuarios moderadores:
+    nombre -> mod1
+    contraseña -> m1
