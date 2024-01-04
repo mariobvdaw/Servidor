@@ -4,5 +4,13 @@
     list-style: none;
     text-decoration: none;
     color: black;
+    font-family: 'Arial', sans-serif;
+
 }
 
+.fondo{
+    min-height: 100vh;
+    width: 100%;
+    min-width: 860px;
+    background-image: url("../imagenes/inicio.avif");
+}

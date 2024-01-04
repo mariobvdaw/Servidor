@@ -14,10 +14,14 @@
     include("./fragmentos/header.php");
     ?>
 
+    <main class="fondo">
+
+    </main>
+    
     <?php
-    if (isset($_SESSION['error'])) {
-        echo $_SESSION['error'];
-    }
+    // if (isset($_SESSION['error'])) {
+    //     echo $_SESSION['error'];
+    // }
     ?>
 
 </body>

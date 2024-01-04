@@ -3,14 +3,15 @@ session_start();
 
 require('./funciones/validaciones.php');
 require('./funciones/conexionBD.php');
+$errores = array();
 if (enviado() && !textoVacio($_REQUEST['user']) && !textoVacio($_REQUEST['pass'])) {
     $usuario = validaUsuario($_REQUEST['user'], $_REQUEST['pass']);
     if ($usuario) {
-        echo "Login correcto";
         $_SESSION['usuario'] = $usuario;
         header('Location: ./home.php');
+        exit;
     } else {
-        echo "No existe el usuario";
+        $errores['user'] = "No existe el usuario o contraseña";
     }
 }
 
@@ -42,6 +43,9 @@ if (enviado() && !textoVacio($_REQUEST['user']) && !textoVacio($_REQUEST['pass']
         <label for="pass">Contraseña:
             <input type="password" name="pass" id="pass">
         </label>
+        <?php
+        echo '<span class="error">' . $errores["user"] . ' </span>';
+        ?>
         <input type="submit" value="enviar" name="enviar" id="enviar">
         <a href="./registro.php">¿No tienes cuenta?</a>
     </form>

@@ -1,10 +1,17 @@
 header {
+    position: absolute;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #000;
-    padding: 10px;
-    min-width: 780px;
+    background: #09f;
+    padding: 10px 15px;
+    width: 100%;
+    min-width: 860px;
+    min-height: 7vh;
+    border-bottom: 1px solid #ccc;
+    box-shadow: 0 0 10px black;
+    z-index: 10;
+    box-sizing: border-box;
 }
 
 .logo {
@@ -17,15 +24,15 @@ header {
     height: 40px;
 }
 
-.logo h2 {
-    font-size: 1.75rem; /* Usar 'rem' para tamaños de fuente responsivos */
-    margin: 0;
-    color: #ccc;
+.logo h1 {
+    font-size: 1.7rem;
     font-family: 'Arial', sans-serif;
+    margin: 0 10px;
+    color: #09f;
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 1px;
-    text-shadow: 1px 1px 1px #2c3e50;
+    text-shadow: -2px 2px 0 black, 2px -2px 0 black;
 }
 
 .navegacion a,
@@ -40,6 +47,7 @@ header {
 
 .navegacion a:hover,
 .user a:hover {
-    background-color: #2c3e50;
+    text-shadow: 0 0 10px white, 0 0 10px white, 0 0 10px white;
+    box-shadow: 0 0 10px white, 0 0 10px white, 0 0 10px white;
+    color: black;
 }
-

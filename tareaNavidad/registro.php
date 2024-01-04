@@ -1,5 +1,6 @@
 <?php
 include("./funciones/validaciones.php");
+include("./funciones/conexionBD.php");
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -13,15 +14,20 @@ include("./funciones/validaciones.php");
 
 <body>
     <?php
+    $errores = array();
     if (enviado() && validaFormulario($errores)) {
-
+        registrarUsuario($_REQUEST['nombre'],$_REQUEST['contrasenia'],$_REQUEST['correo'],$_REQUEST['fecha'],);
+        echo "Redirigiendo al login...";
+        header("refresh:3;url=./login.php");
+        exit;
     }
+
     ?>
 
     <h1>Formulario Registro</h1>
     <form action="" method="post" enctype="multipart/form-data">
         <label for="nombre">Nombre
-            <input type="text" name="nombre" id="nombre" placeholder="nombre... (3+)"
+            <input type="text" name="nombre" id="nombre" placeholder="unico"
                 value="<?php recuerda("nombre") ?>">
         </label>
         <?php errores($errores, "nombre"); ?>
@@ -42,7 +48,7 @@ include("./funciones/validaciones.php");
         </label>
         <?php errores($errores, "correo"); ?>
         <label for="fecha">Fecha
-            <input type="text" name="fecha" id="fecha" placeholder="20/01/2023" value="<?php recuerda("fecha") ?>">
+            <input type="text" name="fecha" id="fecha" placeholder="2024/01/15" value="<?php recuerda("fecha") ?>">
         </label>
         <?php errores($errores, "fecha"); ?>
         <input type="submit" name="enviar" value="Enviar" id="enviar">

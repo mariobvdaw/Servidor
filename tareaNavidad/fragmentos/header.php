@@ -1,8 +1,8 @@
 <header>
-    <div class="logo">
+    <a href="./home.php" class="logo">
         <img src="./imagenes/logo.png" alt="Imagen del logo">
-        <h2>Tienda</h2>
-    </div>
+        <h1>Tienda</h1>
+    </a>
     <nav class="navegacion">
         <?php
         session_start();

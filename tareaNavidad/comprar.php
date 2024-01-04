@@ -1,5 +1,6 @@
 <?php
 require('./funciones/conexionBD.php');
+require('./funciones/funciones.php');
 
 session_start();
 
@@ -8,6 +9,10 @@ if (!isset($_SESSION['usuario'])) {
     header('Location: ./login.php');
     exit;
 }
+
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -26,31 +31,69 @@ if (!isset($_SESSION['usuario'])) {
     <?php
     include("./fragmentos/header.php");
     ?>
-    <!-- <h1>Compras</h1> -->
-    <section class="destacados">
-        <h3>Productos destacados</h3>
-        <div class="productos-destacados">
-            <?php
-            $arrProductos = cargarProductosInicio();
-            foreach ($arrProductos as $producto) {
-                echo "<div class='card'>";
-                echo '<img src="' . $producto['url_imagen'] . '" alt="">';
-                echo "<h3>" . $producto['descripcion'] . "</h3>";
-                echo "<p>" . $producto['precio'] . " €</p>";
-                echo '<form action="">';
-                echo "<p>Disponibles: " . $producto['stock'] . "</p>";
-                echo '<input type="hidden" name="codigo" value"' . $producto['codigo'] . '">';
-                echo '<label for="cantidad' . $producto['codigo'] . '">Seleccionar cantidad: </label>';
-                echo '<input type="number" name="cantidad" id="cantidad' . $producto['codigo'] . '" min="1" max="' . $producto['stock'] . '">';
-                echo '<input type="submit" name="comprar" value="Comprar">';
-                echo '</form>';
-                echo "</div>";
+
+
+    <main>
+        <?php
+        if (isset($_REQUEST["buscar"]) && isset($_REQUEST["categoria"])) { // COMPRUEBA QUE SE HA BUSCADO UNA CATEGORIA
+            // CARGA LA CATEGORIA BUSCADA 
+            if ($_REQUEST["categoria"]== "Todos") {
+                $arrProductos = cargarProductos();
+
+            } else {
+                $arrProductos = cargarProductosCategoria($_REQUEST["categoria"]);
             }
-            // echo "<pre>";
-            // print_r($arrProductos)
             ?>
-        </div>
-    </section>
+            <section class="seccion-productos">
+                <h2><?php echo $_REQUEST["categoria"] ?></h2>
+                <div class="productos">
+
+                    <?php
+
+                    representarProductos($arrProductos);
+
+                    ?>
+
+                </div>
+            </section>
+            <?php
+
+        } else { // CARGA "DESTACADOS"
+            ?>
+            <section class="seccion-productos">
+                <h2>Productos destacados</h2>
+                <div class="productos">
+                    <?php
+                    $arrProductos = cargarProductosInicio();
+                    representarProductos($arrProductos);
+                    ?>
+                </div>
+            </section>
+            <?php
+        }
+
+
+        ?>
+        <!-- FORMULARIO DE CATEGORIAS -->
+        <form action="" class="formulario-categorias">
+            <p>Selecciona una categoria de busqueda:</p>
+            <label class="categoria" for="general">Todos
+                <input class="categoria" type="radio" id="general" name="categoria" value="Todos" checked>
+            </label>
+            <?php
+
+            $categorias = cargarCategorias();
+            foreach ($categorias as $categoria) {
+                echo '<label class="categoria" for="' . $categoria . '">' . $categoria;
+                echo '<input class="categoria" type="radio" id="' . $categoria . '" name="categoria" value="' . $categoria . '">';
+                echo '</label>';
+            }
+            ?>
+            <input class="categoria" type="submit" name="buscar" value="Buscar">
+        </form>
+
+
+    </main>
 </body>
 
 </html>
