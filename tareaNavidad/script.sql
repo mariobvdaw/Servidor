@@ -1,5 +1,5 @@
 CREATE DATABASE IF NOT EXISTS navidad;
-CREATE USER navidad identified BY 'navidad';
+CREATE USER IF NOT EXISTS navidad identified BY 'navidad';
 USE navidad;
 GRANT all ON navidad.* TO navidad;
 

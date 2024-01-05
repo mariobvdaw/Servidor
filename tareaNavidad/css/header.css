@@ -25,7 +25,7 @@ header {
 }
 
 .logo h1 {
-    font-size: 1.7rem;
+    font-size: 1.8rem;
     font-family: 'Arial', sans-serif;
     margin: 0 10px;
     color: #09f;
@@ -37,7 +37,7 @@ header {
 
 .navegacion a,
 .user a {
-    color: white;
+    color: #ddd;
     text-decoration: none;
     padding: 8px 15px;
     border-radius: 5px;
@@ -47,7 +47,6 @@ header {
 
 .navegacion a:hover,
 .user a:hover {
+    color: white;
     text-shadow: 0 0 10px white, 0 0 10px white, 0 0 10px white;
-    box-shadow: 0 0 10px white, 0 0 10px white, 0 0 10px white;
-    color: black;
 }

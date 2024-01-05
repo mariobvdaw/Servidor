@@ -22,6 +22,7 @@ function recuerda($name)
     }
 }
 
+
 function validaFormulario(&$errores)
 {
     $nombre = $_REQUEST['nombre'];
@@ -36,7 +37,7 @@ function validaFormulario(&$errores)
     $incorrecto = "Formato incorrecto";
     if (textoVacio($nombre)) {
         $errores['nombre'] = $vacio;
-    }elseif(existeUsuario($nombre)){
+    }elseif(findUser($nombre)){
         $errores['nombre'] = "Ese nombre ya esta en uso";
     }
     if (textoVacio($contrasenia)) {
@@ -59,7 +60,45 @@ function validaFormulario(&$errores)
     } elseif (!preg_match($patron_fecha, $fecha)) {
         $errores['fecha'] = $incorrecto;
     } 
+    if (textoVacio($correo)) {
+        $errores['correo'] = $vacio;
+    } elseif (!preg_match($patron_correo, $correo)) {
+        $errores["correo"] = $incorrecto;
+    }
 
+    if (count($errores) == 0) {
+        return true;
+    }
+    return false;
+}
+
+
+function validaFormularioDatos(&$errores)
+{
+    $contrasenia = $_REQUEST['pass'];
+    $correo = $_REQUEST['email'];
+    $fecha = $_REQUEST['fecha_nacimiento'];
+    $patron_correo = "/^[A-Za-z0-9]{1,}@[A-Za-z0-9]{1,}[.][A-Za-z0-9]{2,}$/";
+    $patron_fecha = "/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/";
+
+    $vacio = "Campo vacio";
+    $incorrecto = "Formato incorrecto";
+    
+    if (textoVacio($contrasenia)) {
+        $errores['contrasenia'] = $vacio;
+    } elseif (
+        strlen($contrasenia) < 8 ||
+        !preg_match("/[A-Z]/", $contrasenia) ||
+        !preg_match("/[a-z]/", $contrasenia) ||
+        !preg_match("/\d/", $contrasenia)
+    ) {
+        $errores["contrasenia"] = $incorrecto;
+    }
+    if (textoVacio($fecha)) {
+        $errores['fecha'] = $vacio;
+    } elseif (!preg_match($patron_fecha, $fecha)) {
+        $errores['fecha'] = $incorrecto;
+    } 
     if (textoVacio($correo)) {
         $errores['correo'] = $vacio;
     } elseif (!preg_match($patron_correo, $correo)) {

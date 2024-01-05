@@ -84,7 +84,7 @@ if (isset($_REQUEST["enviar"])) {
 
     <?php
 
-    if ($datosTabla = validaUsuario()) {
+    if ($datosTabla = findAll()) {
         if (isset($_REQUEST["enviar"]) && $_REQUEST["enviar"] == "buscar") {
             $datosTabla = findByName($_REQUEST["nombre"]);
         }

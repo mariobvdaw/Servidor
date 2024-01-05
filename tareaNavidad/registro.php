@@ -17,7 +17,7 @@ include("./funciones/conexionBD.php");
     $errores = array();
     if (enviado() && validaFormulario($errores)) {
         registrarUsuario($_REQUEST['nombre'],$_REQUEST['contrasenia'],$_REQUEST['correo'],$_REQUEST['fecha'],);
-        echo "Redirigiendo al login...";
+        echo "Usuario creado, redirigiendo al login...";
         header("refresh:3;url=./login.php");
         exit;
     }
@@ -52,6 +52,8 @@ include("./funciones/conexionBD.php");
         </label>
         <?php errores($errores, "fecha"); ?>
         <input type="submit" name="enviar" value="Enviar" id="enviar">
+        <a class="enlace-cuenta" href="./login.php">¿Ya tienes cuenta?</a>
+
     </form>
 </body>
 

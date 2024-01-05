@@ -13,6 +13,8 @@ if (enviado() && !textoVacio($_REQUEST['user']) && !textoVacio($_REQUEST['pass']
     } else {
         $errores['user'] = "No existe el usuario o contraseña";
     }
+}elseif(enviado()){
+    $errores["user"] = "Completa los campos";
 }
 
 ?>
@@ -47,7 +49,7 @@ if (enviado() && !textoVacio($_REQUEST['user']) && !textoVacio($_REQUEST['pass']
         echo '<span class="error">' . $errores["user"] . ' </span>';
         ?>
         <input type="submit" value="enviar" name="enviar" id="enviar">
-        <a href="./registro.php">¿No tienes cuenta?</a>
+        <a class="enlace-cuenta" href="./registro.php">¿No tienes cuenta?</a>
     </form>
 
 </body>

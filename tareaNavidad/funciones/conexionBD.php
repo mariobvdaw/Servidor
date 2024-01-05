@@ -1,6 +1,29 @@
 <?php
 
 require('./funciones/confBD.php');
+function crearBase()
+{
+    $DSN = "mysql:host=" . IP . ';dbname=mysql';
+    try {
+        $con = new PDO($DSN, USERINICIO, PASSINICIO);
+        $script = file_get_contents("./script.sql");
+        $con->exec($script);
+
+    } catch (\Throwable $th) {
+        switch ($th->getCode()) {
+            // ERRORES CONEXION
+            default:
+                echo "Error: " . $th->getMessage() . PHP_EOL;
+                echo "Código: " . $th->getCode() . PHP_EOL;
+                echo "Traza: " . $th->getTraceAsString() . PHP_EOL;
+            // echo $th->getMessage();
+            // echo $th->getCode();
+        }
+    } finally {
+        unset($con);
+    }
+}
+
 
 function validaUsuario($user, $pass)
 {
@@ -21,6 +44,91 @@ function validaUsuario($user, $pass)
     } catch (\Throwable $th) {
 
         switch ($th->getCode()) {
+            case '1049':
+                crearBase();
+                break;
+            default:
+                echo $th->getMessage();
+                echo $th->getCode();
+        }
+    } finally {
+        unset($con);
+    }
+
+}
+function findUser($user)
+{
+    try {
+        $DSN = "mysql:host=" . IP . ';dbname=' . BD;
+        $con = new PDO($DSN, USER, PASS);
+        $sql = "select * from usuarios where user = ?";
+        $stmt = $con->prepare($sql);
+        $stmt->execute([$user]);
+        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($usuario) {
+            unset($con);
+            return $usuario;
+        }
+        return false;
+
+
+    } catch (\Throwable $th) {
+
+        switch ($th->getCode()) {
+            case '1049':
+                crearBase();
+                break;
+
+            default:
+                echo $th->getMessage();
+                echo $th->getCode();
+        }
+    } finally {
+        unset($con);
+    }
+
+}
+
+
+function registrarUsuario($nombre, $contrasenia, $correo, $fecha)
+{
+    try {
+        $DSN = "mysql:host=" . IP . ';dbname=' . BD;
+        $con = new PDO($DSN, USER, PASS);
+        $sql = "insert into usuarios (user, pass, email, fecha_nacimiento, perfil) values (?,?,?,?,?)";
+        $stmt = $con->prepare($sql);
+        $stmt->execute([$nombre, $contrasenia, $correo, $fecha, 'cliente']);
+
+    } catch (\Throwable $th) {
+        switch ($th->getCode()) {
+            case '1049':
+                crearBase();
+                break;
+
+            default:
+                echo $th->getMessage();
+                echo $th->getCode();
+        }
+    } finally {
+        unset($con);
+    }
+
+}
+
+function modificarUsuario($nombre, $contrasenia, $correo, $fecha)
+{
+    try {
+        $DSN = "mysql:host=" . IP . ';dbname=' . BD;
+        $con = new PDO($DSN, USER, PASS);
+        $sql = "update usuarios set pass = ?, email = ?, fecha_nacimiento = ? where user = ?";
+        $stmt = $con->prepare($sql);
+        $stmt->execute([$contrasenia, $correo, $fecha, $nombre]);
+
+    } catch (\Throwable $th) {
+        switch ($th->getCode()) {
+            case '1049':
+                crearBase();
+                break;
 
             default:
                 echo $th->getMessage();
@@ -50,6 +158,9 @@ function cargarProductos()
     } catch (\Throwable $th) {
 
         switch ($th->getCode()) {
+            case '1049':
+                crearBase();
+                break;
 
             default:
                 echo $th->getMessage();
@@ -79,6 +190,9 @@ function cargarProductosInicio()
     } catch (\Throwable $th) {
 
         switch ($th->getCode()) {
+            case '1049':
+                crearBase();
+                break;
 
             default:
                 echo $th->getMessage();
@@ -108,7 +222,9 @@ function cargarProductosCategoria($categoria)
     } catch (\Throwable $th) {
 
         switch ($th->getCode()) {
-
+            case '1049':
+                crearBase();
+                break;
             default:
                 echo $th->getMessage();
                 echo $th->getCode();
@@ -136,6 +252,9 @@ function cargarCategorias()
     } catch (\Throwable $th) {
 
         switch ($th->getCode()) {
+            case '1049':
+                crearBase();
+                break;
 
             default:
                 echo $th->getMessage();
@@ -146,60 +265,6 @@ function cargarCategorias()
     }
 
 }
-
-function existeUsuario($user)
-{
-    try {
-        $DSN = "mysql:host=" . IP . ';dbname=' . BD;
-        $con = new PDO($DSN, USER, PASS);
-        $sql = "select * from usuarios where user = ?";
-        $stmt = $con->prepare($sql);
-        $stmt->execute([$user]);
-        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($usuario) {
-            unset($con);
-            return true;
-        }
-        return false;
-
-
-    } catch (\Throwable $th) {
-
-        switch ($th->getCode()) {
-
-            default:
-                echo $th->getMessage();
-                echo $th->getCode();
-        }
-    } finally {
-        unset($con);
-    }
-
-}
-
-
-function registrarUsuario($nombre, $contrasenia, $correo, $fecha)
-{
-    try {
-        $DSN = "mysql:host=" . IP . ';dbname=' . BD;
-        $con = new PDO($DSN, USER, PASS);
-        $sql = "insert into usuarios (user, pass, email, fecha_nacimiento, perfil) values (?,?,?,?,?)";
-        $stmt = $con->prepare($sql);
-        $stmt->execute([$nombre, $contrasenia, $correo, $fecha,'cliente']);
-
-    } catch (\Throwable $th) {
-        switch ($th->getCode()) {
-
-            default:
-                echo $th->getMessage();
-                echo $th->getCode();
-        }
-    } finally {
-        unset($con);
-    }
-
-}
-
 
 
 

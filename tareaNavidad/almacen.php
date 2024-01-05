@@ -1,4 +1,7 @@
 <?php
+
+require('./funciones/conexionBD.php');
+
 session_start();
 
 if (!isset($_SESSION['usuario'])) {
@@ -16,9 +19,10 @@ if (!isset($_SESSION['usuario'])) {
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/almacen.css">
     <title>Almacen</title>
 </head>
 
@@ -26,8 +30,18 @@ if (!isset($_SESSION['usuario'])) {
     <?php
     include("./fragmentos/header.php");
     ?>
-    <h1>Almacen</h1>
-    
+
+
+    <h2>Almacen</h2>
+    <?php
+    $arrProductos = cargarProductos();
+    foreach ($arrProductos as $key => $value) {
+        # code...
+        echo $value['codigo'];
+    }
+
+    ?>
+
 </body>
 
 </html>
