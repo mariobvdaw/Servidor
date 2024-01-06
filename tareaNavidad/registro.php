@@ -15,7 +15,7 @@ include("./funciones/conexionBD.php");
 <body>
     <?php
     $errores = array();
-    if (enviado() && validaFormulario($errores)) {
+    if (enviado() && validaFormularioRegistro($errores)) {
         registrarUsuario($_REQUEST['nombre'],$_REQUEST['contrasenia'],$_REQUEST['correo'],$_REQUEST['fecha'],);
         echo "Usuario creado, redirigiendo al login...";
         header("refresh:3;url=./login.php");

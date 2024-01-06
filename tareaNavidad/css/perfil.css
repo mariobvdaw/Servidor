@@ -39,9 +39,16 @@ input[type="submit"] {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: filter 0.2s, box-shadow 0.2s;
 }
 
 input[type="submit"]:hover {
     box-shadow: 0 0 5px black;
     filter: brightness(130%);
+}
+
+.error {
+    margin: 3px 0 5px;
+    font-size: .8rem;
+    color: red;
 }

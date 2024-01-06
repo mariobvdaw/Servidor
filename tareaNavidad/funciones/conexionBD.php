@@ -1,5 +1,4 @@
 <?php
-
 require('./funciones/confBD.php');
 function crearBase()
 {
@@ -11,26 +10,20 @@ function crearBase()
 
     } catch (\Throwable $th) {
         switch ($th->getCode()) {
-            // ERRORES CONEXION
             default:
-                echo "Error: " . $th->getMessage() . PHP_EOL;
-                echo "Código: " . $th->getCode() . PHP_EOL;
-                echo "Traza: " . $th->getTraceAsString() . PHP_EOL;
-            // echo $th->getMessage();
-            // echo $th->getCode();
+                echo $th->getMessage();
+                echo $th->getCode();
         }
     } finally {
         unset($con);
     }
 }
-
-
 function validaUsuario($user, $pass)
 {
     try {
         $DSN = "mysql:host=" . IP . ';dbname=' . BD;
         $con = new PDO($DSN, USER, PASS);
-        $sql = "select * from usuarios where user = ? and pass = ?";
+        $sql = "SELECT * FROM usuarios WHERE user = ? AND pass = ?";
         $stmt = $con->prepare($sql);
         $stmt->execute(array($user, $pass));
         $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -40,9 +33,7 @@ function validaUsuario($user, $pass)
         }
         return false;
 
-
     } catch (\Throwable $th) {
-
         switch ($th->getCode()) {
             case '1049':
                 crearBase();
@@ -54,14 +45,13 @@ function validaUsuario($user, $pass)
     } finally {
         unset($con);
     }
-
 }
 function findUser($user)
 {
     try {
         $DSN = "mysql:host=" . IP . ';dbname=' . BD;
         $con = new PDO($DSN, USER, PASS);
-        $sql = "select * from usuarios where user = ?";
+        $sql = "SELECT * FROM usuarios WHERE user = ?";
         $stmt = $con->prepare($sql);
         $stmt->execute([$user]);
         $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -71,9 +61,7 @@ function findUser($user)
         }
         return false;
 
-
     } catch (\Throwable $th) {
-
         switch ($th->getCode()) {
             case '1049':
                 crearBase();
@@ -86,16 +74,13 @@ function findUser($user)
     } finally {
         unset($con);
     }
-
 }
-
-
 function registrarUsuario($nombre, $contrasenia, $correo, $fecha)
 {
     try {
         $DSN = "mysql:host=" . IP . ';dbname=' . BD;
         $con = new PDO($DSN, USER, PASS);
-        $sql = "insert into usuarios (user, pass, email, fecha_nacimiento, perfil) values (?,?,?,?,?)";
+        $sql = "INSERT INTO usuarios VALUES (?,?,?,?,?)";
         $stmt = $con->prepare($sql);
         $stmt->execute([$nombre, $contrasenia, $correo, $fecha, 'cliente']);
 
@@ -104,7 +89,6 @@ function registrarUsuario($nombre, $contrasenia, $correo, $fecha)
             case '1049':
                 crearBase();
                 break;
-
             default:
                 echo $th->getMessage();
                 echo $th->getCode();
@@ -112,7 +96,6 @@ function registrarUsuario($nombre, $contrasenia, $correo, $fecha)
     } finally {
         unset($con);
     }
-
 }
 
 function modificarUsuario($nombre, $contrasenia, $correo, $fecha)
@@ -120,7 +103,7 @@ function modificarUsuario($nombre, $contrasenia, $correo, $fecha)
     try {
         $DSN = "mysql:host=" . IP . ';dbname=' . BD;
         $con = new PDO($DSN, USER, PASS);
-        $sql = "update usuarios set pass = ?, email = ?, fecha_nacimiento = ? where user = ?";
+        $sql = "UPDATE usuarios SET pass = ?, email = ?, fecha_nacimiento = ? WHERE user = ?";
         $stmt = $con->prepare($sql);
         $stmt->execute([$contrasenia, $correo, $fecha, $nombre]);
 
@@ -129,7 +112,6 @@ function modificarUsuario($nombre, $contrasenia, $correo, $fecha)
             case '1049':
                 crearBase();
                 break;
-
             default:
                 echo $th->getMessage();
                 echo $th->getCode();
@@ -137,15 +119,13 @@ function modificarUsuario($nombre, $contrasenia, $correo, $fecha)
     } finally {
         unset($con);
     }
-
 }
-
 function cargarProductos()
 {
     try {
         $DSN = "mysql:host=" . IP . ';dbname=' . BD;
         $con = new PDO($DSN, USER, PASS);
-        $sql = "select * from productos";
+        $sql = "SELECT * FROM productos";
         $stmt = $con->prepare($sql);
         $stmt->execute();
 
@@ -156,12 +136,10 @@ function cargarProductos()
         return $productos;
 
     } catch (\Throwable $th) {
-
         switch ($th->getCode()) {
             case '1049':
                 crearBase();
                 break;
-
             default:
                 echo $th->getMessage();
                 echo $th->getCode();
@@ -169,15 +147,13 @@ function cargarProductos()
     } finally {
         unset($con);
     }
-
 }
-
 function cargarProductosInicio()
 {
     try {
         $DSN = "mysql:host=" . IP . ';dbname=' . BD;
         $con = new PDO($DSN, USER, PASS);
-        $sql = "select * from productos order by precio desc limit 4";
+        $sql = "SELECT * FROM productos ORDER BY precio DESC LIMIT 4";
         $stmt = $con->prepare($sql);
         $stmt->execute();
 
@@ -188,12 +164,10 @@ function cargarProductosInicio()
         return $productos;
 
     } catch (\Throwable $th) {
-
         switch ($th->getCode()) {
             case '1049':
                 crearBase();
                 break;
-
             default:
                 echo $th->getMessage();
                 echo $th->getCode();
@@ -201,15 +175,13 @@ function cargarProductosInicio()
     } finally {
         unset($con);
     }
-
 }
-
 function cargarProductosCategoria($categoria)
 {
     try {
         $DSN = "mysql:host=" . IP . ';dbname=' . BD;
         $con = new PDO($DSN, USER, PASS);
-        $sql = "select * from productos where categoria=?";
+        $sql = "SELECT * FROM productos WHERE categoria = ?";
         $stmt = $con->prepare($sql);
         $stmt->execute([$categoria]);
 
@@ -220,7 +192,6 @@ function cargarProductosCategoria($categoria)
         return $productos;
 
     } catch (\Throwable $th) {
-
         switch ($th->getCode()) {
             case '1049':
                 crearBase();
@@ -232,14 +203,13 @@ function cargarProductosCategoria($categoria)
     } finally {
         unset($con);
     }
-
 }
 function cargarCategorias()
 {
     try {
         $DSN = "mysql:host=" . IP . ';dbname=' . BD;
         $con = new PDO($DSN, USER, PASS);
-        $sql = "select distinct categoria from productos";
+        $sql = "SELECT DISTINCT categoria FROM productos";
         $stmt = $con->prepare($sql);
         $stmt->execute();
 
@@ -250,7 +220,62 @@ function cargarCategorias()
         return $categorias;
 
     } catch (\Throwable $th) {
+        switch ($th->getCode()) {
+            case '1049':
+                crearBase();
+                break;
+            default:
+                echo $th->getMessage();
+                echo $th->getCode();
+        }
+    } finally {
+        unset($con);
+    }
+}
+function aumentarStock($codigo, $sumaStock)
+{
+    try {
+        $DSN = "mysql:host=" . IP . ';dbname=' . BD;
+        $con = new PDO($DSN, USER, PASS);
+        $sql = "UPDATE productos SET stock = stock + ? WHERE codigo = ?";
+        $stmt = $con->prepare($sql);
+        $stmt->execute([$sumaStock, $codigo]);
 
+        $categorias = array();
+        while ($cat = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            array_push($categorias, $cat['categoria']);
+        }
+        return $categorias;
+
+    } catch (\Throwable $th) {
+        switch ($th->getCode()) {
+            case '1049':
+                crearBase();
+                break;
+            default:
+                echo $th->getMessage();
+                echo $th->getCode();
+        }
+    } finally {
+        unset($con);
+    }
+}
+function findProduct($codigo)
+{
+    try {
+        $DSN = "mysql:host=" . IP . ';dbname=' . BD;
+        $con = new PDO($DSN, USER, PASS);
+        $sql = "SELECT * FROM productos WHERE codigo = ?";
+        $stmt = $con->prepare($sql);
+        $stmt->execute([$codigo]);
+        $producto = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($producto) {
+            unset($con);
+            return $producto;
+        }
+        return false;
+
+    } catch (\Throwable $th) {
         switch ($th->getCode()) {
             case '1049':
                 crearBase();
@@ -263,7 +288,56 @@ function cargarCategorias()
     } finally {
         unset($con);
     }
+}
+function altaProducto($codigo, $descripcion, $precio, $stock, $url_imagen, $categoria)
+{
+    try {
+        $DSN = "mysql:host=" . IP . ';dbname=' . BD;
+        $con = new PDO($DSN, USER, PASS);
+        $sql = "INSERT INTO productos VALUES (?,?,?,?,?,?)";
+        $stmt = $con->prepare($sql);
+        $stmt->execute([$codigo, $descripcion, $precio, $stock, $url_imagen, $categoria]);
 
+        $categorias = array();
+        while ($cat = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            array_push($categorias, $cat['categoria']);
+        }
+        return $categorias;
+
+    } catch (\Throwable $th) {
+        switch ($th->getCode()) {
+            case '1049':
+                crearBase();
+                break;
+            default:
+                echo $th->getMessage();
+                echo $th->getCode();
+        }
+    } finally {
+        unset($con);
+    }
+}
+function modificarProducto($codigo, $descripcion, $precio)
+{
+    try {
+        $DSN = "mysql:host=" . IP . ';dbname=' . BD;
+        $con = new PDO($DSN, USER, PASS);
+        $sql = "UPDATE productos SET descripcion = ?, precio = ? WHERE codigo = ?";
+        $stmt = $con->prepare($sql);
+        $stmt->execute([$descripcion, $precio, $codigo]);
+
+    } catch (\Throwable $th) {
+        switch ($th->getCode()) {
+            case '1049':
+                crearBase();
+                break;
+            default:
+                echo $th->getMessage();
+                echo $th->getCode();
+        }
+    } finally {
+        unset($con);
+    }
 }
 
 

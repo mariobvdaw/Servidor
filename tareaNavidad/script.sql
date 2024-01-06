@@ -28,12 +28,6 @@ CREATE TABLE IF NOT EXISTS productos (
 
 INSERT INTO productos (codigo, descripcion, precio, stock, url_imagen, categoria)
 VALUES 
-    (1, 'Portátil ASUS', 600.00, 10, 'https://acortar.link/RlTEqM', 'Informática'),
-    (2, 'Smartphone Samsung', 400.50, 15, 'url_de_la_imagen_2', 'Electrónica'),
-    (3, 'Televisor LG', 800.75, 5, 'https://acortar.link/TX34oz', 'Electrodomésticos'),
-    (4, 'Televisor LG', 800.75, 5, 'https://acortar.link/TX34oz', 'Electrodomésticos'),
-    (5, 'Televisor LG', 800.75, 5, 'https://acortar.link/TX34oz', 'Electrodomésticos'),
-    (15, 'Televisor LG', 800.75, 5, 'https://acortar.link/TX34oz', 'Electrodomésticos'),
-    (25, 'Televisor LG', 800.75, 5, 'https://acortar.link/TX34oz', 'Electrónica'),
-    (35, 'Televisor LG', 800.75, 5, 'https://acortar.link/TX34oz', 'Electrodomésticos'),
-    (6, 'Televisor LG', 800.75, 5, 'https://acortar.link/TX34oz', 'Informática');
+    (1, 'Portátil ASUS', 600.00, 10, 'https://i.postimg.cc/WzZ30ZbH/portatil-Asus.jpg', 'Informática'),
+    (2, 'Smartphone Samsung', 400.50, 15, 'https://i.postimg.cc/m20ndHZS/movil-Samsung.jpg', 'Electrónica'),
+    (3, 'Televisor LG', 800.75, 5, 'https://i.postimg.cc/VsZBgPs9/teleLG.jpg', 'Electrodomésticos');

@@ -48,7 +48,7 @@ if (enviado() && !textoVacio($_REQUEST['user']) && !textoVacio($_REQUEST['pass']
         <?php
         echo '<span class="error">' . $errores["user"] . ' </span>';
         ?>
-        <input type="submit" value="enviar" name="enviar" id="enviar">
+        <input type="submit" value="Iniciar" name="enviar" id="enviar">
         <a class="enlace-cuenta" href="./registro.php">¿No tienes cuenta?</a>
     </form>
 

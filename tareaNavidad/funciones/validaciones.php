@@ -1,7 +1,8 @@
 <?php
+include("./conexionBD.php");
 function enviado()
 {
-    if (isset($_REQUEST['enviar'])) {
+    if (isset($_REQUEST['enviar']) || isset($_REQUEST['añadir']) || isset($_REQUEST['guardar'])) {
         return true;
     }
     return false;
@@ -23,7 +24,7 @@ function recuerda($name)
 }
 
 
-function validaFormulario(&$errores)
+function validaFormularioRegistro(&$errores)
 {
     $nombre = $_REQUEST['nombre'];
     $contrasenia = $_REQUEST['contrasenia'];
@@ -73,7 +74,7 @@ function validaFormulario(&$errores)
 }
 
 
-function validaFormularioDatos(&$errores)
+function validaFormularioPerfil(&$errores)
 {
     $contrasenia = $_REQUEST['pass'];
     $correo = $_REQUEST['email'];
@@ -85,26 +86,95 @@ function validaFormularioDatos(&$errores)
     $incorrecto = "Formato incorrecto";
     
     if (textoVacio($contrasenia)) {
-        $errores['contrasenia'] = $vacio;
+        $errores['pass'] = $vacio;
     } elseif (
         strlen($contrasenia) < 8 ||
         !preg_match("/[A-Z]/", $contrasenia) ||
         !preg_match("/[a-z]/", $contrasenia) ||
         !preg_match("/\d/", $contrasenia)
     ) {
-        $errores["contrasenia"] = $incorrecto;
+        $errores["pass"] = $incorrecto;
     }
     if (textoVacio($fecha)) {
-        $errores['fecha'] = $vacio;
+        $errores['fecha_nacimiento'] = $vacio;
     } elseif (!preg_match($patron_fecha, $fecha)) {
-        $errores['fecha'] = $incorrecto;
+        $errores['fecha_nacimiento'] = $incorrecto;
     } 
     if (textoVacio($correo)) {
-        $errores['correo'] = $vacio;
+        $errores['email'] = $vacio;
     } elseif (!preg_match($patron_correo, $correo)) {
-        $errores["correo"] = $incorrecto;
+        $errores["email"] = $incorrecto;
     }
 
+    if (count($errores) == 0) {
+        return true;
+    }
+    return false;
+}
+
+function validaFormProducto(&$errores)
+{
+    $codigo = $_REQUEST['codigoN'];
+    $descripcion = $_REQUEST['descripcion'];
+    $precio = $_REQUEST['precio'];
+    $categoria = $_REQUEST['categoria'];
+    $imagen = $_REQUEST['imagen'];
+    $stock = $_REQUEST['stock'];
+    $patron_numero = "/^[0-9]{1,}$/";
+    $patron_numero_decimales = "/^[0-9]{1,}+(\.[0-9]{1,})?$/";
+    $vacio = "Campo vacio";
+    $incorrecto = "Formato incorrecto";
+    
+    if (textoVacio($codigo)) {
+        $errores['codigo'] = $vacio;
+    }elseif(!preg_match($patron_numero, $codigo)){
+        $errores['codigo'] = $incorrecto;
+    }elseif(findProduct($codigo)){
+        $errores['codigo'] = "Ese codigo ya está en uso";
+    }
+    if (textoVacio($descripcion)) {
+        $errores['descripcion'] = $vacio;
+    }
+    if (textoVacio($precio)) {
+        $errores['precio'] = $vacio;
+    }elseif(!preg_match($patron_numero_decimales, $precio)){
+        $errores['precio'] = $incorrecto;
+    }
+    if (textoVacio($categoria)) {
+        $errores['categoria'] = $vacio;
+    }
+    if (textoVacio($imagen)) {
+        $errores['imagen'] = $vacio;
+    }
+    if (textoVacio($stock)) {
+        $errores['stock'] = $vacio;
+    }elseif(!preg_match($patron_numero, $stock)){
+        $errores['stock'] = $incorrecto;
+    }
+
+    if (count($errores) == 0) {
+        return true;
+    }
+    return false;
+}
+function validaFormProductoMod(&$errores)
+{
+    $descripcion = $_REQUEST['descripcion'];
+    $precio = $_REQUEST['precio'];
+    $patron_numero = "/^[0-9]{1,}+(\.[0-9]{1,})?$/";
+
+    $vacio = "Campo vacio";
+    $incorrecto = "Formato incorrecto";
+    
+   
+    if (textoVacio($descripcion)) {
+        $errores['descripcion'] = $vacio;
+    }
+    if (textoVacio($precio)) {
+        $errores['precio'] = $vacio;
+    }elseif(!preg_match($patron_numero, $precio)){
+        $errores['precio'] = $incorrecto;
+    }
     if (count($errores) == 0) {
         return true;
     }
@@ -116,7 +186,6 @@ function errores($errores, $name)
         echo "<span class='error'>" . $errores[$name] . "</span>";
     }
 }
-
 
 
 ?>

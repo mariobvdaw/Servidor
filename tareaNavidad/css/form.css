@@ -63,6 +63,7 @@ label {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: filter 0.2s, box-shadow 0.2s;
 }
 
 #enviar:hover {

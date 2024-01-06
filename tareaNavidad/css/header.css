@@ -18,6 +18,17 @@ header {
     display: flex;
     align-items: center;
     cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    transition: transform 0.3s, border .4s;
+}
+
+.logo:hover {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.244);
+    border-left: 1px solid rgba(255, 255, 255, 0.244);
+    box-shadow: -2px 2px 5px white;
+    transform: translate(4px, -4px);
+
 }
 
 .logo img {
@@ -42,7 +53,7 @@ header {
     padding: 8px 15px;
     border-radius: 5px;
     margin: 0 5px;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, text-shadow 0.3s;
 }
 
 .navegacion a:hover,

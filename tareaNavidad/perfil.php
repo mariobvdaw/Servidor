@@ -10,7 +10,7 @@ if (!isset($_SESSION['usuario'])) {
     exit;
 }
 $errores = array();
-if (enviado() && validaFormularioDatos($errores)) {
+if (enviado() && validaFormularioPerfil($errores)) {
     modificarUsuario($_SESSION['usuario']['user'], $_REQUEST['pass'], $_REQUEST['email'], $_REQUEST['fecha_nacimiento']);
     $_SESSION['usuario'] = findUser($_SESSION['usuario']['user']);
     echo "<p>Usuario modificado, volviendo al home...</p>";
@@ -51,6 +51,7 @@ if (enviado() && validaFormularioDatos($errores)) {
             }
             echo '<label for="' . $clave . '">' . $clave;
             echo '<input type="text" id="' . $clave . '" name="' . $clave . '" value="' . $dato . '" ' . $lectura . '>';
+            errores($errores, $clave);
             echo '</label>';
         }
         ?>
