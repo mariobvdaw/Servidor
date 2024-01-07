@@ -3,30 +3,24 @@ require('./funciones/conexionBD.php');
 require('./funciones/funciones.php');
 
 session_start();
-
+// COMPROBACIONES PREVIAS
 if (!isset($_SESSION['usuario'])) {
     $_SESSION['error'] = "Antes de comprar debe iniciar sesion";
     header('Location: ./login.php');
     exit;
 }
-if (isset($_REQUEST['comprar'])) {
-    if($_REQUEST['cantidad']<=findProduct($_REQUEST['codigo'])['stock']){
 
-        // echo date('Y-m-d');
-        // echo "<br>";
-        // print_r($_SESSION['usuario']['user']);
-        // echo "<br>";
-        // print_r(findProduct($_REQUEST['codigo'])['precio']);
-        // echo "<br>";
-        // print_r(findProduct($_REQUEST['codigo'])['stock']);
+// SI SE COMPRA UN PRODUCTO Y HAY STOCK PARA REALIZAR LA COMPRA...
+if (isset($_REQUEST['comprar'])) {
+    if ($_REQUEST['cantidad'] <= findProduct($_REQUEST['codigo'])['stock']) {
         comprarProducto(
             $_SESSION['usuario']['user'],
             date('Y-m-d'),
             $_REQUEST['codigo'],
             $_REQUEST['cantidad'],
-            findProduct($_REQUEST['codigo'])['precio']*$_REQUEST['cantidad']
+            findProduct($_REQUEST['codigo'])['precio'] * $_REQUEST['cantidad']
         );
-        restarStock($_REQUEST['codigo'],$_REQUEST['cantidad']);
+        restarStock($_REQUEST['codigo'], $_REQUEST['cantidad']);
     }
 }
 ?>
@@ -65,17 +59,12 @@ if (isset($_REQUEST['comprar'])) {
                     <?php echo $_REQUEST["categoria"] ?>
                 </h2>
                 <div class="productos">
-
                     <?php
-
                     representarProductos($arrProductos);
-
                     ?>
-
                 </div>
             </section>
             <?php
-
         } else { // CARGA "DESTACADOS"
             ?>
             <section class="seccion-productos">

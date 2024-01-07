@@ -316,28 +316,6 @@ function findProduct($codigo)
         unset($con);
     }
 }
-function comprarProducto($usuario, $fecha, $producto, $cantidad, $precio)
-{
-    try {
-        $DSN = "mysql:host=" . IP . ';dbname=' . BD;
-        $con = new PDO($DSN, USER, PASS);
-        $sql = "INSERT INTO compras (comprador, fecha, cod_producto, cantidad, total) VALUES (?,?,?,?,?)";
-        $stmt = $con->prepare($sql);
-        $stmt->execute([$usuario, $fecha, $producto, $cantidad, $precio]);
-
-    } catch (\Throwable $th) {
-        switch ($th->getCode()) {
-            case '1049':
-                crearBase();
-                break;
-            default:
-                echo $th->getMessage();
-                echo $th->getCode();
-        }
-    } finally {
-        unset($con);
-    }
-}
 function altaProducto($codigo, $descripcion, $precio, $stock, $url_imagen, $categoria)
 {
     try {
@@ -388,7 +366,167 @@ function modificarProducto($codigo, $descripcion, $precio)
         unset($con);
     }
 }
+function comprarProducto($usuario, $fecha, $producto, $cantidad, $precio)
+{
+    try {
+        $DSN = "mysql:host=" . IP . ';dbname=' . BD;
+        $con = new PDO($DSN, USER, PASS);
+        $sql = "INSERT INTO compras (comprador, fecha, cod_producto, cantidad, total, activo) VALUES (?,?,?,?,?,?)";
+        $stmt = $con->prepare($sql);
+        $stmt->execute([$usuario, $fecha, $producto, $cantidad, $precio,"1"]);
 
+    } catch (\Throwable $th) {
+        switch ($th->getCode()) {
+            case '1049':
+                crearBase();
+                break;
+            default:
+                echo $th->getMessage();
+                echo $th->getCode();
+        }
+    } finally {
+        unset($con);
+    }
+}
+function cargarCompras()
+{
+    try {
+        $DSN = "mysql:host=" . IP . ';dbname=' . BD;
+        $con = new PDO($DSN, USER, PASS);
+        $sql = "SELECT * FROM compras";
+        $stmt = $con->prepare($sql);
+        $stmt->execute();
 
+        $productos = array();
+        while ($producto = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            array_push($productos, $producto);
+        }
+        return $productos;
+
+    } catch (\Throwable $th) {
+        switch ($th->getCode()) {
+            case '1049':
+                crearBase();
+                break;
+            default:
+                echo $th->getMessage();
+                echo $th->getCode();
+        }
+    } finally {
+        unset($con);
+    }
+}
+function borrarCompra($id)
+{
+    try {
+        $DSN = "mysql:host=" . IP . ';dbname=' . BD;
+        $con = new PDO($DSN, USER, PASS);
+        $sql = "UPDATE compras SET activo = 0 WHERE id = ?";
+        $stmt = $con->prepare($sql);
+        $stmt->execute([$id]);
+
+        $productos = array();
+        while ($producto = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            array_push($productos, $producto);
+        }
+        return $productos;
+
+    } catch (\Throwable $th) {
+        switch ($th->getCode()) {
+            case '1049':
+                crearBase();
+                break;
+            default:
+                echo $th->getMessage();
+                echo $th->getCode();
+        }
+    } finally {
+        unset($con);
+    }
+}
+function cargarAlbaranes()
+{
+    try {
+        $DSN = "mysql:host=" . IP . ';dbname=' . BD;
+        $con = new PDO($DSN, USER, PASS);
+        $sql = "SELECT * FROM albaranes";
+        $stmt = $con->prepare($sql);
+        $stmt->execute();
+
+        $productos = array();
+        while ($producto = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            array_push($productos, $producto);
+        }
+        return $productos;
+
+    } catch (\Throwable $th) {
+        switch ($th->getCode()) {
+            case '1049':
+                crearBase();
+                break;
+            default:
+                echo $th->getMessage();
+                echo $th->getCode();
+        }
+    } finally {
+        unset($con);
+    }
+}
+function generarAlbaran($fecha, $producto, $cantidad, $usuario)
+{
+    try {
+        $DSN = "mysql:host=" . IP . ';dbname=' . BD;
+        $con = new PDO($DSN, USER, PASS);
+        $sql = "INSERT INTO albaranes (fecha, cod_producto, cantidad, usuario, activo) VALUES (?,?,?,?,?)";
+        $stmt = $con->prepare($sql);
+        $stmt->execute([$fecha, $producto, $cantidad, $usuario,"1"]);
+
+        $productos = array();
+        while ($producto = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            array_push($productos, $producto);
+        }
+        return $productos;
+
+    } catch (\Throwable $th) {
+        switch ($th->getCode()) {
+            case '1049':
+                crearBase();
+                break;
+            default:
+                echo $th->getMessage();
+                echo $th->getCode();
+        }
+    } finally {
+        unset($con);
+    }
+}
+function borrarAlbaran($id)
+{
+    try {
+        $DSN = "mysql:host=" . IP . ';dbname=' . BD;
+        $con = new PDO($DSN, USER, PASS);
+        $sql = "UPDATE albaranes SET activo = 0 WHERE id = ?";
+        $stmt = $con->prepare($sql);
+        $stmt->execute([$id]);
+
+        $productos = array();
+        while ($producto = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            array_push($productos, $producto);
+        }
+        return $productos;
+
+    } catch (\Throwable $th) {
+        switch ($th->getCode()) {
+            case '1049':
+                crearBase();
+                break;
+            default:
+                echo $th->getMessage();
+                echo $th->getCode();
+        }
+    } finally {
+        unset($con);
+    }
+}
 
 ?>

@@ -4,7 +4,7 @@ require('./funciones/conexionBD.php');
 require('./funciones/validaciones.php');
 
 session_start();
-
+// COMPROBACIONES PREVIAS DE USUARIOS
 if (!isset($_SESSION['usuario'])) {
     $_SESSION['error'] = "Inicie sesión para acceder al almacen";
     header('Location: ./login.php');
@@ -14,7 +14,7 @@ if (!isset($_SESSION['usuario'])) {
     header('Location: ./home.php');
     exit;
 }
-
+// VALIDAR FORMULARIO Y MODIFICAR PRODUCTO
 $errores = array();
 if (enviado() && validaFormProductoMod($errores)) {
     modificarProducto($_REQUEST['codigo'], $_REQUEST['descripcion'], $_REQUEST['precio']);
@@ -31,6 +31,7 @@ if (enviado() && validaFormProductoMod($errores)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/tablas.css">
     <link rel="stylesheet" href="css/almacen.css">
     <title>Almacen</title>
 </head>
@@ -39,9 +40,7 @@ if (enviado() && validaFormProductoMod($errores)) {
     <?php
     include("./fragmentos/header.php");
     ?>
-
-
-    <h2>Almacen</h2>
+    <h2>Modificar Producto</h2>
     <table>
         <thead>
             <tr>
@@ -55,7 +54,7 @@ if (enviado() && validaFormProductoMod($errores)) {
             $producto = findProduct($_REQUEST['codigo']);
 
             echo '<form action="">';
-            echo '<input type="submit" class="boton-añadir-stock" name="guardar" value="Guardar">';
+            echo '<input type="submit" class="boton-tabla" name="guardar" value="Guardar">';
             echo "<tr>";
             echo "<td>" . $producto['codigo'] . "</td>";
             echo '<td><input type="text" value="' . $producto['descripcion'] . '" id="descipcion" name="descripcion"></td>';
@@ -68,7 +67,6 @@ if (enviado() && validaFormProductoMod($errores)) {
             ?>
         </tbody>
     </table>
-
 
 </body>
 

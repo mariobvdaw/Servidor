@@ -28,9 +28,11 @@ CREATE TABLE IF NOT EXISTS productos (
 
 INSERT INTO productos (codigo, descripcion, precio, stock, url_imagen, categoria)
 VALUES 
-    (1, 'Portátil ASUS', 600.00, 10, 'https://i.postimg.cc/WzZ30ZbH/portatil-Asus.jpg', 'Informática'),
-    (2, 'Smartphone Samsung', 400.50, 15, 'https://i.postimg.cc/m20ndHZS/movil-Samsung.jpg', 'Electrónica'),
-    (3, 'Televisor LG', 800.75, 5, 'https://i.postimg.cc/VsZBgPs9/teleLG.jpg', 'Electrodomésticos');
+    (1, 'Portátil ASUS', 600.00, 40, 'https://i.postimg.cc/WzZ30ZbH/portatil-Asus.jpg', 'Informática'),
+    (2, 'Galaxy S23+', 630.50, 115, 'https://i.postimg.cc/ryxLV3hx/movil.jpg', 'Electrónica'),
+    (3, 'Televisor LG', 800.75, 15, 'https://i.postimg.cc/R0BS99m3/televisor.jpg', 'Electrodomésticos'),
+    (4, 'Lavadora WM-99D2', 320.00, 2, 'https://i.postimg.cc/8CmtXdwF/lavadora.webp', 'Electrodomésticos'),
+    (5, 'Gorro de lana', 3.15, 35, 'https://i.postimg.cc/9Qj0XytF/gorro.jpg', 'Ropa');
 
 CREATE TABLE IF NOT EXISTS compras (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -39,6 +41,18 @@ CREATE TABLE IF NOT EXISTS compras (
     cod_producto INT,
     cantidad INT,
     total DECIMAL(10, 2),
+    activo INT,
     FOREIGN KEY (comprador) REFERENCES usuarios(user),
+    FOREIGN KEY (cod_producto) REFERENCES productos(codigo)
+);
+
+CREATE TABLE IF NOT EXISTS albaranes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    fecha DATE,
+    cod_producto INT,
+    cantidad INT,
+    usuario VARCHAR(20),
+    activo INT,
+    FOREIGN KEY (usuario) REFERENCES usuarios(user),
     FOREIGN KEY (cod_producto) REFERENCES productos(codigo)
 );

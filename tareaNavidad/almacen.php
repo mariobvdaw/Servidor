@@ -4,7 +4,7 @@ require('./funciones/conexionBD.php');
 require('./funciones/validaciones.php');
 
 session_start();
-
+// COMPROBACIONES PREVIAS DE USUARIOS
 if (!isset($_SESSION['usuario'])) {
     $_SESSION['error'] = "Inicie sesión para acceder al almacen";
     header('Location: ./login.php');
@@ -16,19 +16,31 @@ if (!isset($_SESSION['usuario'])) {
 }
 
 $errores = array();
-if (isset($_REQUEST['añadir'])) {
-    if ($_REQUEST['añadir'] == "Añadir stock" && $_REQUEST['aumento'] > 0) {
-        aumentarStock($_REQUEST['codigo'], $_REQUEST['aumento']);
-        // generar linea albaran *****
+if (isset($_REQUEST['añadir'])) { // SE QUIERE AÑADIR
+    if ($_REQUEST['añadir'] == "Añadir stock" && $_REQUEST['cantidad'] > 0) { // STOCK
+        aumentarStock($_REQUEST['codigo'], $_REQUEST['cantidad']);
+        generarAlbaran(
+            date('Y-m-d'),
+            $_REQUEST['codigo'],
+            $_REQUEST['cantidad'],
+            $_SESSION['usuario']['user'],
+        );
     } elseif (
         $_REQUEST['añadir'] == "Nuevo" &&
         $_SESSION['usuario']['perfil'] == "administrador" &&
         validaFormProducto($errores)
-    ) {
+    ) { // NUEVO PRODUCTO
         altaProducto($_REQUEST['codigoN'], $_REQUEST['descripcion'], $_REQUEST['precio'], $_REQUEST['stock'], $_REQUEST['imagen'], $_REQUEST['categoria']);
+        generarAlbaran(
+            date('Y-m-d'),
+            $_REQUEST['codigoN'],
+            $_REQUEST['stock'],
+            $_SESSION['usuario']['user'],
+        );
     }
-} elseif (isset($_REQUEST['modificar']) && $_SESSION['usuario']['perfil'] == "administrador"){
-    header('Location: ./modificarProducto.php?codigo='.$_REQUEST['codigo']);
+} elseif (isset($_REQUEST['modificar']) && $_SESSION['usuario']['perfil'] == "administrador") {
+    // SE QUIERE MODIFICAR UN PRODUCTO EXISTENTE
+    header('Location: ./modificarProducto.php?codigo=' . $_REQUEST['codigo']);
     exit;
 } {
 
@@ -42,7 +54,7 @@ if (isset($_REQUEST['añadir'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/almacen.css">
+    <link rel="stylesheet" href="css/tablas.css">
     <title>Almacen</title>
 </head>
 
@@ -50,9 +62,8 @@ if (isset($_REQUEST['añadir'])) {
     <?php
     include("./fragmentos/header.php");
     ?>
-
-
     <h2>Almacen</h2>
+    <!-- TABLA DE ALMACEN -->
     <table>
         <thead>
             <tr>
@@ -82,15 +93,15 @@ if (isset($_REQUEST['añadir'])) {
                 echo "<td>";
                 echo '<form action="">';
                 echo '<input type="hidden" name="codigo" value="' . $producto['codigo'] . '">';
-                echo '<input type="number" class="input-añadir-stock" name="aumento" min="1">';
-                echo '<input type="submit" class="boton-añadir-stock" name="añadir" value="Añadir stock">';
+                echo '<input type="number" class="input-tabla" name="cantidad" min="1">';
+                echo '<input type="submit" class="boton-tabla" name="añadir" value="Añadir stock">';
                 echo '</form>';
                 echo "</td>";
                 if ($_SESSION['usuario']['perfil'] == "administrador") {
                     echo "<td>";
                     echo '<form action="">';
                     echo '<input type="hidden" name="codigo" value="' . $producto['codigo'] . '">';
-                    echo '<input type="submit" class="boton-añadir-stock" name="modificar" value="Modificar">';
+                    echo '<input type="submit" class="boton-tabla" name="modificar" value="Modificar">';
                     echo '</form>';
                     echo "</td>";
                 }
@@ -100,11 +111,11 @@ if (isset($_REQUEST['añadir'])) {
             ?>
         </tbody>
     </table>
-    <?php
 
+    <!-- FORMULARIO UEVO PRODUCTO -->
+    <?php
     if ($_SESSION['usuario']['perfil'] == "administrador") {
         ?>
-
         <form action="" class="nuevo-producto">
             <h3>Nuevo producto</h3>
             <label for="codigo">Código:
@@ -134,7 +145,6 @@ if (isset($_REQUEST['añadir'])) {
             <input type="submit" id="producto-nuevo" name="añadir" value="Nuevo">
         </form>
         <?php
-
     }
     ?>
 

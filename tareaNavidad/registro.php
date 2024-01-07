@@ -15,8 +15,9 @@ include("./funciones/conexionBD.php");
 <body>
     <?php
     $errores = array();
+    // VALIDAR FORMULARIO Y AÑADIR USUARIO
     if (enviado() && validaFormularioRegistro($errores)) {
-        registrarUsuario($_REQUEST['nombre'],$_REQUEST['contrasenia'],$_REQUEST['correo'],$_REQUEST['fecha'],);
+        registrarUsuario($_REQUEST['nombre'], $_REQUEST['contrasenia'], $_REQUEST['correo'], $_REQUEST['fecha'], );
         echo "Usuario creado, redirigiendo al login...";
         header("refresh:3;url=./login.php");
         exit;
@@ -27,8 +28,7 @@ include("./funciones/conexionBD.php");
     <h1>Formulario Registro</h1>
     <form action="" method="post" enctype="multipart/form-data">
         <label for="nombre">Nombre
-            <input type="text" name="nombre" id="nombre" placeholder="unico"
-                value="<?php recuerda("nombre") ?>">
+            <input type="text" name="nombre" id="nombre" placeholder="unico" value="<?php recuerda("nombre") ?>">
         </label>
         <?php errores($errores, "nombre"); ?>
         <label for="contrasenia">Contraseña
@@ -41,7 +41,7 @@ include("./funciones/conexionBD.php");
                 value="<?php recuerda("contrasenia2") ?>">
         </label>
         <?php errores($errores, "contrasenia2"); ?>
-        
+
         <label for="correo">Correo
             <input type="text" name="correo" id="correo" placeholder="ejemplo@algo.algo"
                 value="<?php recuerda("correo") ?>">

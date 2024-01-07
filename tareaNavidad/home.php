@@ -17,12 +17,6 @@
     <main class="fondo">
 
     </main>
-    
-    <?php
-    // if (isset($_SESSION['error'])) {
-    //     echo $_SESSION['error'];
-    // }
-    ?>
 
 </body>
 

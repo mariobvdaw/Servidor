@@ -4,6 +4,7 @@ session_start();
 require('./funciones/validaciones.php');
 require('./funciones/conexionBD.php');
 $errores = array();
+// VALIDAR FORMULARIO Y USUSARIO
 if (enviado() && !textoVacio($_REQUEST['user']) && !textoVacio($_REQUEST['pass'])) {
     $usuario = validaUsuario($_REQUEST['user'], $_REQUEST['pass']);
     if ($usuario) {
@@ -13,7 +14,7 @@ if (enviado() && !textoVacio($_REQUEST['user']) && !textoVacio($_REQUEST['pass']
     } else {
         $errores['user'] = "No existe el usuario o contraseña";
     }
-}elseif(enviado()){
+} elseif (enviado()) {
     $errores["user"] = "Completa los campos";
 }
 

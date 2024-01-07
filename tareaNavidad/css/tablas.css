@@ -44,12 +44,11 @@ th {
 tbody tr:nth-child(even) {
     background-color: #f9f9f9;
 }
-
 form {
     display: flex;
 }
 
-.input-añadir-stock {
+.input-tabla {
     padding: 0 10px;
     width: 80px;
     font-size: 14px;
@@ -58,7 +57,7 @@ form {
     border-radius: 3px;
 }
 
-.boton-añadir-stock {
+.boton-tabla {
     margin-left: 3px;
     padding: 8px 12px;
     font-size: 12px;
@@ -71,7 +70,7 @@ form {
     transition: background-color 0.3s, color 0.3s, border-color 0.3s, transform 0.5s;
 }
 
-.boton-añadir-stock:hover {
+.boton-tabla:hover {
     transform: translate(4px,-4px);
 }
 
