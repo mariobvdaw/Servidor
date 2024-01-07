@@ -97,7 +97,6 @@ function registrarUsuario($nombre, $contrasenia, $correo, $fecha)
         unset($con);
     }
 }
-
 function modificarUsuario($nombre, $contrasenia, $correo, $fecha)
 {
     try {
@@ -260,6 +259,34 @@ function aumentarStock($codigo, $sumaStock)
         unset($con);
     }
 }
+function restarStock($codigo, $restaStock)
+{
+    try {
+        $DSN = "mysql:host=" . IP . ';dbname=' . BD;
+        $con = new PDO($DSN, USER, PASS);
+        $sql = "UPDATE productos SET stock = stock - ? WHERE codigo = ?";
+        $stmt = $con->prepare($sql);
+        $stmt->execute([$restaStock, $codigo]);
+
+        $categorias = array();
+        while ($cat = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            array_push($categorias, $cat['categoria']);
+        }
+        return $categorias;
+
+    } catch (\Throwable $th) {
+        switch ($th->getCode()) {
+            case '1049':
+                crearBase();
+                break;
+            default:
+                echo $th->getMessage();
+                echo $th->getCode();
+        }
+    } finally {
+        unset($con);
+    }
+}
 function findProduct($codigo)
 {
     try {
@@ -281,6 +308,28 @@ function findProduct($codigo)
                 crearBase();
                 break;
 
+            default:
+                echo $th->getMessage();
+                echo $th->getCode();
+        }
+    } finally {
+        unset($con);
+    }
+}
+function comprarProducto($usuario, $fecha, $producto, $cantidad, $precio)
+{
+    try {
+        $DSN = "mysql:host=" . IP . ';dbname=' . BD;
+        $con = new PDO($DSN, USER, PASS);
+        $sql = "INSERT INTO compras (comprador, fecha, cod_producto, cantidad, total) VALUES (?,?,?,?,?)";
+        $stmt = $con->prepare($sql);
+        $stmt->execute([$usuario, $fecha, $producto, $cantidad, $precio]);
+
+    } catch (\Throwable $th) {
+        switch ($th->getCode()) {
+            case '1049':
+                crearBase();
+                break;
             default:
                 echo $th->getMessage();
                 echo $th->getCode();

@@ -62,6 +62,11 @@ if (isset($_REQUEST['añadir'])) {
                 <th>Categoría</th>
                 <th>Stock</th>
                 <th>Añadir Productos</th>
+                <?php
+                if ($_SESSION['usuario']['perfil'] == "administrador") {
+                    echo '<th></th>';
+                }
+                ?>
             </tr>
         </thead>
         <tbody>

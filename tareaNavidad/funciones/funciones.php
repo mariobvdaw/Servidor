@@ -8,7 +8,6 @@ function representarProductos($arrProductos){
         echo '<form action="">';
         echo "<p>Disponibles: " . $producto['stock'] . "</p>";
         echo '<input type="hidden" name="codigo" value="' . $producto['codigo'] . '">';
-        echo '<input type="hidden" name="maximo" value="' .$producto['stock'] . '">';
         echo '<label for="cantidad' . $producto['codigo'] . '">Seleccionar cantidad: </label>';
         echo '<input type="number" name="cantidad" value="1" id="cantidad' . $producto['codigo'] . '" min="1" max="' . $producto['stock'] . '">';
         echo '<input type="submit" name="comprar" value="Comprar">';

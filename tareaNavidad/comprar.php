@@ -9,7 +9,26 @@ if (!isset($_SESSION['usuario'])) {
     header('Location: ./login.php');
     exit;
 }
+if (isset($_REQUEST['comprar'])) {
+    if($_REQUEST['cantidad']<=findProduct($_REQUEST['codigo'])['stock']){
 
+        // echo date('Y-m-d');
+        // echo "<br>";
+        // print_r($_SESSION['usuario']['user']);
+        // echo "<br>";
+        // print_r(findProduct($_REQUEST['codigo'])['precio']);
+        // echo "<br>";
+        // print_r(findProduct($_REQUEST['codigo'])['stock']);
+        comprarProducto(
+            $_SESSION['usuario']['user'],
+            date('Y-m-d'),
+            $_REQUEST['codigo'],
+            $_REQUEST['cantidad'],
+            findProduct($_REQUEST['codigo'])['precio']*$_REQUEST['cantidad']
+        );
+        restarStock($_REQUEST['codigo'],$_REQUEST['cantidad']);
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -34,7 +53,7 @@ if (!isset($_SESSION['usuario'])) {
         <?php
         if (isset($_REQUEST["buscar"]) && isset($_REQUEST["categoria"])) { // COMPRUEBA QUE SE HA BUSCADO UNA CATEGORIA
             // CARGA LA CATEGORIA BUSCADA 
-            if ($_REQUEST["categoria"]== "Todos") {
+            if ($_REQUEST["categoria"] == "Todos") {
                 $arrProductos = cargarProductos();
 
             } else {
@@ -42,7 +61,9 @@ if (!isset($_SESSION['usuario'])) {
             }
             ?>
             <section class="seccion-productos">
-                <h2><?php echo $_REQUEST["categoria"] ?></h2>
+                <h2>
+                    <?php echo $_REQUEST["categoria"] ?>
+                </h2>
                 <div class="productos">
 
                     <?php

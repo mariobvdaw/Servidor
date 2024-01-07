@@ -31,3 +31,14 @@ VALUES
     (1, 'Portátil ASUS', 600.00, 10, 'https://i.postimg.cc/WzZ30ZbH/portatil-Asus.jpg', 'Informática'),
     (2, 'Smartphone Samsung', 400.50, 15, 'https://i.postimg.cc/m20ndHZS/movil-Samsung.jpg', 'Electrónica'),
     (3, 'Televisor LG', 800.75, 5, 'https://i.postimg.cc/VsZBgPs9/teleLG.jpg', 'Electrodomésticos');
+
+CREATE TABLE IF NOT EXISTS compras (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    comprador VARCHAR(20),
+    fecha DATE,
+    cod_producto INT,
+    cantidad INT,
+    total DECIMAL(10, 2),
+    FOREIGN KEY (comprador) REFERENCES usuarios(user),
+    FOREIGN KEY (cod_producto) REFERENCES productos(codigo)
+);
