@@ -10,9 +10,9 @@ function representarProductos($arrProductos)
         echo "<p>" . $producto['precio'] . " €</p>";
         echo '<form action="">';
         if ($producto['stock'] == "0") {
-            echo '<p style="color: red; text-decoration: line-through;">En stock: ' . $producto['stock'] . '</p>';
+            echo '<p style="color: red; text-decoration: line-through;">Stock: ' . $producto['stock'] . '</p>';
         } else {
-            echo "<p>En stock: " . $producto['stock'] . "</p>";
+            echo '<p style="color: #777;">Stock: ' . $producto['stock'] . '</p>';
         }
         echo '<input type="hidden" name="codigo" value="' . $producto['codigo'] . '">';
         echo '<label for="cantidad' . $producto['codigo'] . '">Seleccionar cantidad: </label>';
