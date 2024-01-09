@@ -2,11 +2,12 @@ header {
     position: absolute;
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     align-items: center;
-    background: #09f;
+    background: #222;
     padding: 10px 15px;
     width: 100%;
-    min-width: 860px;
+    min-width: 930px;
     min-height: 7vh;
     border-bottom: 1px solid #ccc;
     box-shadow: 0 0 10px black;
@@ -16,10 +17,12 @@ header {
 
 .logo {
     display: flex;
+    justify-content: center;
     align-items: center;
-    cursor: pointer;
+    width: 240px;
     border: 1px solid transparent;
     border-radius: 3px;
+    cursor: pointer;
     transition: transform 0.3s, border .4s;
 }
 
@@ -39,13 +42,20 @@ header {
     font-size: 1.8rem;
     font-family: 'Arial', sans-serif;
     margin: 0 10px;
-    color: #09f;
+    color: #222;
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 1px;
-    text-shadow: -2px 2px 0 black, 2px -2px 0 black;
+    text-shadow: -2px 2px 0 white, 2px -2px 0 white;
 }
-
+.navegacion{
+    margin: 0 5px;
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+}
 .navegacion a,
 .user a {
     color: #ddd;

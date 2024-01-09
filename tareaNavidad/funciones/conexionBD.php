@@ -152,7 +152,7 @@ function cargarProductosInicio()
     try {
         $DSN = "mysql:host=" . IP . ';dbname=' . BD;
         $con = new PDO($DSN, USER, PASS);
-        $sql = "SELECT * FROM productos ORDER BY precio DESC LIMIT 4";
+        $sql = "SELECT * FROM productos ORDER BY precio DESC LIMIT 5";
         $stmt = $con->prepare($sql);
         $stmt->execute();
 

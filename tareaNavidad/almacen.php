@@ -63,90 +63,92 @@ if (isset($_REQUEST['añadir'])) { // SE QUIERE AÑADIR
     include("./fragmentos/header.php");
     ?>
     <h2>Almacen</h2>
-    <!-- TABLA DE ALMACEN -->
-    <table>
-        <thead>
-            <tr>
-                <th>Código</th>
-                <th>Descripción</th>
-                <th>Precio</th>
-                <th>Categoría</th>
-                <th>Stock</th>
-                <th>Añadir Productos</th>
+    <div class="seccion">
+        <!-- TABLA DE ALMACEN -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Descripción</th>
+                    <th>Precio</th>
+                    <th>Categoría</th>
+                    <th>Stock</th>
+                    <th>Añadir Productos</th>
+                    <?php
+                    if ($_SESSION['usuario']['perfil'] == "administrador") {
+                        echo '<th></th>';
+                    }
+                    ?>
+                </tr>
+            </thead>
+            <tbody>
                 <?php
-                if ($_SESSION['usuario']['perfil'] == "administrador") {
-                    echo '<th></th>';
-                }
-                ?>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            $arrProductos = cargarProductos();
-            foreach ($arrProductos as $producto) {
-                echo "<tr>";
-                echo "<td>" . $producto['codigo'] . "</td>";
-                echo "<td>" . $producto['descripcion'] . "</td>";
-                echo "<td>" . $producto['precio'] . "</td>";
-                echo "<td>" . $producto['categoria'] . "</td>";
-                echo "<td>" . $producto['stock'] . "</td>";
-                echo "<td>";
-                echo '<form action="">';
-                echo '<input type="hidden" name="codigo" value="' . $producto['codigo'] . '">';
-                echo '<input type="number" class="input-tabla" name="cantidad" min="1">';
-                echo '<input type="submit" class="boton-tabla" name="añadir" value="Añadir stock">';
-                echo '</form>';
-                echo "</td>";
-                if ($_SESSION['usuario']['perfil'] == "administrador") {
+                $arrProductos = cargarProductos();
+                foreach ($arrProductos as $producto) {
+                    echo "<tr>";
+                    echo "<td>" . $producto['codigo'] . "</td>";
+                    echo "<td>" . $producto['descripcion'] . "</td>";
+                    echo "<td>" . $producto['precio'] . "</td>";
+                    echo "<td>" . $producto['categoria'] . "</td>";
+                    echo "<td>" . $producto['stock'] . "</td>";
                     echo "<td>";
                     echo '<form action="">';
                     echo '<input type="hidden" name="codigo" value="' . $producto['codigo'] . '">';
-                    echo '<input type="submit" class="boton-tabla" name="modificar" value="Modificar">';
+                    echo '<input type="number" class="input-tabla" name="cantidad" min="1">';
+                    echo '<input type="submit" class="boton-tabla" name="añadir" value="Añadir stock">';
                     echo '</form>';
                     echo "</td>";
+                    if ($_SESSION['usuario']['perfil'] == "administrador") {
+                        echo "<td>";
+                        echo '<form action="">';
+                        echo '<input type="hidden" name="codigo" value="' . $producto['codigo'] . '">';
+                        echo '<input type="submit" class="boton-tabla" name="modificar" value="Modificar">';
+                        echo '</form>';
+                        echo "</td>";
+                    }
+                    echo "</tr>";
                 }
-                echo "</tr>";
-            }
 
-            ?>
-        </tbody>
-    </table>
+                ?>
+            </tbody>
+        </table>
 
-    <!-- FORMULARIO UEVO PRODUCTO -->
-    <?php
-    if ($_SESSION['usuario']['perfil'] == "administrador") {
-        ?>
-        <form action="" class="nuevo-producto">
-            <h3>Nuevo producto</h3>
-            <label for="codigo">Código:
-                <input type="number" id="codigo" name="codigoN" value="<?php recuerda("codigoN") ?>">
-                <?php errores($errores, "codigo"); ?>
-            </label>
-            <label for="descripcion">Descripción:
-                <input type="text" id="descripcion" name="descripcion" value="<?php recuerda("descripcion") ?>">
-                <?php errores($errores, "descripcion"); ?>
-            </label>
-            <label for="precio">Precio:
-                <input type="text" id="precio" name="precio" value="<?php recuerda("precio") ?>">
-                <?php errores($errores, "precio"); ?>
-            </label>
-            <label for="categoria">Categoría:
-                <input type="text" id="categoria" name="categoria" value="<?php recuerda("categoria") ?>">
-                <?php errores($errores, "categoria"); ?>
-            </label>
-            <label for="imagen">Imagen URL:
-                <input type="text" id="imagen" name="imagen" value="<?php recuerda("imagen") ?>">
-                <?php errores($errores, "imagen"); ?>
-            </label>
-            <label for="stock">Stock:
-                <input type="number" id="stock" name="stock" value="<?php recuerda("stock") ?>">
-                <?php errores($errores, "stock"); ?>
-            </label>
-            <input type="submit" id="producto-nuevo" name="añadir" value="Nuevo">
-        </form>
+        <!-- FORMULARIO UEVO PRODUCTO -->
         <?php
-    }
-    ?>
+        if ($_SESSION['usuario']['perfil'] == "administrador") {
+            ?>
+            <form action="" class="nuevo-producto">
+                <h3>Nuevo producto</h3>
+                <label for="codigo">Código:
+                    <input type="number" id="codigo" name="codigoN" value="<?php recuerda("codigoN") ?>">
+                    <?php errores($errores, "codigo"); ?>
+                </label>
+                <label for="descripcion">Descripción:
+                    <input type="text" id="descripcion" name="descripcion" value="<?php recuerda("descripcion") ?>">
+                    <?php errores($errores, "descripcion"); ?>
+                </label>
+                <label for="precio">Precio:
+                    <input type="text" id="precio" name="precio" value="<?php recuerda("precio") ?>">
+                    <?php errores($errores, "precio"); ?>
+                </label>
+                <label for="categoria">Categoría:
+                    <input type="text" id="categoria" name="categoria" value="<?php recuerda("categoria") ?>">
+                    <?php errores($errores, "categoria"); ?>
+                </label>
+                <label for="imagen">Imagen URL:
+                    <input type="text" id="imagen" name="imagen" value="<?php recuerda("imagen") ?>">
+                    <?php errores($errores, "imagen"); ?>
+                </label>
+                <label for="stock">Stock:
+                    <input type="number" id="stock" name="stock" value="<?php recuerda("stock") ?>">
+                    <?php errores($errores, "stock"); ?>
+                </label>
+                <input type="submit" id="producto-nuevo" name="añadir" value="Nuevo">
+            </form>
+            <?php
+        }
+        ?>
+    </div>
 
 </body>
 

@@ -44,6 +44,23 @@ if (isset($_REQUEST['comprar'])) {
 
 
     <main>
+        <!-- FORMULARIO DE CATEGORIAS -->
+        <form action="" class="formulario-categorias">
+            <p>Filtrar:</p>
+            <label class="categoria" for="general">Todos
+                <input class="categoria" type="radio" id="general" name="categoria" value="Todos" checked>
+            </label>
+            <?php
+
+            $categorias = cargarCategorias();
+            foreach ($categorias as $categoria) {
+                echo '<label class="categoria" for="' . $categoria . '">' . $categoria;
+                echo '<input class="categoria" type="radio" id="' . $categoria . '" name="categoria" value="' . $categoria . '">';
+                echo '</label>';
+            }
+            ?>
+            <input class="categoria" type="submit" name="buscar" value="Buscar">
+        </form>
         <?php
         if (isset($_REQUEST["buscar"]) && isset($_REQUEST["categoria"])) { // COMPRUEBA QUE SE HA BUSCADO UNA CATEGORIA
             // CARGA LA CATEGORIA BUSCADA 
@@ -81,24 +98,7 @@ if (isset($_REQUEST['comprar'])) {
 
 
         ?>
-        <!-- FORMULARIO DE CATEGORIAS -->
-        <form action="" class="formulario-categorias">
-            <p>Selecciona una categoria de busqueda:</p>
-            <label class="categoria" for="general">Todos
-                <input class="categoria" type="radio" id="general" name="categoria" value="Todos" checked>
-            </label>
-            <?php
-
-            $categorias = cargarCategorias();
-            foreach ($categorias as $categoria) {
-                echo '<label class="categoria" for="' . $categoria . '">' . $categoria;
-                echo '<input class="categoria" type="radio" id="' . $categoria . '" name="categoria" value="' . $categoria . '">';
-                echo '</label>';
-            }
-            ?>
-            <input class="categoria" type="submit" name="buscar" value="Buscar">
-        </form>
-
+        
 
     </main>
 </body>

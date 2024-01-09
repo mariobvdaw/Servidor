@@ -1,8 +1,9 @@
-body{
+body {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
 h2 {
     padding: 90px 0 0;
     color: #333;
@@ -14,16 +15,15 @@ h2 {
     padding-bottom: 10px;
     margin-bottom: 20px;
 }
-h3 {
-    color: #333;
-    font-size: 1.5em;
-    font-weight: bold;
-    text-align: center;
-    border-bottom: 2px solid #ccc;
-    padding-bottom: 10px;
-    margin-bottom: 20px;
+
+.seccion {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
 }
 
+/* TABLA */
 table {
     border-collapse: collapse;
     margin: 10px 0 30px;
@@ -44,6 +44,7 @@ th {
 tbody tr:nth-child(even) {
     background-color: #f9f9f9;
 }
+
 form {
     display: flex;
 }
@@ -71,7 +72,7 @@ form {
 }
 
 .boton-tabla:hover {
-    transform: translate(4px,-4px);
+    transform: translate(4px, -4px);
 }
 
 #producto-nuevo {
@@ -89,12 +90,14 @@ form {
     transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
-.boton-añadir-stock:hover,#producto-nuevo:hover {
+.boton-añadir-stock:hover,
+#producto-nuevo:hover {
     background-color: #09f;
     color: #fff;
     border-color: transparent;
 }
 
+/* NUEVO PRODUCTO */
 form.nuevo-producto {
     border-top: 3px solid #ccc;
     display: flex;
@@ -103,6 +106,15 @@ form.nuevo-producto {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
     width: 300px;
+}
+h3 {
+    color: #333;
+    font-size: 1.3em;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
 }
 
 label {
@@ -116,7 +128,7 @@ input {
     box-sizing: border-box;
 }
 
-.error{
+.error {
     margin: 3px 0 5px;
     color: red;
 }
