@@ -8,8 +8,9 @@ class User
     // private $numAccesos;
     private $fechaUltimaConexion;
     private $perfil;
+    private $activo;
 
-    function __construct($codUsuario, $password, $descUsuario, $fechaUltimaConexion, $perfil)
+    function __construct($codUsuario, $password, $descUsuario, $fechaUltimaConexion, $perfil, $activo=true)
     {
         $this->codUsuario = $codUsuario;
         $this->password = $password;
@@ -17,6 +18,7 @@ class User
         // $this->numAccesos = $numAccesos;
         $this->fechaUltimaConexion = $fechaUltimaConexion;
         $this->perfil = $perfil;
+        $this->activo = $activo;
     }
 
     public function __get($att)
