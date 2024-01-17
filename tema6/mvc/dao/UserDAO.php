@@ -75,7 +75,9 @@ class UserDAO
         );
 
         $result = FactoryBD::realizaConsulta($sql, $parametros);
-        return true;
+        if ($result->rowCount() > 0)
+            return true;
+        return false;
 
     }
     public static function delete($usuario)
@@ -142,10 +144,30 @@ class UserDAO
             );
             return $usuario;
         }
-        return false;
+        return null;
 
     }
 
+
+
+    public static function cambioContraseña($usuario)
+    {
+        $sql = "update Usuario set descUsuario = ?, password = ?, fechaUltimaConexion = ?, activo = ? where codUsuario = ?";
+        // PARA INSERTAR TODOS LOS ATRIBUTOS<
+        $parametros = array(
+            $usuario->descUsuario,
+            $usuario->password,
+            $usuario->fechaUltimaConexion,
+            $usuario->activo,
+            $usuario->codUsuario
+        );
+
+        $result = FactoryBD::realizaConsulta($sql, $parametros);
+        if ($result->rowCount() > 0)
+            return true;
+        return false;
+
+    }
 
 
 }

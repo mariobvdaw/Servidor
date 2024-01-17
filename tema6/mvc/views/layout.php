@@ -8,7 +8,8 @@
 </head>
 
 <body>
-    <header style="background-color: #444;color: white;display: flex;align-items: center; justify-content: space-around;">
+    <header
+        style="margin-bottom: 20px; background-color: #444;color: white;display: flex;align-items: center; justify-content: space-around;">
         <div>
             <form action="" method="post">
                 <input type="submit" name="home" value="Home">
@@ -17,9 +18,25 @@
         <h1>Pagina Web de Mario</h1>
         <nav>
             <div>
-                <form action="" method="post">
-                    <input type="submit" name="login" value="Login">
-                </form>
+                <?php
+                if (validado()) {
+                    echo "Bienvenido ". $_SESSION['usuario']->descUsuario;
+                    // print_r($_SESSION['usuario']);
+                    ?>
+                    <form action="" method="post">
+                        <input type="submit" name="User_verPerfil" value="Ver Perfil">
+                        <input type="submit" name="logout" value="Cerrar Sesión">
+                    </form>
+                    <?php
+
+                } else {
+                    ?>
+                    <form action="" method="post">
+                        <input type="submit" name="login" value="Login">
+                    </form>
+                    <?php
+                }
+                ?>
             </div>
         </nav>
     </header>
@@ -30,7 +47,7 @@
 
         <?php
         if (!isset($_SESSION['vista'])) {
-            require VIEW.'home.php';
+            require VIEW . 'home.php';
         } else {
             require $_SESSION['vista'];
         }

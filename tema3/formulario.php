@@ -69,7 +69,6 @@
             <?php
                 errores($errores,"genero");
             ?>
-
         </p>
         <!-- checkbox: para enviar mas de una opcion hay que enviar un array (ejemplo: aficion[])
                 - se envia el value (por defecto es on/off)
