@@ -28,6 +28,29 @@ function validarFormulario(&$errores)
     }
     return false;
 }
+function validarFormularioReg(&$errores)
+{
+    if (textoVacio($_REQUEST['cod'])) {
+        $errores['cod'] = "Codigo vacio";
+    }
+    if (textoVacio($_REQUEST['desc'])) {
+        $errores['desc'] = "Nombre vacio";
+    }
+    if (textoVacio($_REQUEST['pass'])) {
+        $errores['pass'] = "Password vacio";
+    }
+    if (textoVacio($_REQUEST['pass2'])) {
+        $errores['pass2'] = "Password vacio";
+    }
+    // else if(passIgual($_REQUEST['pass'],$_REQUEST['pass2'])){
+    //     $errores['pass2'] = "Las contraseñas no coinciden";
+    // }
+
+    if (count($errores) == 0) {
+        return true;
+    }
+    return false;
+}
 function validado()
 {
     if (isset($_SESSION['usuario'])) {
@@ -40,7 +63,7 @@ function validado()
 function passIgual($p1, $p2)
 {
     if ($p1 !== $p2) {
-        $errores['igual'] = "Las contraseñas deben ser iguales";
+        // $errores['igual'] = "Las contraseñas deben ser iguales";
         return false;
     }
     return true;

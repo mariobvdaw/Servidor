@@ -24,6 +24,26 @@ if (isset($_REQUEST['Login_IniciarSesion'])) {
     }
 } else if (isset($_REQUEST['Login_Registro'])) {
     $_SESSION['vista'] = VIEW . 'registro.php';
+
+} else if (isset($_REQUEST['Login_GuardaRegistro'])) {
+    $errores = array();
+    if (validarFormularioReg($errores)) {
+        $usuario = new User(
+            $_REQUEST['cod'],
+            sha1($_REQUEST['pass']),
+            $_REQUEST['desc'],
+            date('Y-m-d'),
+        );
+        if (UserDAO::insert($usuario)) {
+            // mandarlo a la vista
+            $_SESSION['vista'] = VIEW . 'login.php';
+            $sms = "Se ha registrado";
+
+        } else {
+            $errores['registro'] = "No se ha registrado";
+        }
+
+    }
 }
 
 ?>

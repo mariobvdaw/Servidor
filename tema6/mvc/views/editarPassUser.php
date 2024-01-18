@@ -35,5 +35,5 @@
         ?>
     </p>
     <br>
-    <input type="submit" name="Login_IniciarSesion" value="Inicia Sesion">
+    <input type="submit" name="User_GuardaContraseña" value="Cambiar contraseña">
 </form>

@@ -153,7 +153,7 @@ class UserDAO
     public static function cambioContraseña($usuario)
     {
         $sql = "update Usuario set descUsuario = ?, password = ?, fechaUltimaConexion = ?, activo = ? where codUsuario = ?";
-        // PARA INSERTAR TODOS LOS ATRIBUTOS<
+        // PARA INSERTAR TODOS LOS ATRIBUTOS
         $parametros = array(
             $usuario->descUsuario,
             $usuario->password,

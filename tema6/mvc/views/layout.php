@@ -24,6 +24,7 @@
                     // print_r($_SESSION['usuario']);
                     ?>
                     <form action="" method="post">
+                        <input type="submit" name="Citas_verCitas" value="Citas">
                         <input type="submit" name="User_verPerfil" value="Ver Perfil">
                         <input type="submit" name="logout" value="Cerrar Sesión">
                     </form>

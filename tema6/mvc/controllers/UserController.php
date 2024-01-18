@@ -12,7 +12,7 @@ if (!validado()) {
     } else if (isset($_REQUEST['User_CambiaContraseña'])) {
         $_SESSION['vista'] = VIEW . 'editarPassUser.php';
 
-    } else if (isset($_REQUEST['User_editar'])) {
+    } else if (isset($_REQUEST['User_Guardar'])) {
         $usuario = $_SESSION['usuario'];
 
         if (!textoVacio($_REQUEST['nombre'])) {
@@ -36,7 +36,7 @@ if (!validado()) {
             !textoVacio($_REQUEST['pass2']) &&
             passIgual($_REQUEST['pass'], $_REQUEST['pass2'])
         )
-            $usuario->password = $_REQUEST['pass'];
+            $usuario->password = sha1($_REQUEST['pass']);
         if (UserDAO::cambioContraseña($usuario)) {
             $sms = "Se ha cambiado la contraseña";
             $_SESSION['usuario'] = $usuario;

@@ -1,3 +1,7 @@
+<?php
+if (isset($sms)) {
+    echo $sms;
+} ?>
 
 <form action="">
     <label for="nombre">Nombre:

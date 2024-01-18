@@ -42,6 +42,6 @@
         ?>
     </p>
     <br>
-    <input type="submit" name="User_editar" value="Guardar Cambios">
+    <input type="submit" name="User_Guardar" value="Guardar Cambios">
     <input type="submit" name="User_CambiaContraseña" value="Cambiar Contraseña">
 </form>

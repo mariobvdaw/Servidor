@@ -10,7 +10,7 @@ class User
     private $perfil;
     private $activo;
 
-    function __construct($codUsuario, $password, $descUsuario, $fechaUltimaConexion, $perfil, $activo=true)
+    function __construct($codUsuario, $password, $descUsuario, $fechaUltimaConexion, $perfil = "usuario", $activo=true)
     {
         $this->codUsuario = $codUsuario;
         $this->password = $password;
