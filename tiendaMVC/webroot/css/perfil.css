@@ -1,0 +1,54 @@
+form {
+    max-width: 400px;
+    padding: 10px;
+    margin: 0 auto;
+    border-radius: 5px;
+    box-shadow: 0 0 10px darkgray;
+}
+
+h2 {
+    padding: 90px 0 10px;
+    color: #333;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 2px solid #ccc;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+input {
+    padding: 8px;
+    margin-top: 5px;
+}
+
+input:disabled {
+    background-color: #ddd;
+}
+
+input[type="submit"] {
+    background-color: #5c4caf;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: filter 0.2s, box-shadow 0.2s;
+}
+
+input[type="submit"]:hover {
+    box-shadow: 0 0 5px black;
+    filter: brightness(130%);
+}
+
+.error {
+    margin: 3px 0 5px;
+    font-size: .8rem;
+    color: red;
+}

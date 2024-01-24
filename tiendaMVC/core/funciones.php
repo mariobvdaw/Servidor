@@ -1,4 +1,12 @@
 <?php
+function enviado()
+{
+    if (isset($_REQUEST['enviar']) || isset($_REQUEST['añadir']) || isset($_REQUEST['guardar'])) {
+        return true;
+    }
+    return false;
+}
+
 function textoVacio($name)
 {
     if (empty($name)) {
@@ -16,8 +24,8 @@ function errores($errores, $name)
 
 function validarFormulario(&$errores)
 {
-    if (textoVacio($_REQUEST['nombre'])) {
-        $errores['nombre'] = "Nombre vacio";
+    if (textoVacio($_REQUEST['user'])) {
+        $errores['user'] = "Nombre vacio";
     }
     if (textoVacio($_REQUEST['pass'])) {
         $errores['pass'] = "Password vacio";
@@ -30,14 +38,11 @@ function validarFormulario(&$errores)
 }
 function validarFormularioReg(&$errores)
 {
-    if (textoVacio($_REQUEST['cod'])) {
-        $errores['cod'] = "Codigo vacio";
-    }
-    if (textoVacio($_REQUEST['desc'])) {
-        $errores['desc'] = "Nombre vacio";
+    if (textoVacio($_REQUEST['user'])) {
+        $errores['user'] = "Usuario vacio";
     }
     if (textoVacio($_REQUEST['pass'])) {
-        $errores['pass'] = "Password vacio";
+        $errores['pass'] = "Contraseña vacio";
     }
     if (textoVacio($_REQUEST['pass2'])) {
         $errores['pass2'] = "Password vacio";
@@ -45,6 +50,12 @@ function validarFormularioReg(&$errores)
     // else if(passIgual($_REQUEST['pass'],$_REQUEST['pass2'])){
     //     $errores['pass2'] = "Las contraseñas no coinciden";
     // }
+    if (textoVacio($_REQUEST['email'])) {
+        $errores['email'] = "Email vacio";
+    }
+    if (textoVacio($_REQUEST['fecha'])) {
+        $errores['fecha'] = "Fecha vacia";
+    }
 
     if (count($errores) == 0) {
         return true;
@@ -91,6 +102,13 @@ function isAdmin()
     if ($_SESSION['usuario']->perfil == "administrador")
         return true;
     return false;
+}
+
+function recuerda($name)
+{
+    if (enviado() && !empty($_REQUEST[$name])) {
+        echo $_REQUEST[$name];
+    }
 }
 
 ?>

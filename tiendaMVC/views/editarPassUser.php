@@ -1,5 +1,5 @@
-
-<form action="">
+<h2>Cambiar Contraseña</h2>
+<form action="" method="post">
     <label for="pass">Pass:
         <input type="password" name="pass" id="pass">
     </label>

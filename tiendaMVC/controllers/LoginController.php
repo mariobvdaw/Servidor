@@ -5,13 +5,10 @@ if (isset($_REQUEST['Login_IniciarSesion'])) {
     if (validarFormulario($errores)) {
 
         // comprobar si el usuario existe en la base
-        $usuario = UserDAO::validarUsuario($_REQUEST['nombre'], $_REQUEST['pass']);
+        $usuario = UserDAO::validarUsuario($_REQUEST['user'], $_REQUEST['pass']);
         if ($usuario != null) {
             // iniciar sesion
             $_SESSION['usuario'] = $usuario;
-            // actualizar fecha de ultima conexion
-            $usuario->fechaUltimaConexion = date("Y-m-d");
-            UserDAO::update($usuario);
             // llevar al home pero con modificaciones
             $_SESSION['vista'] = VIEW . 'home.php';
             // quitar el controller del login
@@ -29,10 +26,10 @@ if (isset($_REQUEST['Login_IniciarSesion'])) {
     $errores = array();
     if (validarFormularioReg($errores)) {
         $usuario = new User(
-            $_REQUEST['cod'],
-            sha1($_REQUEST['pass']),
-            $_REQUEST['desc'],
-            date('Y-m-d'),
+            $_REQUEST['user'],
+            $_REQUEST['pass'],
+            $_REQUEST['email'],
+            $_REQUEST['fecha'],
         );
         if (UserDAO::insert($usuario)) {
             // mandarlo a la vista

@@ -16,7 +16,13 @@ require('./dao/FactoryBD.php');
 require('./models/User.php');
 require('./dao/UserDAO.php');
 
-require('./models/Cita.php');
-require('./dao/CitaDAO.php');
+require('./models/Producto.php');
+require('./dao/ProductoDAO.php');
+
+require('./models/Compra.php');
+require('./dao/CompraDAO.php');
+
+require('./models/Albaran.php');
+require('./dao/AlbaranDAO.php');
 
 ?>

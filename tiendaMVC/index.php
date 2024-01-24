@@ -36,7 +36,6 @@ if (isset($_SESSION['controller'])) {
 }
 require('./views/layout.php');
 
-
 echo "<pre>";
 
 // USUARIOS
@@ -45,7 +44,7 @@ echo "<pre>";
 
 // // $usuario = new User('54', sha1('pepi'), 'pepiasds111', '2026-01-11', "", true);
 // $usuario2 = new User('62', sha1('pepi'), 'pepi2', '2022-01-11', "", true);
-$usuario3 = new User('51', sha1('pepi'), 'pepiasds', '2024-01-11', "", true);
+// $usuario3 = new User('51', sha1('pepi'), 'pepiasds', '2024-01-11', "", true);
 // $usuario = new User('1', sha1('mario'), 'pepiasds', '2024-01-11', "", true);
 // UserDAO::insert($usuario);
 // // UserDAO::insert($usuario2);

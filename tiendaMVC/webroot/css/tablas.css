@@ -1,0 +1,134 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h2 {
+    padding: 90px 0 0;
+    color: #333;
+    width: 100%;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.seccion {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+/* TABLA */
+table {
+    border-collapse: collapse;
+    margin: 10px 0 30px;
+    justify-self: center;
+}
+
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+form {
+    display: flex;
+}
+
+.input-tabla {
+    padding: 0 10px;
+    width: 80px;
+    font-size: 14px;
+    text-align: center;
+    border: 1px solid #3498db;
+    border-radius: 3px;
+}
+
+.boton-tabla {
+    margin-left: 3px;
+    padding: 8px 12px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    border: 2px groove #3498db;
+    border-radius: 3px;
+    color: #3498db;
+    background-color: #fff;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s, transform 0.5s;
+}
+
+.boton-tabla:hover {
+    transform: translate(4px, -4px);
+}
+
+#producto-nuevo {
+    margin: 5px;
+    display: inline-block;
+    padding: 10px 30px;
+    font-size: 14px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: 2px solid #09f;
+    border-radius: 5px;
+    color: #09f;
+    background-color: #fff;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.boton-añadir-stock:hover,
+#producto-nuevo:hover {
+    background-color: #09f;
+    color: #fff;
+    border-color: transparent;
+}
+
+/* NUEVO PRODUCTO */
+form.nuevo-producto {
+    border-top: 3px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 300px;
+}
+h3 {
+    color: #333;
+    font-size: 1.3em;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+input {
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.error {
+    margin: 3px 0 5px;
+    color: red;
+}

@@ -8,16 +8,17 @@ class User
     // private $numAccesos;
     private $fechaNacimiento;
     private $perfil;
-    private $activo;
+    // private $activo;
 
-    function __construct($user, $pass, $email, $fechaNacimiento, $perfil = "usuario", $activo=true)
+    // function __construct($user, $pass, $email, $fechaNacimiento, $perfil = "usuario", $activo=true)
+    function __construct($user, $pass, $email, $fechaNacimiento, $perfil = "usuario")
     {
         $this->user = $user;
         $this->pass = $pass;
         $this->email = $email;
         $this->fechaNacimiento = $fechaNacimiento;
         $this->perfil = $perfil;
-        $this->activo = $activo;
+        // $this->activo = $activo;
     }
 
     public function __get($att)

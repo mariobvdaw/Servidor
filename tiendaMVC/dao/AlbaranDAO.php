@@ -1,6 +1,6 @@
 <?php
 
-class CitaDAO
+class AlbaranDAO
 {
     public static function findAll()
     {

@@ -1,17 +1,17 @@
-
-<form action="">
-    <label for="cod">codUsuario:
-        <input type="text" readonly name="cod" id="cod" value="<?php echo $_SESSION['usuario']->codUsuario?>">
+<h2>Editar Usuario</h2>
+<form action="" method="post">
+    <label for="user">Usuario:
+        <input type="text" readonly name="user" id="user" value="<?php echo $_SESSION['usuario']->user?>">
     </label>
     <br>
     <br>
-    <label for="nombre">descUsuario:
-        <input type="text" name="nombre" id="nombre" value="<?php echo $_SESSION['usuario']->descUsuario?>">
+    <label for="email">Email:
+        <input type="email" name="email" id="email" value="<?php echo $_SESSION['usuario']->email?>">
     </label>
     <br>
     <br>
-    <label for="fecha">Fecha Ultima Conexion:
-        <input type="text" readonly name="fecha" id="fecha" value="<?php echo $_SESSION['usuario']->fechaUltimaConexion?>">
+    <label for="fecha">Fecha de Nacimiento:
+        <input type="text" name="fecha" id="fecha" value="<?php echo $_SESSION['usuario']->fechaNacimiento?>">
     </label>
     <br>
     <br>

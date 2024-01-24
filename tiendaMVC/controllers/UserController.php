@@ -15,8 +15,9 @@ if (!validado()) {
     } else if (isset($_REQUEST['User_Guardar'])) {
         $usuario = $_SESSION['usuario'];
 
-        if (!textoVacio($_REQUEST['nombre'])) {
-            $usuario->descUsuario = $_REQUEST['nombre'];
+        if (!textoVacio($_REQUEST['email']) && !textoVacio($_REQUEST['fecha'])) {
+            $usuario->email = $_REQUEST['email'];
+            $usuario->fechaNacimiento = $_REQUEST['fecha'];
 
             if (UserDAO::update($usuario)) {
                 $sms = "Se ha cambiado el nombre correctamente";
@@ -36,7 +37,7 @@ if (!validado()) {
             !textoVacio($_REQUEST['pass2']) &&
             passIgual($_REQUEST['pass'], $_REQUEST['pass2'])
         )
-            $usuario->password = sha1($_REQUEST['pass']);
+            $usuario->pass = $_REQUEST['pass'];
         if (UserDAO::cambioContraseña($usuario)) {
             $sms = "Se ha cambiado la contraseña";
             $_SESSION['usuario'] = $usuario;
