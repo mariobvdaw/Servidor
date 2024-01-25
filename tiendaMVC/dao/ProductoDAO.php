@@ -8,40 +8,40 @@ class ProductoDAO
         $parametros = array();
         $result = FactoryBD::realizaConsulta($sql, $parametros);
 
-        $arr_citas = array();
+        $arr_producto = array();
 
-        while ($citaStd = $result->fetchObject()) {
-            $cita = new Cita(
-                $citaStd->id,
-                $citaStd->especialista,
-                $citaStd->motivo,
-                $citaStd->fecha,
-                $citaStd->paciente,
-                $citaStd->activo
+        while ($productoStd = $result->fetchObject()) {
+            $producto = new Producto(
+                $productoStd->id,
+                $productoStd->especialista,
+                $productoStd->motivo,
+                $productoStd->fecha,
+                $productoStd->paciente,
+                $productoStd->activo
             );
 
-            array_push($arr_citas, $cita);
+            array_push($arr_producto, $producto);
         }
-        return $arr_citas;
+        return $arr_producto;
     }
 
     public static function findById($id)
     {
-        $sql = "SELECT * FROM Cita WHERE id = ?";
+        $sql = "SELECT * FROM productos WHERE id = ?";
         $parametros = array($id);
         $result = FactoryBD::realizaConsulta($sql, $parametros);
         if ($result->rowCount() == 1) {
 
-            $citaStd = $result->fetchObject();
-            $cita = new Cita(
-                $citaStd->id,
-                $citaStd->especialista,
-                $citaStd->motivo,
-                $citaStd->fecha,
-                $citaStd->paciente,
-                $citaStd->activo
+            $productoStd = $result->fetchObject();
+            $producto = new Producto(
+                $productoStd->id,
+                $productoStd->especialista,
+                $productoStd->motivo,
+                $productoStd->fecha,
+                $productoStd->paciente,
+                $productoStd->activo
             );
-            return $cita;
+            return $producto;
         }
     }
 

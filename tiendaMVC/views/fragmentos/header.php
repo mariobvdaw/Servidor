@@ -10,11 +10,11 @@
         if (validado()) {
             // print_r($_SESSION["usuario"]);
             echo '<form action="" method="post">';
-            echo '<input type="submit" name="login" value="Comprar">';
+            echo '<input type="submit" name="Productos_ComprarProductos" value="Comprar">';
             if (isAdmin()) {
-                echo '<input type="submit" name="login" value="Almacen">';
-                echo '<input type="submit" name="login" value="Ventas">';
-                echo '<input type="submit" name="login" value="Albaranes">';
+                echo '<input type="submit" name="Productos_VerAlmacen" value="Almacen">';
+                echo '<input type="submit" name="Ventas_VerVentas" value="Ventas">';
+                echo '<input type="submit" name="Albaranes_VerAlbaranes" value="Albaranes">';
                 echo '</form>';
 
             }
