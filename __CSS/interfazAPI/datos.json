@@ -1,0 +1,172 @@
+{
+    "Headline": {
+        "EffectiveDate": "2024-02-03T07:00:00+01:00",
+        "EffectiveEpochDate": 1706940000,
+        "Severity": 7,
+        "Text": "Parcialmente soleado el sábado",
+        "Category": "",
+        "EndDate": null,
+        "EndEpochDate": null,
+        "MobileLink": "http://www.accuweather.com/es/es/zamora/303121/daily-weather-forecast/303121",
+        "Link": "http://www.accuweather.com/es/es/zamora/303121/daily-weather-forecast/303121"
+    },
+    "DailyForecasts": [
+        {
+            "Date": "2024-01-30T07:00:00+01:00",
+            "EpochDate": 1706594400,
+            "Temperature": {
+                "Minimum": {
+                    "Value": 36.0,
+                    "Unit": "F",
+                    "UnitType": 18
+                },
+                "Maximum": {
+                    "Value": 56.0,
+                    "Unit": "F",
+                    "UnitType": 18
+                }
+            },
+            "Day": {
+                "Icon": 4,
+                "IconPhrase": "Nubes y claros",
+                "HasPrecipitation": true,
+                "PrecipitationType": "Rain",
+                "PrecipitationIntensity": "Light"
+            },
+            "Night": {
+                "Icon": 8,
+                "IconPhrase": "Cubierto",
+                "HasPrecipitation": false
+            },
+            "Sources": [
+                "AccuWeather"
+            ],
+            "MobileLink": "http://www.accuweather.com/es/es/zamora/303121/daily-weather-forecast/303121?day=1",
+            "Link": "http://www.accuweather.com/es/es/zamora/303121/daily-weather-forecast/303121?day=1"
+        },
+        {
+            "Date": "2024-01-31T07:00:00+01:00",
+            "EpochDate": 1706680800,
+            "Temperature": {
+                "Minimum": {
+                    "Value": 34.0,
+                    "Unit": "F",
+                    "UnitType": 18
+                },
+                "Maximum": {
+                    "Value": 56.0,
+                    "Unit": "F",
+                    "UnitType": 18
+                }
+            },
+            "Day": {
+                "Icon": 6,
+                "IconPhrase": "Mayormente nublado",
+                "HasPrecipitation": false
+            },
+            "Night": {
+                "Icon": 36,
+                "IconPhrase": "Nubes y claros",
+                "HasPrecipitation": false
+            },
+            "Sources": [
+                "AccuWeather"
+            ],
+            "MobileLink": "http://www.accuweather.com/es/es/zamora/303121/daily-weather-forecast/303121?day=2",
+            "Link": "http://www.accuweather.com/es/es/zamora/303121/daily-weather-forecast/303121?day=2"
+        },
+        {
+            "Date": "2024-02-01T07:00:00+01:00",
+            "EpochDate": 1706767200,
+            "Temperature": {
+                "Minimum": {
+                    "Value": 35.0,
+                    "Unit": "F",
+                    "UnitType": 18
+                },
+                "Maximum": {
+                    "Value": 59.0,
+                    "Unit": "F",
+                    "UnitType": 18
+                }
+            },
+            "Day": {
+                "Icon": 4,
+                "IconPhrase": "Nubes y claros",
+                "HasPrecipitation": false
+            },
+            "Night": {
+                "Icon": 34,
+                "IconPhrase": "Mayormente despejado",
+                "HasPrecipitation": false
+            },
+            "Sources": [
+                "AccuWeather"
+            ],
+            "MobileLink": "http://www.accuweather.com/es/es/zamora/303121/daily-weather-forecast/303121?day=3",
+            "Link": "http://www.accuweather.com/es/es/zamora/303121/daily-weather-forecast/303121?day=3"
+        },
+        {
+            "Date": "2024-02-02T07:00:00+01:00",
+            "EpochDate": 1706853600,
+            "Temperature": {
+                "Minimum": {
+                    "Value": 34.0,
+                    "Unit": "F",
+                    "UnitType": 18
+                },
+                "Maximum": {
+                    "Value": 55.0,
+                    "Unit": "F",
+                    "UnitType": 18
+                }
+            },
+            "Day": {
+                "Icon": 4,
+                "IconPhrase": "Nubes y claros",
+                "HasPrecipitation": false
+            },
+            "Night": {
+                "Icon": 34,
+                "IconPhrase": "Mayormente despejado",
+                "HasPrecipitation": false
+            },
+            "Sources": [
+                "AccuWeather"
+            ],
+            "MobileLink": "http://www.accuweather.com/es/es/zamora/303121/daily-weather-forecast/303121?day=4",
+            "Link": "http://www.accuweather.com/es/es/zamora/303121/daily-weather-forecast/303121?day=4"
+        },
+        {
+            "Date": "2024-02-03T07:00:00+01:00",
+            "EpochDate": 1706940000,
+            "Temperature": {
+                "Minimum": {
+                    "Value": 35.0,
+                    "Unit": "F",
+                    "UnitType": 18
+                },
+                "Maximum": {
+                    "Value": 52.0,
+                    "Unit": "F",
+                    "UnitType": 18
+                }
+            },
+            "Day": {
+                "Icon": 3,
+                "IconPhrase": "Parcialmente soleado",
+                "HasPrecipitation": false
+            },
+            "Night": {
+                "Icon": 38,
+                "IconPhrase": "Mayormente nublado",
+                "HasPrecipitation": false
+            },
+            "Sources": [
+                "AccuWeather"
+            ],
+            "MobileLink": "http://www.accuweather.com/es/es/zamora/303121/daily-weather-forecast/303121?day=5",
+            "Link": "http://www.accuweather.com/es/es/zamora/303121/daily-weather-forecast/303121?day=5"
+        }
+    ]
+}
