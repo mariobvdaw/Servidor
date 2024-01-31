@@ -3,9 +3,10 @@
 require('./controlador/Base.php');
 require('./controlador/InstitutoController.php');
 // echo "Hola";
-print_r(Base::condiciones());
-echo "<pre>";
-print_r($_SERVER);
+// print_r(Base::condiciones());
+// echo "<pre>";
+// print_r($_SERVER);
+// print_r($_REQUEST);
 if (isset($_SERVER['PATH_INFO'])) {
     // comprobar el recurso
     $recurso = Base::divideURI();
