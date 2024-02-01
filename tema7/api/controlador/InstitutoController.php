@@ -41,7 +41,15 @@ class InstitutoController extends Base
                 break;
 
             case 'DELETE':
-
+                if (count($recursos) === 3) {
+                    if (InstitutoDAO::delete($recursos[2])) {
+                        Base::response("HTTP/1.0 201 Se ha eliminado correctamente");
+                    } else {
+                        Base::response("HTTP/1.0 200 El ID no existe");
+                    }
+                } else {
+                    Base::response("HTTP/1.0 400 Direccion incorrecta");
+                }
                 break;
 
             default:
@@ -68,23 +76,29 @@ class InstitutoController extends Base
         $recursos = self::divideURI();
         if (count($recursos) == 3) {
             $datos = json_decode(file_get_contents('php://input'), true);
+            if ($datos == null) {
+                self::response("HTTP/1.0 400 El JSON del Body no es correcto");
+            }
             $id = $recursos[2];
 
             $permitimos = ['nombre', 'localidad', "telefono"];
             foreach ($datos as $key => $value) {
                 if (!in_array($key, $permitimos)) {
-                    self::response("HTTP/1.0 400 No permite el parametro " . $key);
+                    self::response("HTTP/1.0 400 No permite el parametro: " . $key);
                 }
             }
+
             $instituto = InstitutoDAO::findById($id);
             if (count($instituto) == 1) {
-                $instituto = (object)$instituto[0];
-                $instituto = new Instituo($id, $datos['nombre'], $datos['localidad'], $datos['telefono']);
+                $instituto = (object) $instituto[0];
+                foreach ($datos as $key => $value) {
+                    $instituto->$key = $value;
+                }
                 if (InstitutoDAO::update($instituto)) {
                     $instituto = json_encode($instituto);
                     self::response("HTTP/1.0 201 Modificado correctamente", $instituto);
                 }
-            }else{
+            } else {
                 self::response("HTTP/1.0 400 Estas intentando modificar un instituto que no existe");
             }
         } else {

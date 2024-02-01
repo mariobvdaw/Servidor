@@ -14,7 +14,7 @@ if (isset($_SERVER['PATH_INFO'])) {
     if ($recurso[1] === "institutos") {
         InstitutoController::institutos();
     } else {
-        // Base::response("HTTP/1.0 404 Recurso no encontrado");
+        Base::response("HTTP/1.0 404 Recurso no encontrado");
 
     }
 

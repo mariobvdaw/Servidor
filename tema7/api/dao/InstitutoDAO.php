@@ -78,6 +78,17 @@ class InstitutoDAO
         return false;
 
     }
+    public static function delete($id)
+    {
+        $sql = "DELETE FROM instituto WHERE id = ?";
+        $parametros = array($id);
+
+        $result = FactoryBD::realizaConsulta($sql, $parametros);
+        if ($result->rowCount() > 0)
+            return true;
+        return false;
+
+    }
 
     public static function findLast()
     {
