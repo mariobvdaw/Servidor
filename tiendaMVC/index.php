@@ -13,6 +13,7 @@ if (isset($_REQUEST['login'])) {
 } elseif (isset($_REQUEST['logout'])) {
     session_destroy();
     header('Location: ./index.php');
+    exit;
 
 } elseif (isset($_REQUEST['User_verPerfil'])) {
     $_SESSION['vista'] = VIEW . 'verUsuario.php';

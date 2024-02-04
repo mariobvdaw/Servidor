@@ -1,7 +1,7 @@
 <?php
 function enviado()
 {
-    if (isset($_REQUEST['enviar']) || isset($_REQUEST['añadir']) || isset($_REQUEST['guardar'])) {
+    if (isset($_REQUEST['enviar']) || isset($_REQUEST['añadir']) || isset($_REQUEST['Login_GuardaRegistro'])) {
         return true;
     }
     return false;
@@ -38,20 +38,19 @@ function validarFormulario(&$errores)
 }
 function validarFormularioReg(&$errores)
 {
-    if (textoVacio($_REQUEST['user'])) {
-        $errores['user'] = "Usuario vacio";
+    if (textoVacio($_REQUEST['nombre'])) {
+        $errores['nombre'] = "Usuario vacio";
     }
-    if (textoVacio($_REQUEST['pass'])) {
-        $errores['pass'] = "Contraseña vacio";
+    if (textoVacio($_REQUEST['contrasenia'])) {
+        $errores['contrasenia'] = "Contraseña vacio";
     }
-    if (textoVacio($_REQUEST['pass2'])) {
-        $errores['pass2'] = "Password vacio";
+    if (textoVacio($_REQUEST['contrasenia2'])) {
+        $errores['contrasenia2'] = "Password vacio";
+    }else if(!passIgual($_REQUEST['contrasenia'],$_REQUEST['contrasenia2'])){
+        $errores['contrasenia2'] = "Las contraseñas no coinciden";
     }
-    // else if(passIgual($_REQUEST['pass'],$_REQUEST['pass2'])){
-    //     $errores['pass2'] = "Las contraseñas no coinciden";
-    // }
-    if (textoVacio($_REQUEST['email'])) {
-        $errores['email'] = "Email vacio";
+    if (textoVacio($_REQUEST['correo'])) {
+        $errores['correo'] = "Email vacio";
     }
     if (textoVacio($_REQUEST['fecha'])) {
         $errores['fecha'] = "Fecha vacia";
@@ -90,8 +89,7 @@ function validado()
 
 function passIgual($p1, $p2)
 {
-    if ($p1 !== $p2) {
-        // $errores['igual'] = "Las contraseñas deben ser iguales";
+    if ($p1 != $p2) {
         return false;
     }
     return true;
@@ -110,5 +108,3 @@ function recuerda($name)
         echo $_REQUEST[$name];
     }
 }
-
-?>

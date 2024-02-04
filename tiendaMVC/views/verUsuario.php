@@ -1,48 +1,28 @@
 <?php
-// session_start();
+if (isset($sms)) {
+    echo $sms;
+} ?>
 
-// require('./funciones/validaciones.php');
-// require('./funciones/conexionBD.php');
-// // COMPROBACIONES PREVIAS
-// if (!isset($_SESSION['usuario'])) {
-//     $_SESSION['error'] = "Inicie sesión para acceder a su perfil";
-//     header('Location: ./login.php');
-//     exit;
-// }
-// $errores = array();
-// if (enviado() && validaFormularioPerfil($errores)) { // MODIFICAR DATOS DEL USUARIO
-//     modificarUsuario($_SESSION['usuario']['user'], $_REQUEST['pass'], $_REQUEST['email'], $_REQUEST['fecha_nacimiento']);
-//     $_SESSION['usuario'] = findUser($_SESSION['usuario']['user']);
-//     echo "<p>Usuario modificado, volviendo al home...</p>";
-//     header("refresh:3;url=./home.php");
-//     exit;
-// }
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h3 class="text-center">Datos del Usuario</h3>
+                </div>
+                <div class="card-body">
+                    <?php
+                    echo '<p><strong>Usuario: </strong>' . $_SESSION['usuario']->user . '</p>';
+                    echo '<p><strong>Email: </strong>' . $_SESSION['usuario']->email . '</p>';
+                    echo '<p><strong>Fecha de nacimiento:</strong> ' . $_SESSION['usuario']->fechaNacimiento . '</p>';
+                    echo '<p><strong>Perfil: </strong> ' . $_SESSION['usuario']->perfil . '</p>';
 
-?>
-
-<?php
-// FORMULARIO CON DATOS USER
-echo '<h2>Datos de ' . $_SESSION['usuario']->user . '</h2>';
-echo '<p>Usuario: ' . $_SESSION['usuario']->user . '</p>';
-echo '<p>Email: ' . $_SESSION['usuario']->email . '</p>';
-echo '<p>Fecha de nacimiento: ' . $_SESSION['usuario']->fechaNacimiento . '</p>';
-echo '<p>Perfil: ' . $_SESSION['usuario']->perfil . '</p>';
-// echo '<form action="">';
-// foreach (findUser($_SESSION['usuario']->user) as $clave => $dato) {
-//     $lectura = "";
-//     if ($clave == "user" || $clave == "perfil") {
-//         $lectura = "disabled";
-//     } elseif ($clave == "fecha_nacimiento") {
-//         $dato = str_replace('-', '/', $dato);
-//     }
-//     echo '<label for="' . $clave . '">' . $clave;
-//     echo '<input type="text" id="' . $clave . '" name="' . $clave . '" value="' . $dato . '" ' . $lectura . '>';
-//     errores($errores, $clave);
-//     echo '</label>';
-// }
-// echo '<input type="submit" name="enviar" value="Modificar">';
-// echo '</form>';
-?>
-<form action="" method="post">
-    <input type="submit" name="User_editar" value="Editar">
-</form>
+                    ?>
+                    <form action="" method="post">
+                        <input type="submit" name="User_editar" value="Editar" class="btn btn-outline-primary">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

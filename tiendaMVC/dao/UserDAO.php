@@ -49,11 +49,12 @@ class UserDAO
     public static function insert($usuario)
     {
         // $sql = "insert into usuarios (user, pass, email, fecha_nacimiento, perfil, activo) values (?,?,?,?,?,?)";
-        $sql = "insert into usuarios (user, pass, email, fecha_nacimiento, perfil) values (?,?,?,?,?))";
+        $sql = "insert into usuarios (user, pass, email, fecha_nacimiento, perfil) values (?,?,?,?,?)";
         // PARA INSERTAR TODOS LOS ATRIBUTOS
         $parametros = array(
             $usuario->user,
             $usuario->pass,
+            $usuario->email,
             $usuario->fechaNacimiento,
             $usuario->perfil
             // $usuario->activo

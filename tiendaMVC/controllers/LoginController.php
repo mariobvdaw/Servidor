@@ -26,9 +26,9 @@ if (isset($_REQUEST['Login_IniciarSesion'])) {
     $errores = array();
     if (validarFormularioReg($errores)) {
         $usuario = new User(
-            $_REQUEST['user'],
-            $_REQUEST['pass'],
-            $_REQUEST['email'],
+            $_REQUEST['nombre'],
+            $_REQUEST['contrasenia'],
+            $_REQUEST['correo'],
             $_REQUEST['fecha'],
         );
         if (UserDAO::insert($usuario)) {
@@ -43,4 +43,3 @@ if (isset($_REQUEST['Login_IniciarSesion'])) {
     }
 }
 
-?>

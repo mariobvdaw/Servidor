@@ -17,5 +17,3 @@ class FactoryBD
         return $stmt;
     }
 }
-
-?>

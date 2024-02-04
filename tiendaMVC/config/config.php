@@ -1,6 +1,5 @@
 <?php
 
-// CONSTANTES QUE VAMOS A USAR EN TODA LA APLICACIÓN
 define("IMG","./webroot/img/");
 define("CSS","./webroot/css/");
 define("JS","./webroot/js/");
@@ -25,4 +24,3 @@ require('./dao/CompraDAO.php');
 require('./models/Albaran.php');
 require('./dao/AlbaranDAO.php');
 
-?>

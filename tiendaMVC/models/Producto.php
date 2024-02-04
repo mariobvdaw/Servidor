@@ -18,7 +18,7 @@ class Producto
         $this->stock = $stock;
         $this->url_imagen = $url_imagen;
         $this->categoria = $categoria;
-        $this->activo = $activo;
+        // $this->activo = $activo;
     }
 
     public function __get($att)

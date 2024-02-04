@@ -1,20 +1,23 @@
-<header>
-    <a href="./index.php?home" class="logo">
-        <?php
-        echo '<img src="' . IMG . 'logo.png" alt="Imagen del logo">';
-        ?>
-        <h1>Tienda</h1>
-    </a>
-    <nav class="navegacion">
+<header class="d-flex justify-content-between align-items-center bg-dark ps-2 pe-2 shadow">
+    <form action="" method="post" class="d-flex align-items-end">
+        <button type="submit" class="btn btn-link d-flex align-items-end" name="home">
+
+            <?php
+            echo '<img style="height:60px;" src="' . IMG . 'logo.png" alt="Imagen del logo">';
+            ?>
+            <h1 class="text-light">Tienda</h1>
+        </button>
+    </form>
+    <nav class="">
         <?php
         if (validado()) {
             // print_r($_SESSION["usuario"]);
             echo '<form action="" method="post">';
-            echo '<input type="submit" name="Productos_ComprarProductos" value="Comprar">';
+            echo '<input class="btn btn-outline-light ms-1 me-1" type="submit" name="Productos_ComprarProductos" value="Comprar">';
             if (isAdmin()) {
-                echo '<input type="submit" name="Productos_VerAlmacen" value="Almacen">';
-                echo '<input type="submit" name="Ventas_VerVentas" value="Ventas">';
-                echo '<input type="submit" name="Albaranes_VerAlbaranes" value="Albaranes">';
+                echo '<input class="btn btn-outline-light ms-1 me-1" type="submit" name="Productos_VerAlmacen" value="Almacen">';
+                echo '<input class="btn btn-outline-light ms-1 me-1" type="submit" name="Ventas_VerVentas" value="Ventas">';
+                echo '<input class="btn btn-outline-light ms-1 me-1" type="submit" name="Albaranes_VerAlbaranes" value="Albaranes">';
                 echo '</form>';
 
             }
@@ -26,13 +29,13 @@
         if (validado()) {
             echo '<form action="" method="post">';
 
-            echo '<input type="submit" name="User_verPerfil" value="Ver Perfil">';
-            echo '<a href="./views/logout.php">Cerrar sesion</a>';
+            echo '<input class="btn btn-link text-light" type="submit" name="User_verPerfil" value="Ver Perfil">';
+            echo '<a class="btn btn-link  text-light" href="./views/logout.php">Cerrar sesion</a>';
             echo '</form>';
 
         } else {
             echo '<form action="" method="post">';
-            echo '<input type="submit" name="login" value="Login">';
+            echo '<input class="btn btn-outline-light" type="submit" name="login" value="Login">';
             echo '</form>';
 
         }
