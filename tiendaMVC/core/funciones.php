@@ -1,4 +1,22 @@
 <?php
+function crearBase()
+{
+    $DSN = "mysql:host=" . IP . ';dbname=mysql';
+    try {
+        $con = new PDO($DSN, USERINICIO, PASSINICIO);
+        $script = file_get_contents("./script.sql");
+        $con->exec($script);
+
+    } catch (\Throwable $e) {
+        switch ($e->getCode()) {
+            default:
+                echo $e->getMessage();
+                echo $e->getCode();
+        }
+    } finally {
+        unset($con);
+    }
+}
 function enviado()
 {
     if (

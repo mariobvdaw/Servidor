@@ -1,9 +1,9 @@
-<header class="d-flex justify-content-between align-items-center bg-dark ps-2 pe-2 shadow">
+<header class="d-flex justify-content-between align-items-center bg-dark ps-2 pe-2 mb-5 shadow">
     <form action="" method="post" class="d-flex align-items-end">
         <button type="submit" class="btn btn-link d-flex align-items-end" name="home">
 
             <?php
-            echo '<img style="height:60px;" src="' . IMG . 'logo.png" alt="Imagen del logo">';
+            echo '<img style="height:50px;" src="' . IMG . 'logo.png" alt="Imagen del logo">';
             ?>
             <h1 class="text-light">Tienda</h1>
         </button>
@@ -29,7 +29,7 @@
             echo '<form action="" method="post">';
 
             echo '<input class="btn btn-link text-light" type="submit" name="User_verPerfil" value="Ver Perfil">';
-            echo '<a class="btn btn-link  text-light" href="./views/logout.php">Cerrar sesion</a>';
+            echo '<input class="btn btn-link text-light" type="submit" name="logout" value="Cerrar Sesión">';
             echo '</form>';
 
         } else {

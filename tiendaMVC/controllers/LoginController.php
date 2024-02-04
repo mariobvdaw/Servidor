@@ -1,25 +1,18 @@
 <?php
 
-if (isset($_REQUEST['Login_IniciarSesion'])) {
+if (isset($_REQUEST['Login_IniciarSesion'])) { // iniciar sesión
     $errores = array();
     if (validarFormulario($errores)) {
-
-        // comprobar si el usuario existe en la base
         $usuario = UserDAO::validarUsuario($_REQUEST['user'], $_REQUEST['pass']);
         if ($usuario != null) {
-            // iniciar sesion
             $_SESSION['usuario'] = $usuario;
-            // llevar al home pero con modificaciones
             $_SESSION['vista'] = VIEW . 'home.php';
-            // quitar el controller del login
             unset($_SESSION['controller']);
         } else {
             $errores['validado'] = "No existe el usuario y contraseña";
         }
-
-
     }
-} else if (isset($_REQUEST['Login_Registro'])) {
+} else if (isset($_REQUEST['Login_Registro'])) { // registrar usuario
     $_SESSION['vista'] = VIEW . 'registro.php';
 
 } else if (isset($_REQUEST['Login_GuardaRegistro'])) {
@@ -32,7 +25,6 @@ if (isset($_REQUEST['Login_IniciarSesion'])) {
             $_REQUEST['fecha'],
         );
         if (UserDAO::insert($usuario)) {
-            // mandarlo a la vista
             $_SESSION['vista'] = VIEW . 'login.php';
             $sms = "Se ha registrado";
 

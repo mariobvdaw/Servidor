@@ -10,6 +10,11 @@ class FactoryBD
             $stmt->execute($arr_parametros);
 
         } catch (PDOException $e) {
+            switch ($e->getCode()) {
+                case '1049':
+                    crearBase();
+                    break;
+            }
             $stmt = null;
             echo $e->getMessage();
             unset($conn);

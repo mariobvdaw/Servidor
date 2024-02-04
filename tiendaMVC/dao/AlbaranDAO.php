@@ -16,7 +16,7 @@ class AlbaranDAO
                 $albaranStd->fecha,
                 $albaranStd->cod_producto,
                 $albaranStd->cantidad,
-                $albaranStd->total,
+                $albaranStd->usuario,
                 $albaranStd->activo
             );
 
@@ -46,11 +46,11 @@ class AlbaranDAO
     }
 
 
-    public static function delete($albaran)
+    public static function delete($id)
     {
-        $sql = "UPDATE albaranes SET activo = false WHERE id = ?";
+        $sql = "UPDATE albaranes SET activo = 0 WHERE id = ?";
 
-        $parametros = array($albaran->id);
+        $parametros = array($id);
 
         $result = FactoryBD::realizaConsulta($sql, $parametros);
         return true;

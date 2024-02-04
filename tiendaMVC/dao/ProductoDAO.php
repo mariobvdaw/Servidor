@@ -48,7 +48,20 @@ class ProductoDAO
         }
         return $arr_producto;
     }
+    public static function findCategorias()
+    {
+        $sql = "SELECT DISTINCT categoria FROM productos";
+        $parametros = array();
+        $result = FactoryBD::realizaConsulta($sql, $parametros);
 
+        $arr_cat = array();
+
+        while ($cat = $result->fetch()) {
+            array_push($arr_cat, $cat[0]);
+        }
+        return $arr_cat;
+
+    }
     public static function findByCategoria($categoria)
     {
         $sql = "SELECT * FROM productos WHERE categoria = ?";
@@ -108,24 +121,6 @@ class ProductoDAO
         return false;
 
     }
-    public static function comprarProducto($idUsuario, $codProducto, $cantidad, $precio)
-    {
-        $sql = "INSERT INTO compras (comprador, fecha, cod_producto, cantidad, total, activo) VALUES (?,?,?,?,?,?)";
-        $parametros = array(
-            $idUsuario,
-            date('Y-m-d'),
-            $codProducto,
-            $cantidad,
-            $precio,
-            "1"
-        );
-        $result = FactoryBD::realizaConsulta($sql, $parametros);
-        if ($result->rowCount() > 0) {
-            return true;
-        }
-        return false;
-
-    }
 
     public static function restarStock($codigo, $restaStock)
     {
@@ -168,20 +163,5 @@ class ProductoDAO
         return false;
     }
 
-   
-
-    public static function findCategorias()
-    {
-        $sql = "SELECT DISTINCT categoria FROM productos";
-        $parametros = array();
-        $result = FactoryBD::realizaConsulta($sql, $parametros);
-
-        $arr_cat = array();
-
-        while ($cat = $result->fetch()) {
-            array_push($arr_cat, $cat[0]);
-        }
-        return $arr_cat;
-
-    }
+    
 }

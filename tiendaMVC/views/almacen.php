@@ -4,6 +4,7 @@ if (isset($sms))
     echo $sms;
 
 echo '<div class="container">';
+echo '<h2>Almacen</h2>';
 echo '<table class="table table-bordered table-striped table-sm">';
 echo '<thead class="thead-dark">';
 echo '<tr>';

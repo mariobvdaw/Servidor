@@ -1,15 +1,13 @@
 <?php
 
-// USUARIO QUE HAYA HECHO LOGIN
-// funcionara llamada a una funcion validado
 if (!validado()) {
     $_SESSION['vista'] = VIEW . 'login.php';
     $_SESSION['controller'] = CON . 'LoginController.php';
 } else {
-    if (isset($_REQUEST['User_editar'])) {
+    if (isset($_REQUEST['User_editar'])) { // modificar usuario
         $_SESSION['vista'] = VIEW . 'editarUser.php';
 
-    } else if (isset($_REQUEST['User_CambiaContraseña'])) {
+    } else if (isset($_REQUEST['User_CambiaContraseña'])) { // cambiar contraseña
         $_SESSION['vista'] = VIEW . 'editarPassUser.php';
 
     } else if (isset($_REQUEST['User_Guardar'])) {
@@ -46,6 +44,3 @@ if (!validado()) {
     }
 }
 
-
-
-?>
