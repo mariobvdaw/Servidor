@@ -6,16 +6,16 @@ class Albaran
     private $fecha;
     private $cod_producto;
     private $cantidad;
-    private $total;
+    private $usuario;
     private $activo;
 
-    function __construct($id, $fecha, $cod_producto, $cantidad, $total, $activo=true)
+    function __construct($id, $fecha, $cod_producto, $cantidad, $usuario, $activo=true)
     {
         $this->id = $id;
         $this->fecha = $fecha;
         $this->cod_producto = $cod_producto;
         $this->cantidad = $cantidad;
-        $this->total = $total;
+        $this->usuario = $usuario;
         $this->activo = $activo;
     }
 
@@ -32,5 +32,3 @@ class Albaran
         }
     }
 }
-
-?>

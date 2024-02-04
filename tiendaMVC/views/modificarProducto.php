@@ -1,48 +1,13 @@
 <?php
 
-require('./funciones/conexionBD.php');
-require('./funciones/validaciones.php');
-
-session_start();
-// COMPROBACIONES PREVIAS DE USUARIOS
-if (!isset($_SESSION['usuario'])) {
-    $_SESSION['error'] = "Inicie sesión para acceder al almacen";
-    header('Location: ./login.php');
-    exit;
-} elseif ($_SESSION['usuario']["perfil"] != "administrador") {
-    $_SESSION['error'] = "No tienes acceso";
-    header('Location: ./home.php');
-    exit;
-}
-// VALIDAR FORMULARIO Y MODIFICAR PRODUCTO
-$errores = array();
-if (enviado() && validaFormProductoMod($errores)) {
-    modificarProducto($_REQUEST['codigo'], $_REQUEST['descripcion'], $_REQUEST['precio']);
-    header('Location: ./almacen.php');
-    exit;
-}
-
+if (isset($sms))
+    echo $sms;
 ?>
-<!DOCTYPE html>
-<html lang="es">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/home.css">
-    <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/tablas.css">
-    <link rel="stylesheet" href="css/almacen.css">
-    <title>Almacen</title>
-</head>
-
-<body>
-    <?php
-    include("./fragmentos/header.php");
-    ?>
+<form action="" class="container" method="post">
     <h2>Modificar Producto</h2>
-    <table>
-        <thead>
+    <table class="table">
+        <thead class="thead-dark">
             <tr>
                 <th>Código</th>
                 <th>Descripción</th>
@@ -51,23 +16,24 @@ if (enviado() && validaFormProductoMod($errores)) {
         </thead>
         <tbody>
             <?php
-            $producto = findProduct($_REQUEST['codigo']);
-
-            echo '<form action="">';
-            echo '<input type="submit" class="boton-tabla" name="guardar" value="Guardar">';
-            echo "<tr>";
-            echo "<td>" . $producto['codigo'] . "</td>";
-            echo '<td><input type="text" value="' . $producto['descripcion'] . '" id="descipcion" name="descripcion"></td>';
-            errores($errores, "descripcion");
-            echo '<td><input type="text" value="' . str_replace(",", ".", $producto['precio']) . '" id="precio" name="precio"></td>';
-            errores($errores, "precio");
-            echo "</tr>";
-            echo '<input type="hidden" name="codigo" value="' . $producto['codigo'] . '">';
-            echo '</form>';
+            echo '<tr>';
+            echo '<td>' . $producto->codigo . '</td>';
+            echo '<td>';
+            echo '<input type="text" class="form-control" value="' . $producto->descripcion. '" id="descripcion" name="descripcion">' ;
+            if (isset($errores) && isset($errores['descripcion'])) {
+                echo '<span class="text-danger">' . $errores["descripcion"] . ' </span>';
+            }
+            echo '</td>';
+            echo '<td>';
+            echo '<input type="text" class="form-control" value="' . str_replace(",", ".", $producto->precio) . '" id="precio" name="precio">';
+            if (isset($errores) && isset($errores['precio'])) {
+                echo '<span class="text-danger">' . $errores["precio"] . ' </span>';
+            }
+            echo '</td>';
+            echo '</tr>';
+            echo '<input type="hidden" name="codigo" value="' . $producto->codigo . '">';
             ?>
         </tbody>
     </table>
-
-</body>
-
-</html>
+    <input type="submit" class="btn btn-primary" name="Producto_GuardarModificado" value="Guardar">
+</form>

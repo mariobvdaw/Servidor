@@ -18,15 +18,12 @@ if (isset($_REQUEST['login'])) {
 } elseif (isset($_REQUEST['User_verPerfil'])) {
     $_SESSION['vista'] = VIEW . 'verUsuario.php';
     $_SESSION['controller'] = CON . 'UserController.php';
-}elseif (isset($_REQUEST['Productos_ComprarProductos'])) {
+}elseif (isset($_REQUEST['Producto_ComprarProductos'])) {
     $_SESSION['vista'] = VIEW . 'comprar.php';
     $_SESSION['controller'] = CON . 'ProductoController.php';
-}elseif (isset($_REQUEST['Cita_verCita'])) {
-    $_SESSION['vista'] = VIEW . 'verCita.php';
-    $_SESSION['controller'] = CON . 'CitasController.php';
-}elseif (isset($_REQUEST['Citas_verTodasCitas'])) {
-    $_SESSION['vista'] = VIEW . 'verCitas.php';
-    $_SESSION['controller'] = CON . 'CitasController.php';
+}elseif (isset($_REQUEST['Producto_VerAlmacen'])) {
+    $_SESSION['vista'] = VIEW . 'almacen.php';
+    $_SESSION['controller'] = CON . 'ProductoController.php';
 }
 
 

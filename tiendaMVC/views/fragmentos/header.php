@@ -11,11 +11,10 @@
     <nav class="">
         <?php
         if (validado()) {
-            // print_r($_SESSION["usuario"]);
             echo '<form action="" method="post">';
-            echo '<input class="btn btn-outline-light ms-1 me-1" type="submit" name="Productos_ComprarProductos" value="Comprar">';
+            echo '<input class="btn btn-outline-light ms-1 me-1" type="submit" name="Producto_ComprarProductos" value="Comprar">';
             if (isAdmin()) {
-                echo '<input class="btn btn-outline-light ms-1 me-1" type="submit" name="Productos_VerAlmacen" value="Almacen">';
+                echo '<input class="btn btn-outline-light ms-1 me-1" type="submit" name="Producto_VerAlmacen" value="Almacen">';
                 echo '<input class="btn btn-outline-light ms-1 me-1" type="submit" name="Ventas_VerVentas" value="Ventas">';
                 echo '<input class="btn btn-outline-light ms-1 me-1" type="submit" name="Albaranes_VerAlbaranes" value="Albaranes">';
                 echo '</form>';

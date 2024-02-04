@@ -1,7 +1,12 @@
 <?php
 function enviado()
 {
-    if (isset($_REQUEST['enviar']) || isset($_REQUEST['añadir']) || isset($_REQUEST['Login_GuardaRegistro'])) {
+    if (
+        isset($_REQUEST['enviar'])
+        || isset($_REQUEST['añadir'])
+        || isset($_REQUEST['Login_GuardaRegistro'])
+        || isset($_REQUEST['Producto_GuardarProducto'])
+    ) {
         return true;
     }
     return false;
@@ -46,7 +51,7 @@ function validarFormularioReg(&$errores)
     }
     if (textoVacio($_REQUEST['contrasenia2'])) {
         $errores['contrasenia2'] = "Password vacio";
-    }else if(!passIgual($_REQUEST['contrasenia'],$_REQUEST['contrasenia2'])){
+    } else if (!passIgual($_REQUEST['contrasenia'], $_REQUEST['contrasenia2'])) {
         $errores['contrasenia2'] = "Las contraseñas no coinciden";
     }
     if (textoVacio($_REQUEST['correo'])) {
@@ -61,18 +66,69 @@ function validarFormularioReg(&$errores)
     }
     return false;
 }
-function validaFormularioNuevaCita(&$errores)
+function validaFormProducto(&$errores)
 {
-    if (textoVacio($_REQUEST['especialista'])) {
-        $errores['especialista'] = "Especialista vacio";
+    $codigo = $_REQUEST['codigoN'];
+    $descripcion = $_REQUEST['descripcion'];
+    $precio = $_REQUEST['precio'];
+    $categoria = $_REQUEST['categoria'];
+    $imagen = $_REQUEST['imagen'];
+    $stock = $_REQUEST['stock'];
+    $patron_numero = "/^[0-9]{1,}$/";
+    $patron_numero_decimales = "/^[0-9]{1,}+(\.[0-9]{1,})?$/";
+    $vacio = "Campo vacio";
+    $incorrecto = "Formato incorrecto";
+
+    if (textoVacio($codigo)) {
+        $errores['codigo'] = $vacio;
+    } elseif (!preg_match($patron_numero, $codigo)) {
+        $errores['codigo'] = $incorrecto;
+    } elseif (ProductoDAO::findById($codigo)) {
+        $errores['codigo'] = "Ese codigo ya está en uso";
     }
-    if (textoVacio($_REQUEST['fecha'])) {
-        $errores['fecha'] = "Fecha vacio";
+    if (textoVacio($descripcion)) {
+        $errores['descripcion'] = $vacio;
     }
-    if (textoVacio($_REQUEST['motivo'])) {
-        $errores['motivo'] = "Motivo vacio";
+    if (textoVacio($precio)) {
+        $errores['precio'] = $vacio;
+    } elseif (!preg_match($patron_numero_decimales, $precio)) {
+        $errores['precio'] = $incorrecto;
+    }
+    if (textoVacio($categoria)) {
+        $errores['categoria'] = $vacio;
+    }
+    if (textoVacio($imagen)) {
+        $errores['imagen'] = $vacio;
+    }
+    if (textoVacio($stock)) {
+        $errores['stock'] = $vacio;
+    } elseif (!preg_match($patron_numero, $stock)) {
+        $errores['stock'] = $incorrecto;
     }
 
+    if (count($errores) == 0) {
+        return true;
+    }
+    return false;
+}
+function validaFormProductoMod(&$errores)
+{
+    $descripcion = $_REQUEST['descripcion'];
+    $precio = $_REQUEST['precio'];
+    $patron_numero = "/^[0-9]{1,}+(\.[0-9]{1,})?$/";
+
+    $vacio = "Campo vacio";
+    $incorrecto = "Formato incorrecto";
+    
+   
+    if (textoVacio($descripcion)) {
+        $errores['descripcion'] = $vacio;
+    }
+    if (textoVacio($precio)) {
+        $errores['precio'] = $vacio;
+    }elseif(!preg_match($patron_numero, $precio)){
+        $errores['precio'] = $incorrecto;
+    }
     if (count($errores) == 0) {
         return true;
     }
@@ -86,6 +142,12 @@ function validado()
     return false;
 }
 
+function isAdmin()
+{
+    if ($_SESSION['usuario']->perfil == "administrador" || $_SESSION['usuario']->perfil == "moderador")
+        return true;
+    return false;
+}
 
 function passIgual($p1, $p2)
 {
@@ -95,12 +157,6 @@ function passIgual($p1, $p2)
     return true;
 }
 
-function isAdmin()
-{
-    if ($_SESSION['usuario']->perfil == "administrador")
-        return true;
-    return false;
-}
 
 function recuerda($name)
 {

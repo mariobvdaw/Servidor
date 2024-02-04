@@ -13,7 +13,7 @@
     <?php
     require(VIEW . 'fragmentos/header.php')
         ?>
-  
+
 
     <main>
 
@@ -21,9 +21,9 @@
 
         <?php
         if (isset($_SESSION['vista']))
-        echo $_SESSION['vista'] . "<br>";
-    if (isset($_SESSION['controller']))
-        echo $_SESSION['controller'] . "<br>";
+            echo $_SESSION['vista'] . "<br>";
+        if (isset($_SESSION['controller']))
+            echo $_SESSION['controller'] . "<br>";
         if (!isset($_SESSION['vista'])) {
             require VIEW . 'home.php';
         } else {

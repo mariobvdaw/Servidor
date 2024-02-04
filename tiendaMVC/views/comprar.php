@@ -32,6 +32,7 @@ if (isset($sms)) {
             </form>
         </div>
     </div>
+    <!-- PRODUCTOS -->
     <div class="col-sm-9 col-md-10 ps-md-5">
         <div class="container mt-4 ps-md-5">
             <div class="row">
@@ -40,14 +41,14 @@ if (isset($sms)) {
                     echo '<div class="col-lg-3 col-md-4 col-sm-6 mb-4">';
                     echo '<div class="card">';
                     echo '<div class="contenedor-img">';
-                    echo '<img style="height:220px;" class="card-img-top" src="' . $producto->url_imagen . '" alt="">';
+                    echo '<img style="height:220px;" class="card-img-top mt-2" src="' . $producto->url_imagen . '" alt="">';
                     echo '</div>';
                     echo '<div class="card-body">';
                     echo '<h5 class="card-title" style="height:45px">' . $producto->descripcion . '</h5>';
                     echo '<p class="card-text">' . $producto->precio . ' €</p>';
                     echo '<form method="post">';
                     if ($producto->stock == "0") {
-                        echo '<p class="card-text text-danger">Stock: ' . $producto->stock . '</p>';
+                        echo '<p class="card-text text-danger text-decoration-line-through">Stock: ' . $producto->stock . '</p>';
                     } else {
                         echo '<p class="card-text text-muted">Stock: ' . $producto->stock . '</p>';
                     }

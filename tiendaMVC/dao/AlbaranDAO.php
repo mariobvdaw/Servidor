@@ -4,56 +4,38 @@ class AlbaranDAO
 {
     public static function findAll()
     {
-        $sql = "SELECT * FROM Cita";
+        $sql = "SELECT * FROM albaranes";
         $parametros = array();
         $result = FactoryBD::realizaConsulta($sql, $parametros);
 
-        $arr_citas = array();
+        $arr_albaranes = array();
 
-        while ($citaStd = $result->fetchObject()) {
-            $cita = new Cita(
-                $citaStd->id,
-                $citaStd->especialista,
-                $citaStd->motivo,
-                $citaStd->fecha,
-                $citaStd->paciente,
-                $citaStd->activo
+        while ($albaranStd = $result->fetchObject()) {
+            $albaran = new Albaran(
+                $albaranStd->id,
+                $albaranStd->fecha,
+                $albaranStd->cod_producto,
+                $albaranStd->cantidad,
+                $albaranStd->total,
+                $albaranStd->activo
             );
 
-            array_push($arr_citas, $cita);
+            array_push($arr_albaranes, $albaran);
         }
-        return $arr_citas;
+        return $arr_albaranes;
     }
 
-    public static function findById($id)
-    {
-        $sql = "SELECT * FROM Cita WHERE id = ?";
-        $parametros = array($id);
-        $result = FactoryBD::realizaConsulta($sql, $parametros);
-        if ($result->rowCount() == 1) {
 
-            $citaStd = $result->fetchObject();
-            $cita = new Cita(
-                $citaStd->id,
-                $citaStd->especialista,
-                $citaStd->motivo,
-                $citaStd->fecha,
-                $citaStd->paciente,
-                $citaStd->activo
-            );
-            return $cita;
-        }
-    }
 
-    public static function insert($cita)
+    public static function insert($albaran)
     {
-        $sql = "INSERT INTO Cita (especialista, motivo, fecha, paciente, activo) VALUES (?,?,?,?,?)";
+        $sql = "INSERT INTO albaranes (fecha, cod_producto, cantidad, usuario, activo) VALUES (?,?,?,?,?)";
         $parametros = array(
-            $cita->especialista,
-            $cita->motivo,
-            $cita->fecha,
-            $cita->paciente,
-            $cita->activo
+            $albaran->fecha,
+            $albaran->cod_producto,
+            $albaran->cantidad,
+            $albaran->usuario,
+            $albaran->activo
         );
         $result = FactoryBD::realizaConsulta($sql, $parametros);
         if ($result->rowCount() > 0) {
@@ -63,89 +45,14 @@ class AlbaranDAO
 
     }
 
-    public static function update($cita)
+
+    public static function delete($albaran)
     {
-        $sql = "UPDATE Cita SET especialista = ?, motivo = ?, fecha = ?, paciente = ?, activo = ? WHERE id = ?";
-        $parametros = array(
-            $cita->especialista,
-            $cita->motivo,
-            $cita->fecha,
-            $cita->activo,
-            $cita->paciente,
-            $cita->id
-        );
+        $sql = "UPDATE albaranes SET activo = false WHERE id = ?";
 
-        $result = FactoryBD::realizaConsulta($sql, $parametros);
-        if ($result->rowCount() > 0)
-            return true;
-        return false;
-    }
-
-    public static function delete($cita)
-    {
-        $sql = "UPDATE Cita SET activo = false WHERE id = ?";
-
-        $parametros = array($cita->id);
+        $parametros = array($albaran->id);
 
         $result = FactoryBD::realizaConsulta($sql, $parametros);
         return true;
-    }
-
-    public static function activar($cita)
-    {
-        $sql = "UPDATE Cita SET activo = TRUE WHERE id = ?";
-
-        $parametros = array($cita->id);
-
-        $result = FactoryBD::realizaConsulta($sql, $parametros);
-        return true;
-
-    }
-    public static function findByPaciente($paciente)
-    {
-        $sql = "SELECT * FROM Cita WHERE paciente = ? AND activo = 1 AND fecha > now() ORDER BY fecha";
-        $parametros = array($paciente->codUsuario);
-        $result = FactoryBD::realizaConsulta($sql, $parametros);
-
-        $arr_citas = array();
-
-        while ($citaStd = $result->fetchObject()) {
-            $cita = new Cita(
-                $citaStd->id,
-                $citaStd->especialista,
-                $citaStd->motivo,
-                $citaStd->fecha,
-                $citaStd->paciente,
-                $citaStd->activo
-            );
-
-            array_push($arr_citas, $cita);
-        }
-        return $arr_citas;
-
-    }
-    public static function findByPacienteH($paciente)
-    {
-        $sql = "SELECT * FROM Cita WHERE paciente = ? AND activo = 1 AND fecha < now() ORDER BY fecha";
-        $parametros = array($paciente->codUsuario);
-        $result = FactoryBD::realizaConsulta($sql, $parametros);
-
-        $arr_citas = array();
-
-        while ($citaStd = $result->fetchObject()) {
-            $cita = new Cita(
-                $citaStd->id,
-                $citaStd->especialista,
-                $citaStd->motivo,
-                $citaStd->fecha,
-                $citaStd->paciente,
-                $citaStd->activo
-            );
-
-            array_push($arr_citas, $cita);
-        }
-        return $arr_citas;
-
     }
 }
-?>
